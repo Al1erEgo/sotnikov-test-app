@@ -1,54 +1,34 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { Post } from "../types"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { PostType } from "../types"
 import { postsApi } from "../api"
+import { appActions } from "../../../common/slices"
 
-type PostsState = {
-  posts: Post[]
-  postsLoading: boolean
-  postsError: string | null
-}
+type PostsState = PostType[]
 
-const initialState: PostsState = {
-  posts: [],
-  postsLoading: false,
-  postsError: null,
-}
+const initialState: PostsState = []
 
-const fetchPosts = createAsyncThunk(
+const fetchPosts = createAsyncThunk<PostType[], void>(
   "posts/fetchPosts",
   async (_, { dispatch, rejectWithValue }) => {
+    dispatch(appActions.setDataLoading(true))
     try {
       const posts = await postsApi.getPosts()
       return posts.data
     } catch (error) {
-      return rejectWithValue(error)
+      dispatch(appActions.setError(error))
+      return rejectWithValue(null)
+    } finally {
+      dispatch(appActions.setDataLoading(false))
     }
   },
 )
 
-export const postsSlice = createSlice({
+const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {
-    setPostsLoading: (state, action: PayloadAction<boolean>) => {
-      state.postsLoading = action.payload
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchPosts.pending, (state) => {
-        state.postsLoading = true
-        state.postsError = null
-      })
-      .addCase(fetchPosts.fulfilled, (state, action) => {
-        state.posts = action.payload
-        state.postsLoading = true
-        state.postsError = null
-      })
-      .addCase(fetchPosts.rejected, (state, action) => {
-        state.postsLoading = false
-        state.postsError = action.payload as string
-      })
+    builder.addCase(fetchPosts.fulfilled, (state, action) => action.payload)
   },
 })
 

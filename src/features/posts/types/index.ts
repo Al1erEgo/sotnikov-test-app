@@ -1,1 +1,1 @@
-export * from "./api-dtos"
+export * from "./posts-api-dtos"

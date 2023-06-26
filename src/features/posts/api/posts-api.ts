@@ -1,8 +1,8 @@
 import { commonInstance } from "../../../common"
-import { Post } from "../types"
+import { PostType } from "../types"
 
 export const postsApi = {
   getPosts() {
-    return commonInstance.get<Post[]>("posts")
+    return commonInstance.get<PostType[]>("posts")
   },
 }
