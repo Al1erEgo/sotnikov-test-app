@@ -1,5 +1,4 @@
-import { TabsMenu } from "../common/components"
-import { AppRouter } from "../common/providers/app-router"
+import { AppRouter, TabsMenu } from "../common"
 
 export const App = () => {
   return (
