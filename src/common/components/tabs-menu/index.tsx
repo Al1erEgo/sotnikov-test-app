@@ -1,22 +1,19 @@
 import { StyledTabs } from "./style"
-import { Navigate, useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { APP_ROUTES } from "../../constants"
 
 const tabs = [
   {
     key: "1",
     label: "Посты",
-    children: <Navigate to={APP_ROUTES.POSTS} />,
   },
   {
     key: "2",
     label: "Фото",
-    children: <Navigate to={APP_ROUTES.PHOTOS} />,
   },
   {
     key: "3",
     label: "Задачи",
-    children: <Navigate to={APP_ROUTES.TODOS} />,
   },
 ]
 
@@ -28,10 +25,12 @@ const getDefaultActiveKey = (currentLocation: string): string => {
 
 export const TabsMenu = () => {
   const location = useLocation()
+  const navigate = useNavigate()
 
   return (
     <StyledTabs
       animated
+      onChange={(key: string) => navigate(Object.values(APP_ROUTES)[+key])}
       defaultActiveKey={getDefaultActiveKey(location.pathname)}
       type="card"
       items={tabs}
