@@ -1,6 +1,6 @@
-import { StyledTabs } from "./style"
 import { useLocation, useNavigate } from "react-router-dom"
-import { APP_ROUTES } from "../../constants"
+import { APP_PATHS } from "../../constants"
+import { Tabs } from "antd"
 
 const tabs = [
   {
@@ -18,7 +18,7 @@ const tabs = [
 ]
 
 const getDefaultActiveKey = (currentLocation: string): string => {
-  return Object.values(APP_ROUTES)
+  return Object.values(APP_PATHS)
     .findIndex((value) => value === currentLocation.slice(1))
     .toString()
 }
@@ -28,9 +28,9 @@ export const TabsMenu = () => {
   const navigate = useNavigate()
 
   return (
-    <StyledTabs
+    <Tabs
       animated
-      onChange={(key: string) => navigate(Object.values(APP_ROUTES)[+key])}
+      onChange={(key: string) => navigate(Object.values(APP_PATHS)[+key])}
       defaultActiveKey={getDefaultActiveKey(location.pathname)}
       type="card"
       items={tabs}

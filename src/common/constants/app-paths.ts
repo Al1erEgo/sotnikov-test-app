@@ -1,4 +1,4 @@
-export const APP_ROUTES = {
+export const APP_PATHS = {
   ROOT: "/",
   POSTS: "posts",
   PHOTOS: "photos",

@@ -1,14 +1,19 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { APP_ROUTES } from "../../constants"
+import { APP_PATHS } from "../../constants"
+import { Suspense } from "react"
+import { Spin } from "antd"
+import { Posts } from "../../../features/posts/Posts"
 
 export const AppRouter = () => (
-  <Routes>
-    <Route
-      path={APP_ROUTES.ROOT}
-      element={<Navigate to={APP_ROUTES.POSTS} />}
-    />
-    <Route path={APP_ROUTES.POSTS} element={<div>Posts</div>} />
-    <Route path={APP_ROUTES.PHOTOS} element={<div>Photos</div>} />
-    <Route path={APP_ROUTES.TODOS} element={<div>Todos</div>} />
-  </Routes>
+  <Suspense fallback={<Spin />}>
+    <Routes>
+      <Route
+        path={APP_PATHS.ROOT}
+        element={<Navigate to={APP_PATHS.POSTS} />}
+      />
+      <Route path={APP_PATHS.POSTS} element={<Posts />} />
+      <Route path={APP_PATHS.PHOTOS} element={<div>Photos</div>} />
+      <Route path={APP_PATHS.TODOS} element={<div>Todos</div>} />
+    </Routes>
+  </Suspense>
 )
