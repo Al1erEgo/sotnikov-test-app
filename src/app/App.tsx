@@ -1,5 +1,11 @@
-export const App = () => {
-  return <div className="App"></div>
-}
+import { TabsMenu } from "../common/components"
+import { AppRouter } from "../common/providers/app-router"
 
-export default App
+export const App = () => {
+  return (
+    <>
+      <TabsMenu />
+      <AppRouter />
+    </>
+  )
+}
