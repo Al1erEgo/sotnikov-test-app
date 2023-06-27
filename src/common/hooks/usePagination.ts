@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const usePagination = <T extends []>(data: T) => {
+export const usePagination = <T>(data: T[]) => {
   const [paginationConfig, setPaginationConfig] = useState<[number, number]>([
     1, 10,
   ])
