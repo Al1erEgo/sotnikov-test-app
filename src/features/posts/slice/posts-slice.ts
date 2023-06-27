@@ -51,6 +51,22 @@ const fetchComments = createAsyncThunk<CommentType[] | void, number>(
   },
 )
 
+const deletePost = createAsyncThunk<number, number>(
+  "posts/deletePost",
+  async (postId, { dispatch, rejectWithValue }) => {
+    dispatch(
+      postsActions.setPostLoadingStatus({ postId: postId, status: true }),
+    )
+    try {
+      await postsApi.deletePost(postId)
+      return postId
+    } catch (error) {
+      dispatch(appActions.setError(error))
+      return rejectWithValue(null)
+    }
+  },
+)
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -63,6 +79,12 @@ const postsSlice = createSlice({
       action: PayloadAction<{ postId: number; status: boolean }>,
     ) => {
       state[action.payload.postId].isCommentsLoading = action.payload.status
+    },
+    setPostLoadingStatus: (
+      state,
+      action: PayloadAction<{ postId: number; status: boolean }>,
+    ) => {
+      state[action.payload.postId].isPostLoading = action.payload.status
     },
   },
   extraReducers: (builder) => {
@@ -79,9 +101,12 @@ const postsSlice = createSlice({
           state[action.payload[0].postId].comments = action.payload
         }
       })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        return state.filter((post) => post.id !== action.payload)
+      })
   },
 })
 
 export const postsReducer = postsSlice.reducer
 export const postsActions = postsSlice.actions
-export const postsThunks = { fetchPosts, fetchComments }
+export const postsThunks = { fetchPosts, fetchComments, deletePost }

@@ -8,4 +8,7 @@ export const postsApi = {
   getCommentsForPost(postId: number) {
     return commonInstance.get<CommentType[]>(`posts/${postId}/comments`)
   },
+  deletePost(postId: number) {
+    return commonInstance.delete<{}>(`posts/${postId}`)
+  },
 }

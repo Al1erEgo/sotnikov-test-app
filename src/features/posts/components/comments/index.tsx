@@ -27,7 +27,7 @@ export const Comments: FC<CommentsProps> = ({ postId }) => {
     return <Skeleton />
   }
   return (
-    <FlexContainer flexDirection={"column"} gap={"5px"} padding={"5px"}>
+    <FlexContainer flexdirection={"column"} gap={"5px"} padding={"5px"}>
       {comments?.map((comment) => (
         <Comment key={comment.id} content={comment} />
       ))}
