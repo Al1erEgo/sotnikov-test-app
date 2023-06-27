@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CommentType, PostEntityType, PostType } from "../types"
 import { postsApi } from "../api"
-import { appActions } from "../../../common/slices"
+import { appActions, usersThunks } from "../../../common/slices"
 import { RootState } from "../../../app/store"
 
 type PostsState = PostEntityType[]
@@ -11,6 +11,7 @@ const initialState: PostsState = []
 const fetchPosts = createAsyncThunk<PostType[], void>(
   "posts/fetchPosts",
   async (_, { dispatch, rejectWithValue }) => {
+    dispatch(usersThunks.fetchUsers())
     dispatch(appActions.setDataLoading(true))
     try {
       const posts = await postsApi.getPosts()
@@ -24,25 +25,28 @@ const fetchPosts = createAsyncThunk<PostType[], void>(
   },
 )
 
-const fetchComments = createAsyncThunk<CommentType[] | void, number>(
+const fetchComments = createAsyncThunk<
+  { comments: CommentType[]; postId: number } | undefined,
+  number
+>(
   "posts/fetchComments",
   async (postId, { dispatch, rejectWithValue, getState }) => {
     const state = getState() as RootState
-    if (!state.posts[postId].comments) {
+    if (!state.posts.find((post) => post.id === postId)?.comments) {
       dispatch(postsActions.addEmptyComments(postId))
       dispatch(
         postsActions.setCommentsLoadingStatus({ postId: postId, status: true }),
       )
       try {
         const comments = await postsApi.getCommentsForPost(postId)
-        return comments.data
+        return { comments: comments.data, postId }
       } catch (error) {
         dispatch(appActions.setError(error))
         return rejectWithValue(null)
       } finally {
         dispatch(
           postsActions.setCommentsLoadingStatus({
-            postId: postId,
+            postId,
             status: false,
           }),
         )
@@ -67,24 +71,67 @@ const deletePost = createAsyncThunk<number, number>(
   },
 )
 
+const updatePost = createAsyncThunk<
+  PostType,
+  {
+    userId: number
+    postId: number
+    userName: string
+    title: string
+    body: string
+  }
+>(
+  "posts/updatePost",
+  async (
+    { userId, postId, userName, title, body },
+    { dispatch, rejectWithValue },
+  ) => {
+    dispatch(usersThunks.updateUserName({ userName, userId }))
+    dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
+    try {
+      const post = await postsApi.updatePost(postId, title, body)
+      return post.data
+    } catch (error) {
+      dispatch(appActions.setError(error))
+      return rejectWithValue(null)
+    } finally {
+      dispatch(
+        postsActions.setPostLoadingStatus({
+          postId,
+          status: false,
+        }),
+      )
+    }
+  },
+)
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
     addEmptyComments: (state, action: PayloadAction<number>) => {
-      state[action.payload].comments = []
+      const post = state.find((post) => post.id === action.payload)
+      if (post) {
+        post.comments = []
+      }
     },
     setCommentsLoadingStatus: (
       state,
       action: PayloadAction<{ postId: number; status: boolean }>,
     ) => {
-      state[action.payload.postId].isCommentsLoading = action.payload.status
+      const post = state.find((post) => post.id === action.payload.postId)
+      if (post) {
+        post.isCommentsLoading = action.payload.status
+      }
     },
     setPostLoadingStatus: (
       state,
       action: PayloadAction<{ postId: number; status: boolean }>,
     ) => {
-      state[action.payload.postId].isPostLoading = action.payload.status
+      const post = state.find((post) => post.id === action.payload.postId)
+      if (post) {
+        post.isPostLoading = action.payload.status
+      }
     },
   },
   extraReducers: (builder) => {
@@ -97,16 +144,29 @@ const postsSlice = createSlice({
         })),
       )
       .addCase(fetchComments.fulfilled, (state, action) => {
-        if (action.payload) {
-          state[action.payload[0].postId].comments = action.payload
+        const post = state.find((post) => post.id === action.payload?.postId)
+        if (action.payload && post) {
+          post.comments = action.payload.comments
         }
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         return state.filter((post) => post.id !== action.payload)
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        const postIndex = state.findIndex(
+          (post) => post.id === action.payload.id,
+        )
+        if (postIndex !== -1) {
+          state[postIndex] = {
+            ...action.payload,
+            isPostLoading: false,
+            isCommentsLoading: false,
+          }
+        }
       })
   },
 })
 
 export const postsReducer = postsSlice.reducer
 export const postsActions = postsSlice.actions
-export const postsThunks = { fetchPosts, fetchComments, deletePost }
+export const postsThunks = { fetchPosts, fetchComments, deletePost, updatePost }

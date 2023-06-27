@@ -1,23 +1,19 @@
-import { useActions, useAppSelector } from "../../../../common"
+import { useActions } from "../../../../common"
 import { FC, useEffect } from "react"
 import { postsThunks } from "../../slice"
 import { Comment } from "../comment"
 import { Skeleton } from "antd"
 import { FlexContainer } from "../../../../common/styles/common-styled-components"
+import { CommentType } from "../../types"
 
 type CommentsProps = {
+  content?: CommentType[]
+  isLoading: boolean
   postId: number
 }
 
-export const Comments: FC<CommentsProps> = ({ postId }) => {
-  const isLoading = useAppSelector(
-    (state) => state.posts[postId].isCommentsLoading,
-  )
-  const comments = useAppSelector((state) => state.posts[postId].comments)
+export const Comments: FC<CommentsProps> = ({ content, isLoading, postId }) => {
   const { fetchComments } = useActions(postsThunks)
-
-  console.log("isLoading", isLoading)
-  console.log("comments", comments)
 
   useEffect(() => {
     fetchComments(postId)
@@ -28,7 +24,7 @@ export const Comments: FC<CommentsProps> = ({ postId }) => {
   }
   return (
     <FlexContainer flexdirection={"column"} gap={"5px"} padding={"5px"}>
-      {comments?.map((comment) => (
+      {content?.map((comment) => (
         <Comment key={comment.id} content={comment} />
       ))}
     </FlexContainer>

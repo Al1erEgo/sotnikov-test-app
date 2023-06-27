@@ -4,9 +4,11 @@ import { postsThunks } from "../../slice"
 import { Post } from "../../components"
 import { usePagination } from "../../../../common/hooks/usePagination"
 import { Paginator } from "../../../../common/components/paginator"
+import { StyledLoader } from "../../../../common/providers/app-router/styles"
 
 const PostsPage = () => {
   const posts = useAppSelector((state) => state.posts)
+  const isDataLoading = useAppSelector((state) => state.app.dataLoading)
   const { fetchPosts } = useActions(postsThunks)
 
   const { currentPageContent, paginationConfig, handlePaginationChange } =
@@ -15,6 +17,10 @@ const PostsPage = () => {
   useEffect(() => {
     fetchPosts()
   }, [fetchPosts])
+
+  if (isDataLoading) {
+    return <StyledLoader />
+  }
 
   return (
     <>
