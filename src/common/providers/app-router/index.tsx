@@ -1,10 +1,9 @@
-import { lazy, Suspense } from "react"
+import { Suspense } from "react"
 import { PageWrapper, StyledLoader } from "./styles"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { APP_PATHS } from "../../constants"
-
-const PostsPage = lazy(() => import("../../../features/posts/Posts"))
-const Error404Page = lazy(() => import("../../pages/error404"))
+import { PostsPage } from "../../../features/posts/pages"
+import { Error404Page } from "../../pages"
 
 export const AppRouter = () => (
   <PageWrapper>

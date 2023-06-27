@@ -14,7 +14,7 @@ export const Post: FC<PostProps> = ({ content }) => {
 
   useEffect(() => {
     fetchUser(content.userId)
-  })
+  }, [])
   return (
     <Card>
       <PostTitle>{content.title}</PostTitle>
