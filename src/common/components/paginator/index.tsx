@@ -1,5 +1,5 @@
 import Link from "antd/lib/typography/Link"
-import { AdaptiveFlexContainer } from "../../styles/common-styled-components"
+import { FlexContainer } from "../../styles/common-styled-components"
 import { FC } from "react"
 import { Pagination } from "antd"
 
@@ -15,7 +15,7 @@ export const Paginator: FC<PaginatorProps> = ({
   handleChange,
 }) => {
   return (
-    <AdaptiveFlexContainer>
+    <FlexContainer gap={"10px"}>
       <Pagination
         onChange={handleChange}
         current={config[0]}
@@ -23,7 +23,9 @@ export const Paginator: FC<PaginatorProps> = ({
         total={totalCount}
         responsive
       />
-      <Link onClick={() => handleChange(1, totalCount)}>Show all posts</Link>
-    </AdaptiveFlexContainer>
+      <Link onClick={() => handleChange(1, totalCount)}>
+        Показать все посты
+      </Link>
+    </FlexContainer>
   )
 }

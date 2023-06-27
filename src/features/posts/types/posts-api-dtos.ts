@@ -4,3 +4,11 @@ export type PostType = {
   title: string
   body: string
 }
+
+export type CommentType = {
+  postId: number
+  id: number
+  name: string
+  email: string
+  body: string
+}

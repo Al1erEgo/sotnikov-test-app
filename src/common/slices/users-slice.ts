@@ -1,8 +1,8 @@
 import { UserType } from "../types"
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { RootState } from "../../app/store"
 import { appActions } from "./app-slice"
 import { usersApi } from "../api"
+import { RootState } from "../../app/store"
 
 type UsersState = {
   [key: string]: UserType

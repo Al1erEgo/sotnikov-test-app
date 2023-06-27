@@ -1,8 +1,11 @@
 import { commonInstance } from "../../../common"
-import { PostType } from "../types"
+import { CommentType, PostType } from "../types"
 
 export const postsApi = {
   getPosts() {
     return commonInstance.get<PostType[]>("posts")
+  },
+  getCommentsForPost(postId: number) {
+    return commonInstance.get<CommentType[]>(`posts/${postId}/comments`)
   },
 }
