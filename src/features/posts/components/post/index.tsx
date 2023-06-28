@@ -1,7 +1,7 @@
 import { Card, Skeleton, Tooltip } from "antd"
 import { FC, memo, useState } from "react"
 import { PostEntityType } from "../../types"
-import { useActions, useAppSelector, useDeleteModal } from "../../../../common"
+import { useActions, useAppSelector, useModal } from "../../../../common"
 import { Comments } from "../comments"
 import {
   FlexContainer,
@@ -16,20 +16,22 @@ import { favouriteActions, usersThunks } from "../../../../common/slices"
 
 type PostProps = {
   post: PostEntityType
-  setGroupAction: () => void
 }
-export const Post: FC<PostProps> = memo(({ post, setGroupAction }) => {
+export const Post: FC<PostProps> = memo(({ post }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const isFavourite = useAppSelector((state) => state.favorite.postsId[post.id])
+  const isSelected = useAppSelector(
+    (state) => state.posts.selectedPosts[post.id],
+  )
   const user = useAppSelector((state) => state.users[post.userId])
   const { deletePost, updatePost } = useActions(postsThunks)
   const { changePostSelection } = useActions(postsActions)
   const { updateUserName } = useActions(usersThunks)
   const { changePostFav } = useActions(favouriteActions)
 
-  const { modal, handleOpenModal } = useDeleteModal("пост", () =>
+  const { modal, handleOpenModal } = useModal("Удалить пост?", () =>
     deletePost(post.id),
   )
 
@@ -54,11 +56,6 @@ export const Post: FC<PostProps> = memo(({ post, setGroupAction }) => {
     setIsEdit(false)
   }
 
-  const handleCheckPost = () => {
-    setGroupAction()
-    changePostSelection(post.id)
-  }
-
   if (post.isPostLoading) {
     return (
       <Card>
@@ -70,8 +67,9 @@ export const Post: FC<PostProps> = memo(({ post, setGroupAction }) => {
   return (
     <PostCard favourite={isFavourite ? "favourite" : ""}>
       <PostActionsGroup
+        selected={isSelected}
         favourite={isFavourite}
-        onSelect={handleCheckPost}
+        onSelect={() => changePostSelection(post.id)}
         onFavourite={() => changePostFav(post.id)}
         onDelete={handleOpenModal}
         onEdit={() => {

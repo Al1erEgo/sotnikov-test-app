@@ -9,7 +9,8 @@ type ActionsGroupProps = {
   onFavourite: () => void
   onDelete: () => void
   onEdit: () => void
-  favourite?: boolean
+  favourite: boolean | undefined
+  selected: boolean | undefined
 }
 
 export const PostActionsGroup: FC<ActionsGroupProps> = ({
@@ -18,11 +19,12 @@ export const PostActionsGroup: FC<ActionsGroupProps> = ({
   onDelete,
   onEdit,
   favourite,
+  selected,
 }) => {
   return (
     <PostActionsContainer>
       <Tooltip title={"Выбрать пост"}>
-        <Checkbox onClick={onSelect} />
+        <Checkbox checked={selected} onClick={onSelect} />
       </Tooltip>
       <Tooltip
         title={favourite ? "Удалить из избранного" : "Добавить в избранное"}

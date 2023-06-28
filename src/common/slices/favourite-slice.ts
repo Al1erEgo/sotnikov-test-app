@@ -14,6 +14,11 @@ export const favouriteSlice = createSlice({
   name: "favourite",
   initialState,
   reducers: {
+    addPostToFav: (state, action: PayloadAction<number>) => {
+      if (!state.postsId[action.payload]) {
+        state.postsId[action.payload] = true
+      }
+    },
     changePostFav: (state, action: PayloadAction<number>) => {
       if (!state.postsId[action.payload]) {
         state.postsId[action.payload] = true

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { useActions, useAppSelector } from "../../../../common"
+import { useEffect } from "react"
+import { useActions, useAppSelector, useModal } from "../../../../common"
 import { postsThunks } from "../../slice"
 import { Post, PostsActionsGroup } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
@@ -7,11 +7,22 @@ import { Paginator } from "../../../../common/components/paginator"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
 
 const PostsPage = () => {
-  const [groupAction, setGroupAction] = useState<boolean>(false)
-
-  const posts = useAppSelector((state) => state.posts)
+  const posts = useAppSelector((state) => state.posts.posts)
   const isDataLoading = useAppSelector((state) => state.app.dataLoading)
-  const { fetchPosts } = useActions(postsThunks)
+  const selectedPosts = useAppSelector((state) => state.posts.selectedPosts)
+  const { fetchPosts, addPostsGroupToFav, deletePostsGroup } =
+    useActions(postsThunks)
+
+  const { modal: deleteModal, handleOpenModal: openDeleteModal } = useModal(
+    "Удалить выбранные посты?",
+    () => deletePostsGroup(Object.keys(selectedPosts)),
+  )
+  const {
+    modal: addToFavouriteModal,
+    handleOpenModal: openAddToFavouriteModal,
+  } = useModal("Добавить выбранные посты в избранное?", () =>
+    addPostsGroupToFav(Object.keys(selectedPosts)),
+  )
 
   const { currentPageContent, paginationConfig, handlePaginationChange } =
     usePagination(posts)
@@ -27,18 +38,21 @@ const PostsPage = () => {
   return (
     <>
       {currentPageContent.map((post) => (
-        <Post
-          key={post.id}
-          post={post}
-          setGroupAction={() => setGroupAction(true)}
-        />
+        <Post key={post.id} post={post} />
       ))}
       <Paginator
         config={paginationConfig}
         handleChange={handlePaginationChange}
         totalCount={posts.length}
       />
-      {groupAction && <PostsActionsGroup />}
+      {Object.keys(selectedPosts).length !== 0 && (
+        <PostsActionsGroup
+          onDelete={openDeleteModal}
+          onAddFav={openAddToFavouriteModal}
+        />
+      )}
+      {deleteModal}
+      {addToFavouriteModal}
     </>
   )
 }
