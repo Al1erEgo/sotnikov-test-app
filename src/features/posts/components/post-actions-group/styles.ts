@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { HeartFilled } from "@ant-design/icons"
 
-export const ActionsContainer = styled.div`
+export const PostActionsContainer = styled.div`
   position: absolute;
   top: 5px;
   right: 7px;

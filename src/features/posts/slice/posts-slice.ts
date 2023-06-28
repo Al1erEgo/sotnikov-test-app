@@ -127,6 +127,12 @@ const postsSlice = createSlice({
         post.isPostLoading = action.payload.status
       }
     },
+    changePostSelection: (state, action: PayloadAction<number>) => {
+      const post = state.find((post) => post.id === action.payload)
+      if (post) {
+        post.selected = !post.selected
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -135,6 +141,7 @@ const postsSlice = createSlice({
           ...post,
           isPostLoading: false,
           isCommentsLoading: false,
+          selected: false,
         })),
       )
       .addCase(fetchComments.fulfilled, (state, action) => {
@@ -152,10 +159,8 @@ const postsSlice = createSlice({
         )
         if (postIndex !== -1) {
           state[postIndex] = {
+            ...state[postIndex],
             ...action.payload,
-            isPostLoading: false,
-            isCommentsLoading: false,
-            comments: state[postIndex].comments,
           }
         }
       })

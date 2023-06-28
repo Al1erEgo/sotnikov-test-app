@@ -8,22 +8,24 @@ import {
   SecondaryText,
 } from "../../../../common/styles/common-styled-components"
 import Title from "antd/lib/typography/Title"
-import { ActionsGroup } from "../actions-group"
-import { postsThunks } from "../../slice"
+import { PostActionsGroup } from "../post-actions-group"
+import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowComments } from "./styles"
 import { EditPostForm } from "../edit-post-form"
 import { favouriteActions, usersThunks } from "../../../../common/slices"
 
 type PostProps = {
   post: PostEntityType
+  setGroupAction: () => void
 }
-export const Post: FC<PostProps> = memo(({ post }) => {
+export const Post: FC<PostProps> = memo(({ post, setGroupAction }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const isFavourite = useAppSelector((state) => state.favorite.postsId[post.id])
   const user = useAppSelector((state) => state.users[post.userId])
   const { deletePost, updatePost } = useActions(postsThunks)
+  const { changePostSelection } = useActions(postsActions)
   const { updateUserName } = useActions(usersThunks)
   const { changePostFav } = useActions(favouriteActions)
 
@@ -52,6 +54,11 @@ export const Post: FC<PostProps> = memo(({ post }) => {
     setIsEdit(false)
   }
 
+  const handleCheckPost = () => {
+    setGroupAction()
+    changePostSelection(post.id)
+  }
+
   if (post.isPostLoading) {
     return (
       <Card>
@@ -62,8 +69,9 @@ export const Post: FC<PostProps> = memo(({ post }) => {
 
   return (
     <PostCard favourite={isFavourite ? "favourite" : ""}>
-      <ActionsGroup
+      <PostActionsGroup
         favourite={isFavourite}
+        onSelect={handleCheckPost}
         onFavourite={() => changePostFav(post.id)}
         onDelete={handleOpenModal}
         onEdit={() => {

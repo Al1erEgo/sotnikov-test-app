@@ -1,5 +1,6 @@
 export * from "./post"
 export * from "./comments"
 export * from "./comment"
-export * from "./actions-group"
+export * from "./post-actions-group"
+export * from "./posts-actions-group"
 export * from "./edit-post-form"
