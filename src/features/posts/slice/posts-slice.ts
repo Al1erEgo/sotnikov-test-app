@@ -15,12 +15,14 @@ type PostsState = {
     [key: string]: boolean
   }
   sorting: string | undefined
+  filter: string | undefined
 }
 
 const initialState: PostsState = {
   posts: [],
   selectedPosts: {},
   sorting: undefined,
+  filter: undefined,
 }
 
 const fetchPosts = createAsyncThunk<PostType[], void>(
@@ -32,7 +34,7 @@ const fetchPosts = createAsyncThunk<PostType[], void>(
       const posts = await postsApi.getPosts()
       return posts.data
     } catch (error) {
-      dispatch(appActions.setError(error))
+      dispatch(appActions.setError(error as string))
       return rejectWithValue(null)
     } finally {
       dispatch(appActions.setDataLoading(false))
@@ -56,7 +58,7 @@ const fetchComments = createAsyncThunk<
         const comments = await postsApi.getCommentsForPost(postId)
         return { comments: comments.data, postId }
       } catch (error) {
-        dispatch(appActions.setError(error))
+        dispatch(appActions.setError(error as string))
         return rejectWithValue(null)
       } finally {
         dispatch(
@@ -88,7 +90,7 @@ const addPost = createAsyncThunk<PostType, AddPostPayloadType>(
         throw new Error("Пользователь не найден!")
       }
     } catch (error) {
-      dispatch(appActions.setError(error))
+      dispatch(appActions.setError(error as string))
       return rejectWithValue(null)
     }
   },
@@ -104,7 +106,7 @@ const deletePost = createAsyncThunk<number, number>(
       await postsApi.deletePost(postId)
       return postId
     } catch (error) {
-      dispatch(appActions.setError(error))
+      dispatch(appActions.setError(error as string))
       return rejectWithValue(null)
     }
   },
@@ -116,7 +118,7 @@ const addPostsGroupToFav = createAsyncThunk<void, string[]>(
     try {
       posts.forEach((id) => dispatch(favouriteActions.addPostToFav(+id)))
     } catch (error) {
-      dispatch(appActions.setError(error))
+      dispatch(appActions.setError(error as string))
       return rejectWithValue(null)
     } finally {
       dispatch(postsActions.clearSelectedPosts())
@@ -130,7 +132,7 @@ const deletePostsGroup = createAsyncThunk<void, string[]>(
     try {
       posts.forEach((id) => dispatch(postsThunks.deletePost(+id)))
     } catch (error) {
-      dispatch(appActions.setError(error))
+      dispatch(appActions.setError(error as string))
       return rejectWithValue(null)
     } finally {
       dispatch(postsActions.clearSelectedPosts())
@@ -153,7 +155,7 @@ const updatePost = createAsyncThunk<
       const post = await postsApi.updatePost(postId, title, body)
       return post.data
     } catch (error) {
-      dispatch(appActions.setError(error))
+      dispatch(appActions.setError(error as string))
       return rejectWithValue(null)
     } finally {
       dispatch(

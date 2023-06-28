@@ -1,6 +1,5 @@
 import { RootState } from "../../../app/store"
 import { getFavouritePosts, getUsers } from "../../../common/slices"
-import { PostEntityType } from "../types"
 
 const getPostsSorting = (state: RootState) => state.posts.sorting
 export const getPosts = (state: RootState) => state.posts.posts
@@ -14,8 +13,6 @@ export const getSortedPosts = (state: RootState) => {
   if (!sorting) {
     return posts
   }
-  const sortingOrder = sorting.split(" ")[0]
-  const sortingField = sorting.split(" ")[1]
 
   if (sorting === "asc Id") {
     return [...posts].sort((a, b) => a.id - b.id)
@@ -24,22 +21,12 @@ export const getSortedPosts = (state: RootState) => {
     return [...posts].sort((a, b) => b.id - a.id)
   }
 
-  if (sortingField === "favourite") {
-    let favouritePosts: PostEntityType[] = []
-    let unFavouritePosts: PostEntityType[] = []
-    posts.forEach((post) => {
-      if (Object.keys(favouritePostsIds).find((id) => +id === post.id)) {
-        favouritePosts.push(post)
-      } else {
-        unFavouritePosts.push(post)
-      }
-    })
+  if (sorting === "asc favourite") {
+    return [...posts].sort((post) => (favouritePostsIds[post.id] ? 1 : -1))
+  }
 
-    if (sortingOrder === "asc") {
-      return [...favouritePosts, ...unFavouritePosts]
-    } else {
-      return [...unFavouritePosts, ...favouritePosts]
-    }
+  if (sorting === "desc favourite") {
+    return [...posts].sort((post) => (favouritePostsIds[post.id] ? -1 : 1))
   }
 
   if (sorting === "asc title") {

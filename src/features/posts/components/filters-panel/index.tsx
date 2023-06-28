@@ -1,7 +1,9 @@
-import { PostAddWithModal } from "../post-add-with-modal"
-import { Select } from "antd"
-import { useActions } from "../../../../common"
-import { postsActions } from "../../slice"
+import {PostAddWithModal} from "../post-add-with-modal"
+import {Select} from "antd"
+import {useActions} from "../../../../common"
+import {postsActions} from "../../slice"
+
+//TODO вынести значения сортировки в константы или enum
 
 const selectOptions = [
   {
@@ -31,7 +33,7 @@ export const FiltersPanel = () => {
       Сортировать посты по:
       <Select
         allowClear
-        // defaultValue="lucy"
+        size={"small"}
         style={{ width: 120 }}
         onChange={setSortingPosts}
         options={selectOptions}

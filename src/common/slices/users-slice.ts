@@ -16,7 +16,7 @@ const fetchUsers = createAsyncThunk<UserType[], void>(
       const posts = await usersApi.getUsers()
       return posts.data
     } catch (error) {
-      dispatch(appActions.setError(error))
+      dispatch(appActions.setError(error as string))
       return rejectWithValue(null)
     }
   },
@@ -30,7 +30,7 @@ const updateUserName = createAsyncThunk<
     const updatedUser = await usersApi.updateUserName(arg.userName, arg.userId)
     return updatedUser.data
   } catch (error) {
-    dispatch(appActions.setError(error))
+    dispatch(appActions.setError(error as string))
     return rejectWithValue(null)
   }
 })
