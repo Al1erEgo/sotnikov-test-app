@@ -10,24 +10,25 @@ import {
 import Title from "antd/lib/typography/Title"
 import { ActionsGroup } from "../actions-group"
 import { postsThunks } from "../../slice"
-import { ShowComments } from "./styles"
+import { PostCard, ShowComments } from "./styles"
 import { EditPostForm } from "../edit-post-form"
 import { favouriteActions, usersThunks } from "../../../../common/slices"
 
 type PostProps = {
-  content: PostEntityType
+  post: PostEntityType
 }
-export const Post: FC<PostProps> = memo(({ content }) => {
+export const Post: FC<PostProps> = memo(({ post }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const user = useAppSelector((state) => state.users[content.userId])
+  const isFavourite = useAppSelector((state) => state.favorite.postsId[post.id])
+  const user = useAppSelector((state) => state.users[post.userId])
   const { deletePost, updatePost } = useActions(postsThunks)
   const { updateUserName } = useActions(usersThunks)
   const { changePostFav } = useActions(favouriteActions)
 
   const { modal, handleOpenModal } = useDeleteModal("пост", () =>
-    deletePost(content.id),
+    deletePost(post.id),
   )
 
   const handleFormSubmit = ({
@@ -42,16 +43,16 @@ export const Post: FC<PostProps> = memo(({ content }) => {
     if (user.name !== userName) {
       updateUserName({ userName, userId: user.id })
     }
-    if (content.title !== title || content.body !== body)
+    if (post.title !== title || post.body !== body)
       updatePost({
-        postId: content.id,
+        postId: post.id,
         title,
         body,
       })
     setIsEdit(false)
   }
 
-  if (content.isPostLoading) {
+  if (post.isPostLoading) {
     return (
       <Card>
         <Skeleton />
@@ -60,9 +61,10 @@ export const Post: FC<PostProps> = memo(({ content }) => {
   }
 
   return (
-    <Card>
+    <PostCard favourite={isFavourite ? "favourite" : ""}>
       <ActionsGroup
-        onFavourite={() => changePostFav(content.id)}
+        favourite={isFavourite}
+        onFavourite={() => changePostFav(post.id)}
         onDelete={handleOpenModal}
         onEdit={() => {
           setIsEdit((prev) => !prev)
@@ -70,17 +72,17 @@ export const Post: FC<PostProps> = memo(({ content }) => {
       />
       {isEdit ? (
         <EditPostForm
-          title={content.title}
-          body={content.body}
+          title={post.title}
+          body={post.body}
           userName={user.name}
           onCancel={() => setIsEdit(false)}
           onSubmit={handleFormSubmit}
         />
       ) : (
         <>
-          <Title level={4}>{content.title}</Title>
+          <Title level={4}>{post.title}</Title>
           <SecondaryText>by {user?.name}</SecondaryText>
-          {content.body}
+          {post.body}
         </>
       )}
 
@@ -99,12 +101,12 @@ export const Post: FC<PostProps> = memo(({ content }) => {
 
       {showComments && (
         <Comments
-          content={content.comments}
-          isLoading={content.isCommentsLoading}
-          postId={content.id}
+          content={post.comments}
+          isLoading={post.isCommentsLoading}
+          postId={post.id}
         />
       )}
       {modal}
-    </Card>
+    </PostCard>
   )
 })

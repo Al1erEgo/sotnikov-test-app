@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 type FavouriteState = {
-  postsId: number[]
+  postsId: {
+    [key: string]: boolean
+  }
 }
 
 const initialState: FavouriteState = {
-  postsId: [],
+  postsId: {},
 }
 
 export const favouriteSlice = createSlice({
@@ -13,13 +15,10 @@ export const favouriteSlice = createSlice({
   initialState,
   reducers: {
     changePostFav: (state, action: PayloadAction<number>) => {
-      if (!state.postsId) {
-        state.postsId = [action.payload]
-      }
-      if (!state.postsId.find((id) => id === action.payload)) {
-        state.postsId.push(action.payload)
+      if (!state.postsId[action.payload]) {
+        state.postsId[action.payload] = true
       } else {
-        state.postsId = state.postsId.filter((id) => id !== action.payload)
+        delete state.postsId[action.payload]
       }
     },
   },

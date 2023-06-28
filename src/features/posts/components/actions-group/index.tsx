@@ -1,4 +1,4 @@
-import { ActionsContainer } from "./styles"
+import { ActionsContainer, FavouriteFilled } from "./styles"
 import { CloseOutlined, EditOutlined, HeartOutlined } from "@ant-design/icons"
 import Checkbox from "antd/lib/checkbox/Checkbox"
 import { Tooltip } from "antd"
@@ -8,12 +8,14 @@ type ActionsGroupProps = {
   onFavourite: () => void
   onDelete: () => void
   onEdit: () => void
+  favourite?: boolean
 }
 
 export const ActionsGroup: FC<ActionsGroupProps> = ({
   onFavourite,
   onDelete,
   onEdit,
+  favourite,
 }) => {
   return (
     <ActionsContainer>
@@ -21,7 +23,11 @@ export const ActionsGroup: FC<ActionsGroupProps> = ({
         <Checkbox />
       </Tooltip>
       <Tooltip title={"Добавить в избранное"}>
-        <HeartOutlined onClick={onFavourite} />
+        {favourite ? (
+          <FavouriteFilled onClick={onFavourite} />
+        ) : (
+          <HeartOutlined onClick={onFavourite} />
+        )}
       </Tooltip>
       <Tooltip title={"Редактировать пост"}>
         <EditOutlined onClick={onEdit} />

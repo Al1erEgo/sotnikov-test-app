@@ -25,7 +25,7 @@ const PostsPage = () => {
   return (
     <>
       {currentPageContent.map((post) => (
-        <Post key={post.id} content={post} />
+        <Post key={post.id} post={post} />
       ))}
       <Paginator
         config={paginationConfig}

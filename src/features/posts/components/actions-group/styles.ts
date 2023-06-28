@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { HeartFilled } from "@ant-design/icons"
 
 export const ActionsContainer = styled.div`
   position: absolute;
@@ -7,4 +8,8 @@ export const ActionsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 7px;
+`
+
+export const FavouriteFilled = styled(HeartFilled)`
+  color: red;
 `
