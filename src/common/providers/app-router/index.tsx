@@ -1,9 +1,10 @@
 import { Suspense } from "react"
-import { PageWrapper, StyledLoader } from "./styles"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { APP_PATHS } from "../../constants"
 import { PostsPage } from "../../../features/posts/pages"
 import { Error404Page } from "../../pages"
+import { StyledLoader } from "../../styles/common-styled-components"
+import { PageWrapper } from "./styles"
 
 export const AppRouter = () => (
   <PageWrapper>

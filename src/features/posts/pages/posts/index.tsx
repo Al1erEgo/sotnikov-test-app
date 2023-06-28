@@ -2,9 +2,9 @@ import { useEffect } from "react"
 import { useActions, useAppSelector } from "../../../../common"
 import { postsThunks } from "../../slice"
 import { Post } from "../../components"
-import { usePagination } from "../../../../common/hooks/usePagination"
+import { usePagination } from "../../../../common/hooks/use-pagination"
 import { Paginator } from "../../../../common/components/paginator"
-import { StyledLoader } from "../../../../common/providers/app-router/styles"
+import { StyledLoader } from "../../../../common/styles/common-styled-components"
 
 const PostsPage = () => {
   const posts = useAppSelector((state) => state.posts)

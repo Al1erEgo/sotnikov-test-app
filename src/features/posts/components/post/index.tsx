@@ -1,7 +1,7 @@
 import { Card, Skeleton, Tooltip } from "antd"
 import { FC, memo, useState } from "react"
 import { PostEntityType } from "../../types"
-import { useActions, useAppSelector } from "../../../../common"
+import { useActions, useAppSelector, useDeleteModal } from "../../../../common"
 import { Comments } from "../comments"
 import {
   FlexContainer,
@@ -12,6 +12,7 @@ import { ActionsGroup } from "../actions-group"
 import { postsThunks } from "../../slice"
 import { ShowComments } from "./styles"
 import { EditPostForm } from "../edit-post-form"
+import { usersThunks } from "../../../../common/slices"
 
 type PostProps = {
   content: PostEntityType
@@ -22,6 +23,11 @@ export const Post: FC<PostProps> = memo(({ content }) => {
 
   const user = useAppSelector((state) => state.users[content.userId])
   const { deletePost, updatePost } = useActions(postsThunks)
+  const { updateUserName } = useActions(usersThunks)
+
+  const { modal, handleOpenModal } = useDeleteModal("пост", () =>
+    deletePost(content.id),
+  )
 
   const handleFormSubmit = ({
     title,
@@ -32,13 +38,15 @@ export const Post: FC<PostProps> = memo(({ content }) => {
     userName: string
     body: string
   }) => {
-    updatePost({
-      userId: user.id,
-      postId: content.id,
-      userName,
-      title,
-      body,
-    })
+    if (user.name !== userName) {
+      updateUserName({ userName, userId: user.id })
+    }
+    if (content.title !== title || content.body !== body)
+      updatePost({
+        postId: content.id,
+        title,
+        body,
+      })
     setIsEdit(false)
   }
 
@@ -53,7 +61,7 @@ export const Post: FC<PostProps> = memo(({ content }) => {
   return (
     <Card>
       <ActionsGroup
-        onDelete={() => deletePost(content.id)}
+        onDelete={handleOpenModal}
         onEdit={() => {
           setIsEdit((prev) => !prev)
         }}
@@ -94,6 +102,7 @@ export const Post: FC<PostProps> = memo(({ content }) => {
           postId={content.id}
         />
       )}
+      {modal}
     </Card>
   )
 })

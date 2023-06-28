@@ -74,19 +74,13 @@ const deletePost = createAsyncThunk<number, number>(
 const updatePost = createAsyncThunk<
   PostType,
   {
-    userId: number
     postId: number
-    userName: string
     title: string
     body: string
   }
 >(
   "posts/updatePost",
-  async (
-    { userId, postId, userName, title, body },
-    { dispatch, rejectWithValue },
-  ) => {
-    dispatch(usersThunks.updateUserName({ userName, userId }))
+  async ({ postId, title, body }, { dispatch, rejectWithValue, getState }) => {
     dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
     try {
       const post = await postsApi.updatePost(postId, title, body)
@@ -161,6 +155,7 @@ const postsSlice = createSlice({
             ...action.payload,
             isPostLoading: false,
             isCommentsLoading: false,
+            comments: state[postIndex].comments,
           }
         }
       })
