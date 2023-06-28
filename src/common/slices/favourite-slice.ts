@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 type FavouriteState = {
   postsId: number[]
@@ -7,17 +7,6 @@ type FavouriteState = {
 const initialState: FavouriteState = {
   postsId: [],
 }
-
-const changePostFav = createAsyncThunk<void, number>(
-  "favourite/changePostFav",
-  async (postId, { dispatch, rejectWithValue }) => {
-    try {
-      dispatch(favouriteActions.changePostFav(postId))
-    } catch (error) {
-      console.log(error)
-    }
-  },
-)
 
 export const favouriteSlice = createSlice({
   name: "favourite",
@@ -40,4 +29,4 @@ export const favouriteReducer = favouriteSlice.reducer
 
 export const favouriteActions = favouriteSlice.actions
 
-export const favouriteThunks = { changePostFav }
+export const favouriteThunks = {}
