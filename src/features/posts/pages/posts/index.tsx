@@ -5,6 +5,7 @@ import { Post, PostsActionsGroup } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { Paginator } from "../../../../common/components/paginator"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
+import { PostsContainer } from "./styles"
 
 const PostsPage = () => {
   const posts = useAppSelector((state) => state.posts.posts)
@@ -37,9 +38,11 @@ const PostsPage = () => {
 
   return (
     <>
-      {currentPageContent.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      <PostsContainer>
+        {currentPageContent.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </PostsContainer>
       <Paginator
         config={paginationConfig}
         handleChange={handlePaginationChange}

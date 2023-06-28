@@ -15,7 +15,7 @@ export const Paginator: FC<PaginatorProps> = ({
   handleChange,
 }) => {
   return (
-    <FlexContainer gap={"10px"}>
+    <FlexContainer padding={"10px"} gap={"10px"}>
       <Pagination
         onChange={handleChange}
         current={config[0]}
@@ -23,9 +23,7 @@ export const Paginator: FC<PaginatorProps> = ({
         total={totalCount}
         responsive
       />
-      <Link onClick={() => handleChange(1, totalCount)}>
-        Показать все посты
-      </Link>
+      <Link onClick={() => handleChange(1, totalCount)}>Показать все</Link>
     </FlexContainer>
   )
 }

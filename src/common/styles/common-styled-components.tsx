@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {Spin} from "antd";
+import { Spin } from "antd"
 
 export const FlexContainer = styled.div<{
   alignitems?: string
@@ -38,7 +38,7 @@ const LoaderContainer = styled.div`
 `
 
 export const StyledLoader = styled(() => (
-    <LoaderContainer>
-        <Spin />
-    </LoaderContainer>
+  <LoaderContainer>
+    <Spin />
+  </LoaderContainer>
 ))``
