@@ -12,7 +12,7 @@ import { ActionsGroup } from "../actions-group"
 import { postsThunks } from "../../slice"
 import { ShowComments } from "./styles"
 import { EditPostForm } from "../edit-post-form"
-import { usersThunks } from "../../../../common/slices"
+import { favouriteThunks, usersThunks } from "../../../../common/slices"
 
 type PostProps = {
   content: PostEntityType
@@ -24,6 +24,8 @@ export const Post: FC<PostProps> = memo(({ content }) => {
   const user = useAppSelector((state) => state.users[content.userId])
   const { deletePost, updatePost } = useActions(postsThunks)
   const { updateUserName } = useActions(usersThunks)
+  // const { changePostFav } = useActions(favouriteActions)
+  const { changePostFav } = useActions(favouriteThunks)
 
   const { modal, handleOpenModal } = useDeleteModal("пост", () =>
     deletePost(content.id),
@@ -61,6 +63,7 @@ export const Post: FC<PostProps> = memo(({ content }) => {
   return (
     <Card>
       <ActionsGroup
+        onFavourite={() => changePostFav(content.id)}
         onDelete={handleOpenModal}
         onEdit={() => {
           setIsEdit((prev) => !prev)

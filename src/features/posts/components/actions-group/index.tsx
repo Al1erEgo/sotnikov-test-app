@@ -5,18 +5,23 @@ import { Tooltip } from "antd"
 import { FC } from "react"
 
 type ActionsGroupProps = {
+  onFavourite: () => void
   onDelete: () => void
   onEdit: () => void
 }
 
-export const ActionsGroup: FC<ActionsGroupProps> = ({ onDelete, onEdit }) => {
+export const ActionsGroup: FC<ActionsGroupProps> = ({
+  onFavourite,
+  onDelete,
+  onEdit,
+}) => {
   return (
     <ActionsContainer>
       <Tooltip title={"Выбрать пост"}>
         <Checkbox />
       </Tooltip>
       <Tooltip title={"Добавить в избранное"}>
-        <HeartOutlined />
+        <HeartOutlined onClick={onFavourite} />
       </Tooltip>
       <Tooltip title={"Редактировать пост"}>
         <EditOutlined onClick={onEdit} />
