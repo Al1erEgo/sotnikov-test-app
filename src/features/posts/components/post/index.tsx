@@ -11,7 +11,7 @@ import Title from "antd/lib/typography/Title"
 import { PostActions } from "../post-actions"
 import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowComments } from "./styles"
-import { PostEditForm } from "../post-edit-form"
+import { PostForm } from "../post-form"
 import { favouriteActions, usersThunks } from "../../../../common/slices"
 
 type PostProps = {
@@ -77,7 +77,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
         }}
       />
       {isEdit ? (
-        <PostEditForm
+        <PostForm
           type={"edit"}
           title={post.title}
           body={post.body}

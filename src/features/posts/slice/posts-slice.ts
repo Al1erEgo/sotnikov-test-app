@@ -14,11 +14,13 @@ type PostsState = {
   selectedPosts: {
     [key: string]: boolean
   }
+  sorting: string | undefined
 }
 
 const initialState: PostsState = {
   posts: [],
   selectedPosts: {},
+  sorting: undefined,
 }
 
 const fetchPosts = createAsyncThunk<PostType[], void>(
@@ -201,6 +203,9 @@ const postsSlice = createSlice({
     },
     clearSelectedPosts: (state) => {
       state.selectedPosts = {}
+    },
+    setSortingPosts: (state, action: PayloadAction<string>) => {
+      state.sorting = action.payload
     },
   },
   extraReducers: (builder) => {

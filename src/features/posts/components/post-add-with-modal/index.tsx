@@ -1,7 +1,7 @@
 import { Button, Modal, Tooltip } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { useState } from "react"
-import { PostEditForm } from "../post-edit-form"
+import { PostForm } from "../post-form"
 import { useActions } from "../../../../common"
 import { postsThunks } from "../../slice"
 import { AddPostPayloadType } from "../../types/payloads"
@@ -33,7 +33,7 @@ export const PostAddWithModal = () => {
           footer={null}
           onCancel={() => setModalOpen(false)}
         >
-          <PostEditForm
+          <PostForm
             type={"new"}
             onCancel={() => setModalOpen(false)}
             onSubmit={handleAddPost}

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useActions, useAppSelector, useModal } from "../../../../common"
-import { postsThunks } from "../../slice"
+import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
 import { FiltersPanel, Post, PostsGroupActions } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { Paginator } from "../../../../common/components/paginator"
@@ -8,9 +8,9 @@ import { StyledLoader } from "../../../../common/styles/common-styled-components
 import { PostsContainer } from "./styles"
 
 const PostsPage = () => {
-  const posts = useAppSelector((state) => state.posts.posts)
+  const posts = useAppSelector(getSortedPosts)
   const isDataLoading = useAppSelector((state) => state.app.dataLoading)
-  const selectedPosts = useAppSelector((state) => state.posts.selectedPosts)
+  const selectedPosts = useAppSelector(getSelectedPosts)
   const { fetchPosts, addPostsGroupToFav, deletePostsGroup } =
     useActions(postsThunks)
 

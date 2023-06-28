@@ -3,26 +3,19 @@ import TextArea from "antd/lib/input/TextArea"
 import { FC, useEffect, useState } from "react"
 import { FlexContainer } from "../../../../common/styles/common-styled-components"
 import { useAppSelector } from "../../../../common"
+import { AddPostPayloadType } from "../../types/payloads"
 
-type PostEditFormProps = {
+type PostFormProps = {
   type: "new" | "edit"
   userName?: string
   title?: string
   body?: string
   onCancel: () => void
-  onSubmit: ({
-    title,
-    userName,
-    body,
-  }: {
-    title: string
-    userName: string
-    body: string
-  }) => void
+  onSubmit: ({ title, userName, body }: AddPostPayloadType) => void
 }
 
 //TODO сделать сообщения валидации если превышено количество символов
-export const PostEditForm: FC<PostEditFormProps> = ({
+export const PostForm: FC<PostFormProps> = ({
   type,
   userName,
   title,
