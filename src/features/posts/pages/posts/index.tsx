@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useActions, useAppSelector, useModal } from "../../../../common"
 import { postsThunks } from "../../slice"
-import { Post, PostsActionsGroup } from "../../components"
+import { FiltersPanel, Post, PostsGroupActions } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { Paginator } from "../../../../common/components/paginator"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
@@ -38,22 +38,23 @@ const PostsPage = () => {
 
   return (
     <>
+      <FiltersPanel />
       <PostsContainer>
         {currentPageContent.map((post) => (
           <Post key={post.id} post={post} />
         ))}
+        {Object.keys(selectedPosts).length !== 0 && (
+          <PostsGroupActions
+            onDelete={openDeleteModal}
+            onAddFav={openAddToFavouriteModal}
+          />
+        )}
       </PostsContainer>
       <Paginator
         config={paginationConfig}
         handleChange={handlePaginationChange}
         totalCount={posts.length}
       />
-      {Object.keys(selectedPosts).length !== 0 && (
-        <PostsActionsGroup
-          onDelete={openDeleteModal}
-          onAddFav={openAddToFavouriteModal}
-        />
-      )}
       {deleteModal}
       {addToFavouriteModal}
     </>

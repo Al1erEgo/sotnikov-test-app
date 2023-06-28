@@ -1,12 +1,12 @@
 import styled from "styled-components"
 
-export const PostsActionsContainer = styled.div`
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
+export const PostsGroupActionsContainer = styled.div`
+  position: sticky;
+  bottom: 10px;
   z-index: 100;
 
   display: flex;
+  justify-content: center;
   gap: 10px;
   opacity: 0.7;
 

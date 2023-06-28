@@ -4,7 +4,7 @@ import Checkbox from "antd/lib/checkbox/Checkbox"
 import { Tooltip } from "antd"
 import { FC } from "react"
 
-type ActionsGroupProps = {
+type PostActionsProps = {
   onSelect: () => void
   onFavourite: () => void
   onDelete: () => void
@@ -13,7 +13,7 @@ type ActionsGroupProps = {
   selected: boolean | undefined
 }
 
-export const PostActionsGroup: FC<ActionsGroupProps> = ({
+export const PostActions: FC<PostActionsProps> = ({
   onSelect,
   onFavourite,
   onDelete,

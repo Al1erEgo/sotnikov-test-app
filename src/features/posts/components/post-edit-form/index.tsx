@@ -1,12 +1,14 @@
-import { Button, Form, Input } from "antd"
+import { Button, Form, Input, Select } from "antd"
 import TextArea from "antd/lib/input/TextArea"
 import { FC, useEffect, useState } from "react"
 import { FlexContainer } from "../../../../common/styles/common-styled-components"
+import { useAppSelector } from "../../../../common"
 
-type EditPostFormProps = {
+type PostEditFormProps = {
+  type: "new" | "edit"
   userName?: string
-  title: string
-  body: string
+  title?: string
+  body?: string
   onCancel: () => void
   onSubmit: ({
     title,
@@ -20,7 +22,8 @@ type EditPostFormProps = {
 }
 
 //TODO сделать сообщения валидации если превышено количество символов
-export const EditPostForm: FC<EditPostFormProps> = ({
+export const PostEditForm: FC<PostEditFormProps> = ({
+  type,
   userName,
   title,
   body,
@@ -31,6 +34,12 @@ export const EditPostForm: FC<EditPostFormProps> = ({
   const [form] = Form.useForm()
   const values = Form.useWatch([], form)
 
+  const users = useAppSelector((state) => state.users)
+  const userNames = Object.values(users).map((user) => ({
+    value: user.name,
+    label: user.name,
+  }))
+
   useEffect(() => {
     form.validateFields({ validateOnly: true }).then(
       () => {
@@ -40,7 +49,7 @@ export const EditPostForm: FC<EditPostFormProps> = ({
         setSubmittable(false)
       },
     )
-  }, [values])
+  }, [values, form])
   return (
     <Form
       form={form}
@@ -76,7 +85,7 @@ export const EditPostForm: FC<EditPostFormProps> = ({
           },
         ]}
       >
-        <Input />
+        {type === "edit" ? <Input /> : <Select options={userNames} />}
       </Form.Item>
       <Form.Item
         label="Пост"

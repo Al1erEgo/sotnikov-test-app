@@ -8,10 +8,10 @@ import {
   SecondaryText,
 } from "../../../../common/styles/common-styled-components"
 import Title from "antd/lib/typography/Title"
-import { PostActionsGroup } from "../post-actions-group"
+import { PostActions } from "../post-actions"
 import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowComments } from "./styles"
-import { EditPostForm } from "../edit-post-form"
+import { PostEditForm } from "../post-edit-form"
 import { favouriteActions, usersThunks } from "../../../../common/slices"
 
 type PostProps = {
@@ -66,7 +66,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
 
   return (
     <PostCard favourite={isFavourite ? "favourite" : ""}>
-      <PostActionsGroup
+      <PostActions
         selected={isSelected}
         favourite={isFavourite}
         onSelect={() => changePostSelection(post.id)}
@@ -77,7 +77,8 @@ export const Post: FC<PostProps> = memo(({ post }) => {
         }}
       />
       {isEdit ? (
-        <EditPostForm
+        <PostEditForm
+          type={"edit"}
           title={post.title}
           body={post.body}
           userName={user.name}

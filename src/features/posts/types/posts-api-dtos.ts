@@ -12,3 +12,9 @@ export type CommentType = {
   email: string
   body: string
 }
+
+export type AddPostArg = {
+  userId: number
+  title: string
+  body: string
+}

@@ -1,5 +1,5 @@
 import { commonInstance } from "../../../common"
-import { CommentType, PostType } from "../types"
+import { AddPostArg, CommentType, PostType } from "../types"
 
 export const postsApi = {
   getPosts() {
@@ -16,5 +16,8 @@ export const postsApi = {
       title,
       body,
     })
+  },
+  addPost(arg: AddPostArg) {
+    return commonInstance.post<PostType>("posts", arg)
   },
 }

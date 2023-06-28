@@ -1,19 +1,19 @@
-import { PostsActionsContainer } from "./styles"
+import { PostsGroupActionsContainer } from "./styles"
 import { Button, Tooltip } from "antd"
 import { CloseOutlined, HeartFilled } from "@ant-design/icons"
 import { FC } from "react"
 
-type PostsActionsGroupProps = {
+type PostsGroupActionsProps = {
   onDelete: () => void
   onAddFav: () => void
 }
 
-export const PostsActionsGroup: FC<PostsActionsGroupProps> = ({
+export const PostsGroupActions: FC<PostsGroupActionsProps> = ({
   onDelete,
   onAddFav,
 }) => {
   return (
-    <PostsActionsContainer>
+    <PostsGroupActionsContainer>
       <Tooltip title={"Добавить посты в избранное"}>
         <Button type="primary" shape="circle" onClick={onAddFav}>
           <HeartFilled />
@@ -24,6 +24,6 @@ export const PostsActionsGroup: FC<PostsActionsGroupProps> = ({
           <CloseOutlined />
         </Button>
       </Tooltip>
-    </PostsActionsContainer>
+    </PostsGroupActionsContainer>
   )
 }

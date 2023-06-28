@@ -7,6 +7,7 @@ import {
   usersThunks,
 } from "../../../common/slices"
 import { RootState } from "../../../app/store"
+import { AddPostPayloadType } from "../types/payloads"
 
 type PostsState = {
   posts: PostEntityType[]
@@ -67,6 +68,30 @@ const fetchComments = createAsyncThunk<
   },
 )
 
+const addPost = createAsyncThunk<PostType, AddPostPayloadType>(
+  "posts/addPost",
+  async (
+    { title, body, userName },
+    { dispatch, rejectWithValue, getState },
+  ) => {
+    const state = getState() as RootState
+    const userId = Object.values(state.users).find(
+      (user) => user.name === userName,
+    )?.id
+    try {
+      if (userId) {
+        const newPost = await postsApi.addPost({ title, body, userId })
+        return newPost.data
+      } else {
+        throw new Error("Пользователь не найден!")
+      }
+    } catch (error) {
+      dispatch(appActions.setError(error))
+      return rejectWithValue(null)
+    }
+  },
+)
+
 const deletePost = createAsyncThunk<number, number>(
   "posts/deletePost",
   async (postId, { dispatch, rejectWithValue }) => {
@@ -120,7 +145,7 @@ const updatePost = createAsyncThunk<
   }
 >(
   "posts/updatePost",
-  async ({ postId, title, body }, { dispatch, rejectWithValue, getState }) => {
+  async ({ postId, title, body }, { dispatch, rejectWithValue }) => {
     dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
     try {
       const post = await postsApi.updatePost(postId, title, body)
@@ -174,7 +199,7 @@ const postsSlice = createSlice({
         delete state.selectedPosts[action.payload]
       }
     },
-    clearSelectedPosts: (state, action: PayloadAction<void>) => {
+    clearSelectedPosts: (state) => {
       state.selectedPosts = {}
     },
   },
@@ -194,6 +219,13 @@ const postsSlice = createSlice({
         if (action.payload && post) {
           post.comments = action.payload.comments
         }
+      })
+      .addCase(addPost.fulfilled, (state, action) => {
+        state.posts.push({
+          ...action.payload,
+          isPostLoading: false,
+          isCommentsLoading: false,
+        })
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.posts = state.posts.filter((post) => post.id !== action.payload)
@@ -217,6 +249,7 @@ export const postsActions = postsSlice.actions
 export const postsThunks = {
   fetchPosts,
   fetchComments,
+  addPost,
   deletePost,
   updatePost,
   addPostsGroupToFav,
