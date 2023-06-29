@@ -4,7 +4,6 @@ import {
   configureStore,
   ThunkAction,
 } from "@reduxjs/toolkit"
-import { postsReducer } from "../features/posts/slice"
 import { favouriteReducer, usersReducer } from "../common/slices"
 import storage from "redux-persist/lib/storage"
 import {
@@ -18,6 +17,7 @@ import {
   REHYDRATE,
 } from "redux-persist"
 import { appReducer } from "./app-slice"
+import { postsReducer } from "../modules/posts/slice"
 
 const rootPersistConfig = {
   key: "root",

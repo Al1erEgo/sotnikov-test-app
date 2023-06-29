@@ -1,9 +1,9 @@
 import { Suspense } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { APP_PATHS } from "../../constants"
-import { PostsPage } from "../../../features/posts/pages"
 import { Error404Page } from "../../pages"
 import { StyledLoader } from "../../styles/common-styled-components"
+import { PostsPage } from "../../../modules/posts/pages"
 
 export const AppRouter = () => (
   <Suspense fallback={<StyledLoader />}>
