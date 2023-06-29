@@ -19,8 +19,9 @@ export const FlexContainer = styled.div<{
   padding: ${(props) => props.padding || "0px"};
   gap: ${(props) => props.gap || "0px"};
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 500px) {
     flex-direction: ${(props) => props.flexdirection || "column"};
+    align-items: center;
   }
 `
 

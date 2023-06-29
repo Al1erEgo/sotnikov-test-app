@@ -209,6 +209,11 @@ const postsSlice = createSlice({
     setSortingPosts: (state, action: PayloadAction<string>) => {
       state.sorting = action.payload
     },
+    setFilteringPosts: (state, action: PayloadAction<string>) => {
+      if (action.payload !== state.filter) {
+        state.filter = action.payload
+      }
+    },
   },
   extraReducers: (builder) => {
     builder

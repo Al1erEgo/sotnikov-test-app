@@ -1,11 +1,15 @@
-import {PostAddWithModal} from "../post-add-with-modal"
-import {Select} from "antd"
-import {useActions} from "../../../../common"
+import {Input, Select} from "antd"
+import {useActions, useDebouncedFilter} from "../../../../common"
 import {postsActions} from "../../slice"
+import {FlexContainer} from "../../../../common/styles/common-styled-components"
+import {useState} from "react"
+import {FilterFields} from "../../enums"
+import {SearchOutlined} from "@ant-design/icons"
+import {PostAddWithModal} from "../post-add-with-modal"
 
 //TODO вынести значения сортировки в константы или enum
 
-const selectOptions = [
+const selectSortOptions = [
   {
     label: "По возрастанию:",
     options: [
@@ -26,19 +30,65 @@ const selectOptions = [
   },
 ]
 
+const selectFilterOptions = [
+  { value: FilterFields.title, label: "Заголовку" },
+  {
+    value: FilterFields.userName,
+    label: "Автору",
+  },
+  { value: FilterFields.favourite, label: "Избранному" },
+]
+
 export const FiltersPanel = () => {
-  const { setSortingPosts } = useActions(postsActions)
+  const [filterField, setFilterField] = useState<FilterFields | "">("")
+  const { setSortingPosts, setFilteringPosts } = useActions(postsActions)
+
+  const { filterValue, handleFilterChange } = useDebouncedFilter(
+    (value: string) =>
+      setFilteringPosts(filterValue && filterField + " " + value),
+  )
+
   return (
-    <div>
-      Сортировать посты по:
-      <Select
-        allowClear
-        size={"small"}
-        style={{ width: 120 }}
-        onChange={setSortingPosts}
-        options={selectOptions}
-      />
+    <FlexContainer
+      gap={"10px"}
+      alignitems={"flex-end"}
+      justifycontent={"flex-start"}
+    >
+      <FlexContainer flexdirection={"column"} gap={"5px"} width={"max-content"}>
+        Сортировать посты по:
+        <Select
+          allowClear
+          size={"small"}
+          style={{ width: 180 }}
+          onChange={setSortingPosts}
+          options={selectSortOptions}
+        />
+      </FlexContainer>
+      <FlexContainer flexdirection={"column"} gap={"5px"} width={"max-content"}>
+        Фильтровать посты по:
+        <Select
+          allowClear
+          size={"small"}
+          style={{ width: 180 }}
+          onChange={setFilterField}
+          options={selectFilterOptions}
+        />
+      </FlexContainer>
+      <FlexContainer flexdirection={"column"} gap={"5px"}>
+        <Input.Search
+          size={"small"}
+          placeholder={"Фильтр"}
+          enterButton={<SearchOutlined />}
+          value={filterValue}
+          onChange={handleFilterChange}
+          onSearch={() =>
+            setFilteringPosts(filterValue && filterField + " " + filterValue)
+          }
+          allowClear={true}
+          maxLength={50}
+        />
+      </FlexContainer>
       <PostAddWithModal />
-    </div>
+    </FlexContainer>
   )
 }

@@ -49,3 +49,7 @@ export const getSortedPosts = (state: RootState) => {
 
   return posts
 }
+
+const getFilteredPosts = (state: RootState) => {
+  const posts = getSortedPosts(state)
+}
