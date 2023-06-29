@@ -7,95 +7,93 @@ import {
   getSorting,
   getUsers,
 } from "../../../common/slices"
-import { PostEntityType } from "../types"
 import {
   getFilteredByFavourite,
   getFilteredByTitle,
   getFilteredByUserId,
 } from "../../../common/utils"
+import { AlbumEntityType } from "../types"
 
-export const getPosts = (state: RootState) => state.posts.posts
+const getAlbums = (state: RootState) => state.photos.albums
 
-export const getSelectedPosts = (state: RootState) => state.posts.selectedPosts
-
-const getFilteredPosts = (state: RootState) => {
-  const posts = getPosts(state)
+const getFilteredAlbums = (state: RootState) => {
+  const albums = getAlbums(state)
   const titleFilter = getFilterByTitle(state)
   const userIdFilter = getFilterByUserId(state)
   const favouriteFilter = getFilterByFavourite(state)
   const favouritePostIds = getFavouritePosts(state)
 
-  let filteredPosts: PostEntityType[] | undefined = posts
+  let filteredAlbums: AlbumEntityType[] | undefined = albums
   if (titleFilter) {
-    filteredPosts = getFilteredByTitle(
-      filteredPosts,
+    filteredAlbums = getFilteredByTitle<AlbumEntityType[]>(
+      filteredAlbums,
       titleFilter,
-    ) as PostEntityType[]
+    ) as AlbumEntityType[]
   }
 
   if (userIdFilter && userIdFilter.length > 0) {
-    filteredPosts = getFilteredByUserId(
-      filteredPosts,
+    filteredAlbums = getFilteredByUserId<AlbumEntityType[]>(
+      filteredAlbums,
       userIdFilter,
-    ) as PostEntityType[]
+    ) as AlbumEntityType[]
   }
 
   if (favouriteFilter !== undefined) {
-    filteredPosts = getFilteredByFavourite(
-      filteredPosts,
+    filteredAlbums = getFilteredByFavourite<AlbumEntityType[]>(
+      filteredAlbums,
       favouriteFilter,
       favouritePostIds,
-    ) as PostEntityType[]
+    ) as AlbumEntityType[]
   }
 
-  return filteredPosts
+  return filteredAlbums
 }
 
-export const getSortedPosts = (state: RootState) => {
-  const posts = getFilteredPosts(state)
+export const getSortedAlbums = (state: RootState) => {
+  const albums = getFilteredAlbums(state)
   const sorting = getSorting(state)
   const favouritePostsIds = getFavouritePosts(state)
   const users = getUsers(state)
-  if (!posts) {
+  if (!albums) {
     return []
   }
 
   if (!sorting) {
-    return posts
+    return albums
   }
 
   if (sorting === "asc Id") {
-    return posts.sort((a, b) => a.id - b.id)
+    return albums.sort((a, b) => a.id - b.id)
   }
   if (sorting === "desc Id") {
-    return posts.sort((a, b) => b.id - a.id)
+    return albums.sort((a, b) => b.id - a.id)
   }
 
   if (sorting === "asc favourite") {
-    return posts.sort((post) => (favouritePostsIds[post.id] ? 1 : -1))
+    return albums.sort((post) => (favouritePostsIds[post.id] ? 1 : -1))
   }
 
   if (sorting === "desc favourite") {
-    return posts.sort((post) => (favouritePostsIds[post.id] ? -1 : 1))
+    return albums.sort((post) => (favouritePostsIds[post.id] ? -1 : 1))
   }
 
   if (sorting === "asc title") {
-    return posts.sort((a, b) => (a.title > b.title ? 1 : -1))
+    return albums.sort((a, b) => (a.title > b.title ? 1 : -1))
   }
   if (sorting === "desc title") {
-    return posts.sort((a, b) => (a.title > b.title ? -1 : 1))
+    return albums.sort((a, b) => (a.title > b.title ? -1 : 1))
   }
 
   if (sorting === "asc userName") {
-    return posts.sort((a, b) =>
+    return albums.sort((a, b) =>
       users[a.userId].name > users[b.userId].name ? 1 : -1,
     )
   }
   if (sorting === "desc userName") {
-    return posts.sort((a, b) =>
+    return albums.sort((a, b) =>
       users[a.userId].name > users[b.userId].name ? -1 : 1,
     )
   }
 
-  return posts
+  return albums
 }

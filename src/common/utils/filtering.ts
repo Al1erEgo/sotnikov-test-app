@@ -1,25 +1,30 @@
 import { PostEntityType } from "../../modules/posts/types"
+import { AlbumEntityType } from "../../modules/photos/types"
 
-export const getFilteredByTitle = (
-  posts: PostEntityType[] | undefined,
+type EntitiesType = (PostEntityType | AlbumEntityType)[] | undefined
+
+export const getFilteredByTitle = <T extends EntitiesType>(
+  entities: T,
   titleFilter: string,
-): PostEntityType[] | undefined => {
-  return posts?.filter((post) => post.title.includes(titleFilter))
+) => {
+  return entities?.filter((entity) => entity.title.includes(titleFilter))
 }
 
-export const getFilteredByUserId = (
-  posts: PostEntityType[] | undefined,
+export const getFilteredByUserId = <T extends EntitiesType>(
+  entities: T,
   userIdFilter: number[],
 ) => {
-  return posts?.filter((post) => userIdFilter.find((id) => id === post.userId))
+  return entities?.filter((entity) =>
+    userIdFilter.find((id) => id === entity.userId),
+  )
 }
 
-export const getFilteredByFavourite = (
-  posts: PostEntityType[] | undefined,
+export const getFilteredByFavourite = <T extends EntitiesType>(
+  entities: T,
   favouriteFilter: boolean,
   favouritePostIds: { [p: string]: boolean },
 ) => {
-  return posts?.filter(
-    (post) => !!favouritePostIds[post.id] === favouriteFilter,
+  return entities?.filter(
+    (entity) => !!favouritePostIds[entity.id] === favouriteFilter,
   )
 }
