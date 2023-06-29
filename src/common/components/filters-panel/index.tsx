@@ -1,16 +1,16 @@
 import {Button, Input, Select, Tooltip} from "antd"
-import {useActions, useAppSelector, useDebouncedFilter,} from "../../../../common"
-import {
-  getPostsFilterByFavourite,
-  getPostsFilterByTitle,
-  getPostsFilterByUserId,
-  getPostsSorting,
-  postsActions,
-} from "../../slice"
-import {FlexContainer} from "../../../../common/styles/common-styled-components"
+import {useActions, useAppSelector, useDebouncedFilter} from "../../index"
+import {FlexContainer} from "../../styles/common-styled-components"
 import {ClearOutlined, DownCircleOutlined, SearchOutlined, UpCircleOutlined,} from "@ant-design/icons"
-import {getUsers} from "../../../../common/slices"
-import {UserType} from "../../../../common/types"
+import {
+  filtersSortActions,
+  getFilterByFavourite,
+  getFilterByTitle,
+  getFilterByUserId,
+  getSorting,
+  getUsers,
+} from "../../slices"
+import {UserType} from "../../types"
 import {useState} from "react"
 
 //TODO вынести значения сортировки в константы или enum
@@ -53,19 +53,19 @@ const getSelectUserNameOptions = (users: { [p: string]: UserType }) => {
 
 export const FiltersPanel = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const postsFilterByUserId = useAppSelector(getPostsFilterByUserId)
-  const postsFilterByTitle = useAppSelector(getPostsFilterByTitle)
-  const postsFilterByFavourite = useAppSelector(getPostsFilterByFavourite)
-  const postsSorting = useAppSelector(getPostsSorting)
+  const postsFilterByUserId = useAppSelector(getFilterByUserId)
+  const postsFilterByTitle = useAppSelector(getFilterByTitle)
+  const postsFilterByFavourite = useAppSelector(getFilterByFavourite)
+  const postsSorting = useAppSelector(getSorting)
 
   const users = useAppSelector(getUsers)
   const {
-    setSortingPosts,
-    setFilteringPostsByUserId,
+    setSorting,
+    setFilteringByUserId,
     setFilteringByTitleValue,
     setFilteringByFavourite,
     clearPostsFiltersAndSort,
-  } = useActions(postsActions)
+  } = useActions(filtersSortActions)
 
   const { filterValue, handleFilterChange } = useDebouncedFilter(
     setFilteringByTitleValue,
@@ -100,7 +100,7 @@ export const FiltersPanel = () => {
               allowClear
               size={"small"}
               style={{ width: "90%" }}
-              onChange={setSortingPosts}
+              onChange={setSorting}
               options={selectSortOptions}
               value={postsSorting}
             />
@@ -113,7 +113,7 @@ export const FiltersPanel = () => {
               allowClear
               size={"small"}
               style={{ width: "90%" }}
-              onChange={setFilteringPostsByUserId}
+              onChange={setFilteringByUserId}
               options={getSelectUserNameOptions(users)}
               value={postsFilterByUserId}
             />

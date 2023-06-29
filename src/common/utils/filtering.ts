@@ -1,20 +1,20 @@
-import { PostEntityType } from "../types"
+import { PostEntityType } from "../../modules/posts/types"
 
-export const getFilteredPostsByTitle = (
+export const getFilteredByTitle = (
   posts: PostEntityType[] | undefined,
   titleFilter: string,
 ): PostEntityType[] | undefined => {
   return posts?.filter((post) => post.title.includes(titleFilter))
 }
 
-export const getFilteredPostsByUserId = (
+export const getFilteredByUserId = (
   posts: PostEntityType[] | undefined,
   userIdFilter: number[],
 ) => {
   return posts?.filter((post) => userIdFilter.find((id) => id === post.userId))
 }
 
-export const getFilteredPostsByFavourite = (
+export const getFilteredByFavourite = (
   posts: PostEntityType[] | undefined,
   favouriteFilter: boolean,
   favouritePostIds: { [p: string]: boolean },

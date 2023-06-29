@@ -4,7 +4,7 @@ import { useState } from "react"
 import { PostForm } from "../post-form"
 import { useActions } from "../../../../common"
 import { postsThunks } from "../../slice"
-import { AddPostPayloadType } from "../../types/payloads"
+import { AddPostPayloadType } from "../../types/posts-payloads"
 import { PostAddWithModalContainer } from "./styles"
 
 export const PostAddWithModal = () => {

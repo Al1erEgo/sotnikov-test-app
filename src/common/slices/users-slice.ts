@@ -10,11 +10,11 @@ type UsersState = {
 const initialState: UsersState = {}
 
 const fetchUsers = createAsyncThunk<UserType[], void>(
-  "users/fetchUser",
+  "users/fetchUsers",
   async (arg, { dispatch, rejectWithValue }) => {
     try {
-      const posts = await usersApi.getUsers()
-      return posts.data
+      const users = await usersApi.getUsers()
+      return users.data
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
@@ -54,4 +54,4 @@ export const usersReducer = usersSlice.reducer
 
 export const usersActions = usersSlice.actions
 
-export const usersThunks = { fetchUsers, updateUserName }
+export const usersThunks = {fetchUsers, updateUserName}

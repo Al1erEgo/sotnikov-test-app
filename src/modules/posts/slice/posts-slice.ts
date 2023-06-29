@@ -3,32 +3,20 @@ import { CommentType, PostEntityType, PostType } from "../types"
 import { postsApi } from "../api"
 import { favouriteActions, usersThunks } from "../../../common/slices"
 import { RootState } from "../../../app/store"
-import { AddPostPayloadType } from "../types/payloads"
+import { AddPostPayloadType } from "../types/posts-payloads"
 import { handleServerNetworkError } from "../../../common/utils"
 import { appActions } from "../../../app/app-slice"
 
-type PostsState = {
+type PostsStateType = {
   posts: PostEntityType[]
   selectedPosts: {
     [key: string]: boolean
   }
-  sorting: string | undefined
-  filter: {
-    title?: string
-    userId?: number[]
-    favourite?: boolean
-  }
 }
 
-const initialState: PostsState = {
+const initialState: PostsStateType = {
   posts: [],
   selectedPosts: {},
-  sorting: undefined,
-  filter: {
-    title: undefined,
-    userId: undefined,
-    favourite: undefined,
-  },
 }
 
 const fetchPosts = createAsyncThunk<PostType[], void>(
@@ -205,41 +193,6 @@ const postsSlice = createSlice({
     },
     clearSelectedPosts: (state) => {
       state.selectedPosts = {}
-    },
-    setSortingPosts: (state, action: PayloadAction<string>) => {
-      state.sorting = action.payload
-    },
-    setFilteringPostsByUserId: (
-      state,
-      action: PayloadAction<number[] | undefined>,
-    ) => {
-      if (action.payload !== state.filter.userId) {
-        state.filter.userId = action.payload
-      }
-    },
-    setFilteringByTitleValue: (
-      state,
-      action: PayloadAction<string | undefined>,
-    ) => {
-      if (action.payload !== state.filter.title) {
-        state.filter.title = action.payload
-      }
-    },
-    setFilteringByFavourite: (
-      state,
-      action: PayloadAction<boolean | undefined>,
-    ) => {
-      if (action.payload !== state.filter.favourite) {
-        state.filter.favourite = action.payload
-      }
-    },
-    clearPostsFiltersAndSort: (state) => {
-      state.sorting = undefined
-      state.filter = {
-        title: undefined,
-        userId: undefined,
-        favourite: undefined,
-      }
     },
   },
   extraReducers: (builder) => {

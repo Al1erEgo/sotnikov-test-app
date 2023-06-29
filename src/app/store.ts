@@ -4,7 +4,11 @@ import {
   configureStore,
   ThunkAction,
 } from "@reduxjs/toolkit"
-import { favouriteReducer, usersReducer } from "../common/slices"
+import {
+  favouriteReducer,
+  filtersSortReducer,
+  usersReducer,
+} from "../common/slices"
 import storage from "redux-persist/lib/storage"
 import {
   FLUSH,
@@ -18,16 +22,19 @@ import {
 } from "redux-persist"
 import { appReducer } from "./app-slice"
 import { postsReducer } from "../modules/posts/slice"
+import { photosReducer } from "../modules/photos/slice"
 
 const rootPersistConfig = {
   key: "root",
   storage,
-  blacklist: ["users", "posts", "app"],
+  blacklist: ["users", "posts", "app", "filtersSort", "photos"],
 }
 
 const rootReducer = combineReducers({
   app: appReducer,
+  filtersSort: filtersSortReducer,
   posts: postsReducer,
+  photos: photosReducer,
   users: usersReducer,
   favorite: favouriteReducer,
 })

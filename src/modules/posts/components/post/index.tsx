@@ -21,11 +21,12 @@ export const Post: FC<PostProps> = memo(({ post }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const isFavourite = useAppSelector((state) => state.favorite.postsId[post.id])
+  const isFavourite = useAppSelector((state) => state.favorite.posts[post.id])
   const isSelected = useAppSelector(
     (state) => state.posts.selectedPosts[post.id],
   )
   const user = useAppSelector((state) => state.users[post.userId])
+
   const { deletePost, updatePost } = useActions(postsThunks)
   const { changePostSelection } = useActions(postsActions)
   const { updateUserName } = useActions(usersThunks)

@@ -13,7 +13,7 @@ export type CommentType = {
   body: string
 }
 
-export type AddPostArg = {
+export type AddPostArgType = {
   userId: number
   title: string
   body: string

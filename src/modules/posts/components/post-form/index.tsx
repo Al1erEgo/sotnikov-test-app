@@ -3,7 +3,7 @@ import TextArea from "antd/lib/input/TextArea"
 import { FC, useEffect, useState } from "react"
 import { FlexContainer } from "../../../../common/styles/common-styled-components"
 import { useAppSelector } from "../../../../common"
-import { AddPostPayloadType } from "../../types/payloads"
+import { AddPostPayloadType } from "../../types/posts-payloads"
 
 type PostFormProps = {
   type: "new" | "edit"

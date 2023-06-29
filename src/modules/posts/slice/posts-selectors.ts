@@ -1,59 +1,53 @@
 import { RootState } from "../../../app/store"
-import { getFavouritePosts, getUsers } from "../../../common/slices"
+import {
+  getFavouritePosts,
+  getFilterByFavourite,
+  getFilterByTitle,
+  getFilterByUserId,
+  getSorting,
+  getUsers,
+} from "../../../common/slices"
 import { PostEntityType } from "../types"
 import {
-  getFilteredPostsByFavourite,
-  getFilteredPostsByTitle,
-  getFilteredPostsByUserId,
-} from "../utils"
-import { createSelector } from "@reduxjs/toolkit"
+  getFilteredByFavourite,
+  getFilteredByTitle,
+  getFilteredByUserId,
+} from "../../../common/utils"
 
-export const getPostsSorting = (state: RootState) => state.posts.sorting
 export const getPosts = (state: RootState) => state.posts.posts
-
-export const getPostsFilterByTitle = (state: RootState) =>
-  state.posts.filter.title
-
-export const getPostsFilterByUserId = (state: RootState) =>
-  state.posts.filter.userId
-
-export const getPostsFilterByFavourite = (state: RootState) =>
-  state.posts.filter.favourite
 
 export const getSelectedPosts = (state: RootState) => state.posts.selectedPosts
 
-const getFilteredPosts = createSelector(
-  [
-    getPosts,
-    getPostsFilterByTitle,
-    getPostsFilterByUserId,
-    getPostsFilterByFavourite,
-    getFavouritePosts,
-  ],
-  (posts, titleFilter, userIdFilter, favouriteFilter, favouritePostIds) => {
-    let filteredPosts: PostEntityType[] | undefined = [...posts]
-    if (titleFilter) {
-      filteredPosts = getFilteredPostsByTitle(filteredPosts, titleFilter)
-    }
+const getFilteredPosts = (state: RootState) => {
+  const posts = getPosts(state)
+  const titleFilter = getFilterByTitle(state)
+  const userIdFilter = getFilterByUserId(state)
+  const favouriteFilter = getFilterByFavourite(state)
+  const favouritePostIds = getFavouritePosts(state)
 
-    if (userIdFilter && userIdFilter.length > 0) {
-      filteredPosts = getFilteredPostsByUserId(filteredPosts, userIdFilter)
-    }
+  let filteredPosts: PostEntityType[] | undefined = posts
+  if (titleFilter) {
+    filteredPosts = getFilteredByTitle(filteredPosts, titleFilter)
+  }
 
-    if (favouriteFilter !== undefined) {
-      filteredPosts = getFilteredPostsByFavourite(
-        filteredPosts,
-        favouriteFilter,
-        favouritePostIds,
-      )
-    }
+  if (userIdFilter && userIdFilter.length > 0) {
+    filteredPosts = getFilteredByUserId(filteredPosts, userIdFilter)
+  }
 
-    return filteredPosts
-  },
-)
+  if (favouriteFilter !== undefined) {
+    filteredPosts = getFilteredByFavourite(
+      filteredPosts,
+      favouriteFilter,
+      favouritePostIds,
+    )
+  }
+
+  return filteredPosts
+}
+
 export const getSortedPosts = (state: RootState) => {
   const posts = getFilteredPosts(state)
-  const sorting = getPostsSorting(state)
+  const sorting = getSorting(state)
   const favouritePostsIds = getFavouritePosts(state)
   const users = getUsers(state)
   if (!posts) {

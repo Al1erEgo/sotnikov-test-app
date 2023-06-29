@@ -3,7 +3,8 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { APP_PATHS } from "../../constants"
 import { Error404Page } from "../../pages"
 import { StyledLoader } from "../../styles/common-styled-components"
-import { PostsPage } from "../../../modules/posts/pages"
+import { PostsPage } from "../../../modules/posts"
+import { AlbumsPage } from "../../../modules/photos"
 
 export const AppRouter = () => (
   <Suspense fallback={<StyledLoader />}>
@@ -13,7 +14,7 @@ export const AppRouter = () => (
         element={<Navigate to={APP_PATHS.POSTS} />}
       />
       <Route path={APP_PATHS.POSTS} element={<PostsPage />} />
-      <Route path={APP_PATHS.PHOTOS} element={<div>Photos</div>} />
+      <Route path={APP_PATHS.PHOTOS} element={<AlbumsPage />} />
       <Route path={APP_PATHS.TODOS} element={<div>Todos</div>} />
       <Route path={"*"} element={<Error404Page />} />
     </Routes>
