@@ -1,10 +1,10 @@
-import { FavouriteFilled, PostActionsContainer } from "./styles"
+import { ActionsContainer, FavouriteFilled } from "./styles"
 import { CloseOutlined, EditOutlined, HeartOutlined } from "@ant-design/icons"
 import Checkbox from "antd/lib/checkbox/Checkbox"
 import { Tooltip } from "antd"
 import { FC } from "react"
 
-type PostActionsProps = {
+type ActionsBarProps = {
   onSelect: () => void
   onFavourite: () => void
   onDelete: () => void
@@ -13,7 +13,7 @@ type PostActionsProps = {
   selected: boolean | undefined
 }
 
-export const PostActions: FC<PostActionsProps> = ({
+export const ActionsBar: FC<ActionsBarProps> = ({
   onSelect,
   onFavourite,
   onDelete,
@@ -22,8 +22,8 @@ export const PostActions: FC<PostActionsProps> = ({
   selected,
 }) => {
   return (
-    <PostActionsContainer>
-      <Tooltip title={"Выбрать пост"}>
+    <ActionsContainer>
+      <Tooltip title={selected ? "Выбрать" : "Отменить выбор"}>
         <Checkbox checked={selected} onClick={onSelect} />
       </Tooltip>
       <Tooltip
@@ -35,12 +35,12 @@ export const PostActions: FC<PostActionsProps> = ({
           <HeartOutlined onClick={onFavourite} />
         )}
       </Tooltip>
-      <Tooltip title={"Редактировать пост"}>
+      <Tooltip title={"Редактировать"}>
         <EditOutlined onClick={onEdit} />
       </Tooltip>
-      <Tooltip title={"Удалить пост"}>
+      <Tooltip title={"Удалить"}>
         <CloseOutlined onClick={onDelete} />
       </Tooltip>
-    </PostActionsContainer>
+    </ActionsContainer>
   )
 }

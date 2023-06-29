@@ -1,14 +1,18 @@
 import { Card, Skeleton, Tooltip } from "antd"
 import { FC, memo, useState } from "react"
 import { PostEntityType } from "../../types"
-import { useActions, useAppSelector, useModal } from "../../../../common"
+import {
+  ActionsBar,
+  useActions,
+  useAppSelector,
+  useModal,
+} from "../../../../common"
 import { Comments } from "../comments"
 import {
   FlexContainer,
   SecondaryText,
 } from "../../../../common/styles/common-styled-components"
 import Title from "antd/lib/typography/Title"
-import { PostActions } from "../post-actions"
 import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowComments } from "./styles"
 import { PostForm } from "../post-form"
@@ -67,7 +71,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
 
   return (
     <PostCard favourite={isFavourite ? "favourite" : ""}>
-      <PostActions
+      <ActionsBar
         selected={isSelected}
         favourite={isFavourite}
         onSelect={() => changePostSelection(post.id)}

@@ -12,6 +12,7 @@ import { filtersSortActions } from "../../../../common/slices"
 import { getSortedAlbums } from "../../slice/photos-selectors"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { AlbumsContainer } from "./styles"
+import { AlbumCard } from "../../components"
 
 const AlbumsPage = () => {
   const isDataLoading = useAppSelector(getIsDataLoading)
@@ -36,7 +37,7 @@ const AlbumsPage = () => {
       <FiltersPanel />
       <AlbumsContainer>
         {currentPageContent.map((album) => (
-          <div>{album.title}</div>
+          <AlbumCard key={album.id} album={album} />
         ))}
       </AlbumsContainer>
       <Paginator

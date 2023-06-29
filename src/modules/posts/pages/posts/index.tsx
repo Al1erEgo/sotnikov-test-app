@@ -1,17 +1,13 @@
 import { useEffect } from "react"
 import {
+  FiltersPanel,
   Paginator,
   useActions,
   useAppSelector,
   useModal,
 } from "../../../../common"
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
-import {
-  FiltersPanel,
-  Post,
-  PostAddWithModal,
-  PostsGroupActions,
-} from "../../components"
+import { Post, PostAddWithModal, PostsGroupActions } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
 import { PostsContainer } from "./styles"

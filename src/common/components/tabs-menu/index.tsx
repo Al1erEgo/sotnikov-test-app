@@ -9,7 +9,7 @@ const tabs = [
   },
   {
     key: "2",
-    label: "Фото",
+    label: "Альбомы",
   },
   {
     key: "3",
