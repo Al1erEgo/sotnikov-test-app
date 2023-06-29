@@ -1,7 +1,12 @@
 import { useEffect } from "react"
 import { useActions, useAppSelector, useModal } from "../../../../common"
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
-import { FiltersPanel, Post, PostsGroupActions } from "../../components"
+import {
+  FiltersPanel,
+  Post,
+  PostAddWithModal,
+  PostsGroupActions,
+} from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { Paginator } from "../../../../common/components/paginator"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
@@ -55,6 +60,7 @@ const PostsPage = () => {
         handleChange={handlePaginationChange}
         totalCount={posts.length}
       />
+      <PostAddWithModal />
       {deleteModal}
       {addToFavouriteModal}
     </>

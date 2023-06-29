@@ -9,7 +9,6 @@ import {
 } from "../../slice"
 import {FlexContainer} from "../../../../common/styles/common-styled-components"
 import {ClearOutlined, DownCircleOutlined, SearchOutlined, UpCircleOutlined,} from "@ant-design/icons"
-import {PostAddWithModal} from "../post-add-with-modal"
 import {getUsers} from "../../../../common/slices"
 import {UserType} from "../../../../common/types"
 import {useState} from "react"
@@ -148,7 +147,6 @@ export const FiltersPanel = () => {
             />
           </FlexContainer>
         </FlexContainer>
-        <PostAddWithModal />
       </FlexContainer>
       <FlexContainer gap={"5px"} flexdirection={"column"} width={"10%"}>
         <Tooltip title={"Очистить фильтры"}>
