@@ -58,7 +58,6 @@ const fetchComments = createAsyncThunk<
   async (postId, { dispatch, rejectWithValue, getState }) => {
     const state = getState() as RootState
     if (!state.posts.posts.find((post) => post.id === postId)?.comments) {
-      dispatch(postsActions.addEmptyComments(postId))
       dispatch(
         postsActions.setCommentsLoadingStatus({ postId: postId, status: true }),
       )
@@ -180,12 +179,6 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    addEmptyComments: (state, action: PayloadAction<number>) => {
-      const post = state.posts.find((post) => post.id === action.payload)
-      if (post) {
-        post.comments = []
-      }
-    },
     setCommentsLoadingStatus: (
       state,
       action: PayloadAction<{ postId: number; status: boolean }>,
