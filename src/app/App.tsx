@@ -1,12 +1,11 @@
-import {AppRouter, TabsMenu} from "../common" //TODO убрать заглушки из обработки ошибок в слайсах
-
-//TODO убрать заглушки из обработки ошибок в слайсах
+import { AppRouter, ErrorPopup, TabsMenu } from "../common"
 
 export const App = () => {
   return (
     <>
       <TabsMenu />
       <AppRouter />
+      <ErrorPopup />
     </>
   )
 }

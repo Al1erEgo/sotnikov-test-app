@@ -1,7 +1,7 @@
 import { UserType } from "../types"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { appActions } from "./app-slice"
 import { usersApi } from "../api"
+import { handleServerNetworkError } from "../utils"
 
 type UsersState = {
   [key: string]: UserType
@@ -16,7 +16,7 @@ const fetchUsers = createAsyncThunk<UserType[], void>(
       const posts = await usersApi.getUsers()
       return posts.data
     } catch (error) {
-      dispatch(appActions.setError(error as string))
+      handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
     }
   },
@@ -30,7 +30,7 @@ const updateUserName = createAsyncThunk<
     const updatedUser = await usersApi.updateUserName(arg.userName, arg.userId)
     return updatedUser.data
   } catch (error) {
-    dispatch(appActions.setError(error as string))
+    handleServerNetworkError(error, dispatch)
     return rejectWithValue(null)
   }
 })
