@@ -1,11 +1,11 @@
 import {Input, Select} from "antd"
-import {useActions, useDebouncedFilter} from "../../../../common"
-import {postsActions} from "../../slice"
+import {useActions, useAppSelector, useDebouncedFilter,} from "../../../../common"
+import {getPostsFilterByTitle, getPostsFilterByUserId, postsActions,} from "../../slice"
 import {FlexContainer} from "../../../../common/styles/common-styled-components"
-import {useState} from "react"
-import {FilterFields} from "../../enums"
 import {SearchOutlined} from "@ant-design/icons"
 import {PostAddWithModal} from "../post-add-with-modal"
+import {getUsers} from "../../../../common/slices"
+import {UserType} from "../../../../common/types"
 
 //TODO вынести значения сортировки в константы или enum
 
@@ -30,28 +30,41 @@ const selectSortOptions = [
   },
 ]
 
-const selectFilterOptions = [
-  { value: FilterFields.title, label: "Заголовку" },
+const selectFavouriteOptions = [
+  { value: true, label: "Да" },
   {
-    value: FilterFields.userName,
-    label: "Автору",
+    value: false,
+    label: "Нет",
   },
-  { value: FilterFields.favourite, label: "Избранному" },
 ]
 
+const getSelectUserNameOptions = (users: { [p: string]: UserType }) => {
+  return Object.values(users).map((user) => ({
+    value: user.id,
+    label: user.name,
+  }))
+}
+
 export const FiltersPanel = () => {
-  const [filterField, setFilterField] = useState<FilterFields | "">("")
-  const { setSortingPosts, setFilteringPosts } = useActions(postsActions)
+  const postsFilterByUserId = useAppSelector(getPostsFilterByUserId)
+  const postsFilterByTitle = useAppSelector(getPostsFilterByTitle)
+  const users = useAppSelector(getUsers)
+  const {
+    setSortingPosts,
+    setFilteringPostsByUserId,
+    setFilteringByTitleValue,
+    setFilteringByFavourite,
+  } = useActions(postsActions)
 
   const { filterValue, handleFilterChange } = useDebouncedFilter(
-    (value: string) =>
-      setFilteringPosts(filterValue && filterField + " " + value),
+    setFilteringByTitleValue,
+    postsFilterByTitle,
   )
 
   return (
     <FlexContainer
       gap={"10px"}
-      alignitems={"flex-end"}
+      alignitems={"center"}
       justifycontent={"flex-start"}
     >
       <FlexContainer flexdirection={"column"} gap={"5px"} width={"max-content"}>
@@ -64,29 +77,46 @@ export const FiltersPanel = () => {
           options={selectSortOptions}
         />
       </FlexContainer>
-      <FlexContainer flexdirection={"column"} gap={"5px"} width={"max-content"}>
-        Фильтровать посты по:
-        <Select
-          allowClear
-          size={"small"}
-          style={{ width: 180 }}
-          onChange={setFilterField}
-          options={selectFilterOptions}
-        />
-      </FlexContainer>
-      <FlexContainer flexdirection={"column"} gap={"5px"}>
-        <Input.Search
-          size={"small"}
-          placeholder={"Фильтр"}
-          enterButton={<SearchOutlined />}
-          value={filterValue}
-          onChange={handleFilterChange}
-          onSearch={() =>
-            setFilteringPosts(filterValue && filterField + " " + filterValue)
-          }
-          allowClear={true}
-          maxLength={50}
-        />
+      {/*<FlexContainer flexdirection={"column"} gap={"5px"} width={"max-content"}>*/}
+      {/*  Фильтровать посты по:*/}
+      {/*  <Select*/}
+      {/*    allowClear*/}
+      {/*    size={"small"}*/}
+      {/*    style={{ width: 180 }}*/}
+      {/*    onChange={setFilteringPostsField}*/}
+      {/*    options={selectFilterOptions}*/}
+      {/*  />*/}
+      {/*</FlexContainer>*/}
+      <FlexContainer gap={"5px"} flexdirection={"column"}>
+        Фильтровать по:
+        <FlexContainer gap={"5px"}>
+          <Select
+            placeholder={"Автору"}
+            allowClear
+            size={"small"}
+            style={{ width: 350 }}
+            onChange={setFilteringPostsByUserId}
+            options={getSelectUserNameOptions(users)}
+          />
+          <Select
+            placeholder={"Избранному"}
+            allowClear
+            size={"small"}
+            style={{ width: 180 }}
+            onChange={setFilteringByFavourite}
+            options={selectFavouriteOptions}
+          />
+          <Input.Search
+            size={"small"}
+            placeholder={"Заголовку"}
+            enterButton={<SearchOutlined />}
+            value={filterValue}
+            onChange={handleFilterChange}
+            onSearch={setFilteringByTitleValue}
+            allowClear={true}
+            maxLength={50}
+          />
+        </FlexContainer>
       </FlexContainer>
       <PostAddWithModal />
     </FlexContainer>

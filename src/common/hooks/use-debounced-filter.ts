@@ -1,19 +1,27 @@
 import { ChangeEventHandler, useEffect, useState } from "react"
 
-export const useDebouncedFilter = (onFilter: (value: string) => void) => {
-  const [filterValue, setFilterValue] = useState<string>("")
+export const useDebouncedFilter = (
+  onFilter: (value: string) => void,
+  filterValue?: string,
+) => {
+  const [localFilterValue, setLocalFilterValue] = useState<string>("")
 
   const handleFilterChange: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setFilterValue(e.target.value)
+    setLocalFilterValue(e.target.value)
 
-  // debounce search input
   useEffect(() => {
-    const timer = setTimeout(() => onFilter(filterValue), 1000)
+    if (!filterValue) {
+      setLocalFilterValue("")
+    }
+  }, [filterValue])
+
+  useEffect(() => {
+    const timer = setTimeout(() => onFilter(localFilterValue), 1000)
 
     return () => {
       clearTimeout(timer)
     }
-  }, [filterValue, onFilter])
+  }, [localFilterValue, onFilter])
 
-  return { filterValue, handleFilterChange }
+  return { filterValue: localFilterValue, handleFilterChange }
 }

@@ -15,14 +15,22 @@ type PostsState = {
     [key: string]: boolean
   }
   sorting: string | undefined
-  filter: string | undefined
+  filter: {
+    title?: string
+    userId?: number
+    favourite?: boolean
+  }
 }
 
 const initialState: PostsState = {
   posts: [],
   selectedPosts: {},
   sorting: undefined,
-  filter: undefined,
+  filter: {
+    title: undefined,
+    userId: undefined,
+    favourite: undefined,
+  },
 }
 
 const fetchPosts = createAsyncThunk<PostType[], void>(
@@ -209,9 +217,28 @@ const postsSlice = createSlice({
     setSortingPosts: (state, action: PayloadAction<string>) => {
       state.sorting = action.payload
     },
-    setFilteringPosts: (state, action: PayloadAction<string>) => {
-      if (action.payload !== state.filter) {
-        state.filter = action.payload
+    setFilteringPostsByUserId: (
+      state,
+      action: PayloadAction<number | undefined>,
+    ) => {
+      if (action.payload !== state.filter.userId) {
+        state.filter.userId = action.payload
+      }
+    },
+    setFilteringByTitleValue: (
+      state,
+      action: PayloadAction<string | undefined>,
+    ) => {
+      if (action.payload !== state.filter.title) {
+        state.filter.title = action.payload
+      }
+    },
+    setFilteringByFavourite: (
+      state,
+      action: PayloadAction<boolean | undefined>,
+    ) => {
+      if (action.payload !== state.filter.favourite) {
+        state.filter.favourite = action.payload
       }
     },
   },
