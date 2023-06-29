@@ -33,7 +33,7 @@ const getFilteredPosts = (state: RootState) => {
     filteredPosts = getFilteredPostsByTitle(filteredPosts, titleFilter)
   }
 
-  if (userIdFilter) {
+  if (userIdFilter && userIdFilter.length > 0) {
     filteredPosts = getFilteredPostsByUserId(filteredPosts, userIdFilter)
   }
 

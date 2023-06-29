@@ -9,9 +9,9 @@ export const getFilteredPostsByTitle = (
 
 export const getFilteredPostsByUserId = (
   posts: PostEntityType[] | undefined,
-  userIdFilter: number,
+  userIdFilter: number[],
 ) => {
-  return posts?.filter((post) => post.userId === userIdFilter)
+  return posts?.filter((post) => userIdFilter.find((id) => id === post.userId))
 }
 
 export const getFilteredPostsByFavourite = (

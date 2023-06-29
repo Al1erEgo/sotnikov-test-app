@@ -17,7 +17,7 @@ type PostsState = {
   sorting: string | undefined
   filter: {
     title?: string
-    userId?: number
+    userId?: number[]
     favourite?: boolean
   }
 }
@@ -219,7 +219,7 @@ const postsSlice = createSlice({
     },
     setFilteringPostsByUserId: (
       state,
-      action: PayloadAction<number | undefined>,
+      action: PayloadAction<number[] | undefined>,
     ) => {
       if (action.payload !== state.filter.userId) {
         state.filter.userId = action.payload

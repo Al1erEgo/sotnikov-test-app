@@ -77,20 +77,11 @@ export const FiltersPanel = () => {
           options={selectSortOptions}
         />
       </FlexContainer>
-      {/*<FlexContainer flexdirection={"column"} gap={"5px"} width={"max-content"}>*/}
-      {/*  Фильтровать посты по:*/}
-      {/*  <Select*/}
-      {/*    allowClear*/}
-      {/*    size={"small"}*/}
-      {/*    style={{ width: 180 }}*/}
-      {/*    onChange={setFilteringPostsField}*/}
-      {/*    options={selectFilterOptions}*/}
-      {/*  />*/}
-      {/*</FlexContainer>*/}
       <FlexContainer gap={"5px"} flexdirection={"column"}>
         Фильтровать по:
         <FlexContainer gap={"5px"}>
           <Select
+            mode="multiple"
             placeholder={"Автору"}
             allowClear
             size={"small"}
