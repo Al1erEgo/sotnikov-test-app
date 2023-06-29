@@ -5,6 +5,7 @@ import { PostForm } from "../post-form"
 import { useActions } from "../../../../common"
 import { postsThunks } from "../../slice"
 import { AddPostPayloadType } from "../../types/payloads"
+import { PostAddWithModalContainer } from "./styles"
 
 export const PostAddWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -16,7 +17,7 @@ export const PostAddWithModal = () => {
   }
 
   return (
-    <>
+    <PostAddWithModalContainer>
       <Tooltip title={"Добавить пост"}>
         <Button
           type="primary"
@@ -40,6 +41,6 @@ export const PostAddWithModal = () => {
           />
         </Modal>
       )}
-    </>
+    </PostAddWithModalContainer>
   )
 }

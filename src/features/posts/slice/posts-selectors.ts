@@ -5,9 +5,9 @@ import {
   getFilteredPostsByFavourite,
   getFilteredPostsByTitle,
   getFilteredPostsByUserId,
-} from "../../../common/utils"
+} from "../utils"
 
-const getPostsSorting = (state: RootState) => state.posts.sorting
+export const getPostsSorting = (state: RootState) => state.posts.sorting
 export const getPosts = (state: RootState) => state.posts.posts
 
 export const getPostsFilterByTitle = (state: RootState) =>

@@ -1,4 +1,4 @@
-import { PostEntityType } from "../../features/posts/types"
+import { PostEntityType } from "../types"
 
 export const getFilteredPostsByTitle = (
   posts: PostEntityType[] | undefined,

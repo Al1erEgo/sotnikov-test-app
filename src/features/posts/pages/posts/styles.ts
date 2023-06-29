@@ -5,12 +5,4 @@ export const PostsContainer = styled.div`
   min-height: 200px;
   overflow: auto;
   position: relative;
-
-  @media screen and (max-height: 400px) {
-    max-height: calc(100% - 250px);
-  }
-
-  @media screen and (max-width: 400px) {
-    max-height: calc(100% - 150px);
-  }
 `

@@ -241,6 +241,14 @@ const postsSlice = createSlice({
         state.filter.favourite = action.payload
       }
     },
+    clearPostsFiltersAndSort: (state) => {
+      state.sorting = undefined
+      state.filter = {
+        title: undefined,
+        userId: undefined,
+        favourite: undefined,
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
