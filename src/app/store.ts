@@ -21,13 +21,14 @@ import {
   REHYDRATE,
 } from "redux-persist"
 import { appReducer } from "./app-slice"
-import { postsReducer } from "../modules/posts/slice"
-import { photosReducer } from "../modules/photos/slice"
+import { postsReducer } from "../modules/posts"
+import { photosReducer } from "../modules/photos"
+import { todosReducer } from "../modules/todos"
 
 const rootPersistConfig = {
   key: "root",
   storage,
-  blacklist: ["users", "posts", "app", "filtersSort", "photos"],
+  whitelist: ["favourite"],
 }
 
 const rootReducer = combineReducers({
@@ -35,8 +36,9 @@ const rootReducer = combineReducers({
   filtersSort: filtersSortReducer,
   posts: postsReducer,
   photos: photosReducer,
+  todos: todosReducer,
   users: usersReducer,
-  favorite: favouriteReducer,
+  favourite: favouriteReducer,
 })
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer)

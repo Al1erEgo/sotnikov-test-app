@@ -19,7 +19,9 @@ type AlbumCardProps = {
 export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const isFavourite = useAppSelector((state) => state.favorite.albums[album.id])
+  const isFavourite = useAppSelector(
+    (state) => state.favourite.albums[album.id],
+  )
   const isSelected = useAppSelector(
     (state) => state.photos.selectedAlbums[album.id],
   )

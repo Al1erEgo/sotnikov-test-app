@@ -25,7 +25,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const isFavourite = useAppSelector((state) => state.favorite.posts[post.id])
+  const isFavourite = useAppSelector((state) => state.favourite.posts[post.id])
   const isSelected = useAppSelector(
     (state) => state.posts.selectedPosts[post.id],
   )

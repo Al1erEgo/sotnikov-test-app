@@ -1,4 +1,4 @@
-import {AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu} from "../common"
+import {AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu,} from "../common"
 import {persistor, store} from "./store"
 import React from "react"
 import {Provider} from "react-redux"
@@ -16,7 +16,6 @@ export const App = () => {
       <PersistGate loading={<StyledLoader />} persistor={persistor}>
         <HashRouter>
           <TabsMenu />
-
           <AppRouter />
           <ErrorPopup />
           <GlobalStyle />

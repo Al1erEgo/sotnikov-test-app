@@ -1,6 +1,6 @@
 import {Button, Input, Select, Tooltip} from "antd"
 import {useActions, useAppSelector, useDebouncedFilter} from "../../index"
-import {FlexContainer} from "../../styles/common-styled-components"
+import {FlexContainer} from "../../styles"
 import {ClearOutlined, DownCircleOutlined, SearchOutlined, UpCircleOutlined,} from "@ant-design/icons"
 import {
   filtersSortActions,
