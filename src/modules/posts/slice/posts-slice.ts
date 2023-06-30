@@ -111,7 +111,7 @@ const deletePostsGroup = createAsyncThunk<void, string[]>(
 )
 
 const updatePost = createAsyncThunk<
-  PostType,
+  { post: PostType; postId: number },
   {
     postId: number
     userId: number
@@ -124,7 +124,7 @@ const updatePost = createAsyncThunk<
     try {
       dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
       const post = await postsApi.updatePost(postId, userId, title, body)
-      return post.data
+      return { post: post.data, postId }
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
@@ -201,12 +201,12 @@ const postsSlice = createSlice({
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         const postIndex = state.posts.findIndex(
-          (post) => post.id === action.payload.id,
+          (post) => post.id === action.payload.postId,
         )
         if (postIndex !== -1) {
           state.posts[postIndex] = {
             ...state.posts[postIndex],
-            ...action.payload,
+            ...action.payload.post,
           }
         }
       })

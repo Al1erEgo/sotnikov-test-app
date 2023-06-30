@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react"
 import { TodoEntityType } from "../../types"
-import { TaskCard } from "./styles"
+import { TodoCard } from "./styles"
 import { FlexContainer, useActions } from "../../../../common"
 import { Skeleton, Switch, Tooltip } from "antd"
 import { todosThunks } from "../../slice"
@@ -14,14 +14,14 @@ export const Todo: FC<TodoProps> = memo(({ todo }) => {
 
   if (todo.isTodoLoading) {
     return (
-      <TaskCard completed={todo.completed ? "completed" : ""}>
+      <TodoCard completed={todo.completed ? "completed" : ""}>
         <Skeleton paragraph={{ rows: 0 }} />
-      </TaskCard>
+      </TodoCard>
     )
   }
 
   return (
-    <TaskCard completed={todo.completed ? "completed" : ""}>
+    <TodoCard completed={todo.completed ? "completed" : ""}>
       <FlexContainer justifycontent={"space-between"} flexdirection={"row"}>
         {todo.title}
         <Tooltip
@@ -37,6 +37,6 @@ export const Todo: FC<TodoProps> = memo(({ todo }) => {
           />
         </Tooltip>
       </FlexContainer>
-    </TaskCard>
+    </TodoCard>
   )
 })

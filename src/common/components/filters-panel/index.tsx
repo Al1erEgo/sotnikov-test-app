@@ -65,7 +65,7 @@ export const FiltersPanel = () => {
     setFilteringByUserId,
     setFilteringByTitleValue,
     setFilteringByFavourite,
-    clearPostsFiltersAndSort,
+    clearFiltersAndSort,
   } = useActions(filtersSortActions)
 
   const { filterValue, handleFilterChange } = useDebouncedFilter(
@@ -154,7 +154,7 @@ export const FiltersPanel = () => {
           <Button
             shape="circle"
             size={"small"}
-            onClick={() => clearPostsFiltersAndSort()}
+            onClick={() => clearFiltersAndSort()}
           >
             <ClearOutlined />
           </Button>

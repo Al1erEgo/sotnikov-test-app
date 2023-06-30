@@ -59,7 +59,7 @@ const addAlbum = createAsyncThunk<AlbumType, AlbumPayloadType>(
 )
 
 const updateAlbum = createAsyncThunk<
-  AlbumType,
+  { album: AlbumType; albumId: number },
   {
     albumId: number
     title: string
@@ -71,7 +71,7 @@ const updateAlbum = createAsyncThunk<
     try {
       dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
       const album = await photosApi.updateAlbum(albumId, title, userId)
-      return album.data
+      return { album: album.data, albumId }
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
@@ -179,12 +179,12 @@ const photosSlice = createSlice({
       })
       .addCase(updateAlbum.fulfilled, (state, action) => {
         const albumIndex = state.albums.findIndex(
-          (album) => album.id === action.payload.id,
+          (album) => album.id === action.payload.albumId,
         )
         if (albumIndex !== -1) {
           state.albums[albumIndex] = {
             ...state.albums[albumIndex],
-            ...action.payload,
+            ...action.payload.album,
           }
         }
       })
