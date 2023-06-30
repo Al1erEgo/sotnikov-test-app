@@ -30,7 +30,7 @@ export const TabsMenu = () => {
   return (
     <Tabs
       animated
-      onChange={(key: string) => navigate(Object.values(APP_PATHS)[+key])}
+      onTabClick={(key: string) => navigate(Object.values(APP_PATHS)[+key])}
       defaultActiveKey={getDefaultActiveKey(location.pathname)}
       type="card"
       items={tabs}

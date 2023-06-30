@@ -1,7 +1,6 @@
 import { FC, memo, useState } from "react"
 import { AddAlbumPayloadType, AlbumEntityType } from "../../types"
-import { StyledAlbumCard } from "./styles"
-import Title from "antd/lib/typography/Title"
+import { AlbumCardLinkHeader, StyledAlbumCard } from "./styles"
 import { SecondaryText } from "../../../../common/styles/common-styled-components"
 import {
   ActionsBar,
@@ -79,7 +78,9 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
         />
       ) : (
         <>
-          <Title level={4}>{album.title}</Title>
+          <AlbumCardLinkHeader to={`${album.id}`}>
+            {album.title}
+          </AlbumCardLinkHeader>
           <SecondaryText>by {user?.name}</SecondaryText>
         </>
       )}

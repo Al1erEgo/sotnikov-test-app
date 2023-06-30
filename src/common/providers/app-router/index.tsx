@@ -4,7 +4,7 @@ import { APP_PATHS } from "../../constants"
 import { Error404Page } from "../../pages"
 import { StyledLoader } from "../../styles/common-styled-components"
 import { PostsPage } from "../../../modules/posts"
-import { AlbumsPage } from "../../../modules/photos"
+import { AlbumPage, AlbumsPage } from "../../../modules/photos"
 import { PageContainer } from "./styles"
 
 export const AppRouter = () => (
@@ -17,6 +17,7 @@ export const AppRouter = () => (
         />
         <Route path={APP_PATHS.POSTS} element={<PostsPage />} />
         <Route path={APP_PATHS.PHOTOS} element={<AlbumsPage />} />
+        <Route path={`${APP_PATHS.PHOTOS}/:id`} element={<AlbumPage />} />
         <Route path={APP_PATHS.TODOS} element={<div>Todos</div>} />
         <Route path={"*"} element={<Error404Page />} />
       </Routes>
