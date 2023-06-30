@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CommentType, PostEntityType, PostType } from "../types"
 import { postsApi } from "../api"
-import { favouriteActions, usersThunks } from "../../../common/slices"
+import { usersThunks } from "../../../common/slices"
 import { RootState } from "../../../app/store"
 import { AddPostPayloadType } from "../types/posts-payloads"
 import { handleServerNetworkError } from "../../../common/utils"
@@ -100,20 +100,6 @@ const deletePost = createAsyncThunk<number, number>(
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
-    }
-  },
-)
-
-const addPostsGroupToFav = createAsyncThunk<void, string[]>(
-  "favourite/addPostsGroupToFav",
-  async (posts, { dispatch, rejectWithValue }) => {
-    try {
-      posts.forEach((id) => dispatch(favouriteActions.addPostToFav(+id)))
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    } finally {
-      dispatch(postsActions.clearSelectedPosts())
     }
   },
 )
@@ -242,6 +228,5 @@ export const postsThunks = {
   addPost,
   deletePost,
   updatePost,
-  addPostsGroupToFav,
   deletePostsGroup,
 }

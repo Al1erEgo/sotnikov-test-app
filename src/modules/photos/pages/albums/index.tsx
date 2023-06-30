@@ -1,25 +1,43 @@
 import { useEffect } from "react"
 import {
   FiltersPanel,
+  GroupActionsButtons,
   Paginator,
   useActions,
   useAppSelector,
+  useModal,
 } from "../../../../common"
 import { photosThunks } from "../../slice"
 import { getIsDataLoading } from "../../../../app/app-selectors"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
-import { filtersSortActions } from "../../../../common/slices"
-import { getSortedAlbums } from "../../slice/photos-selectors"
+import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
+import {
+  getSelectedAlbums,
+  getSortedAlbums,
+} from "../../slice/photos-selectors"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { AlbumsContainer } from "./styles"
 import { AlbumCard } from "../../components"
 
 const AlbumsPage = () => {
-  const isDataLoading = useAppSelector(getIsDataLoading)
   const albums = useAppSelector(getSortedAlbums)
+  const isDataLoading = useAppSelector(getIsDataLoading)
+  const selectedAlbums = useAppSelector(getSelectedAlbums)
 
-  const { fetchAlbums } = useActions(photosThunks)
+  const { fetchAlbums, deleteAlbumsGroup } = useActions(photosThunks)
+  const { addAlbumsGroupToFav } = useActions(favouriteThunks)
   const { clearPostsFiltersAndSort } = useActions(filtersSortActions)
+
+  const { modal: deleteAlbumsModal, handleOpenModal: openDeleteModal } =
+    useModal("Удалить выбранные альбомы?", () =>
+      deleteAlbumsGroup(Object.keys(selectedAlbums)),
+    )
+  const {
+    modal: addToFavouriteModal,
+    handleOpenModal: openAddToFavouriteModal,
+  } = useModal("Добавить выбранные альбомы в избранное?", () =>
+    addAlbumsGroupToFav(Object.keys(selectedAlbums)),
+  )
 
   const { currentPageContent, paginationConfig, handlePaginationChange } =
     usePagination(albums)
@@ -45,6 +63,14 @@ const AlbumsPage = () => {
         handleChange={handlePaginationChange}
         totalCount={albums.length}
       />
+      {Object.keys(selectedAlbums).length !== 0 && (
+        <GroupActionsButtons
+          onDelete={openDeleteModal}
+          onAddFav={openAddToFavouriteModal}
+        />
+      )}
+      {addToFavouriteModal}
+      {deleteAlbumsModal}
     </>
   )
 }

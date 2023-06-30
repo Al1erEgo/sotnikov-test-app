@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const PostsGroupActionsContainer = styled.div`
   position: sticky;
-  bottom: 10px;
+  bottom: 90px;
   z-index: 100;
 
   display: flex;

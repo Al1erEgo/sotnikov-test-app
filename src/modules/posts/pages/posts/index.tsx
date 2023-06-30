@@ -1,32 +1,33 @@
 import { useEffect } from "react"
 import {
   FiltersPanel,
+  GroupActionsButtons,
   Paginator,
   useActions,
   useAppSelector,
   useModal,
 } from "../../../../common"
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
-import { Post, PostAddWithModal, PostsGroupActions } from "../../components"
+import { Post, PostAddWithModal } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
 import { PostsContainer } from "./styles"
 import { getIsDataLoading } from "../../../../app/app-selectors"
-import { filtersSortActions } from "../../../../common/slices"
+import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
 
 const PostsPage = () => {
   const posts = useAppSelector(getSortedPosts)
   const isDataLoading = useAppSelector(getIsDataLoading)
   const selectedPosts = useAppSelector(getSelectedPosts)
 
-  const { fetchPosts, addPostsGroupToFav, deletePostsGroup } =
-    useActions(postsThunks)
+  const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
+  const { addPostsGroupToFav } = useActions(favouriteThunks)
   const { clearPostsFiltersAndSort } = useActions(filtersSortActions)
 
-  const { modal: deleteModal, handleOpenModal: openDeleteModal } = useModal(
-    "Удалить выбранные посты?",
-    () => deletePostsGroup(Object.keys(selectedPosts)),
-  )
+  const { modal: deletePostsModal, handleOpenModal: openDeleteModal } =
+    useModal("Удалить выбранные посты?", () =>
+      deletePostsGroup(Object.keys(selectedPosts)),
+    )
   const {
     modal: addToFavouriteModal,
     handleOpenModal: openAddToFavouriteModal,
@@ -53,12 +54,6 @@ const PostsPage = () => {
         {currentPageContent.map((post) => (
           <Post key={post.id} post={post} />
         ))}
-        {Object.keys(selectedPosts).length !== 0 && (
-          <PostsGroupActions
-            onDelete={openDeleteModal}
-            onAddFav={openAddToFavouriteModal}
-          />
-        )}
       </PostsContainer>
       <Paginator
         config={paginationConfig}
@@ -66,7 +61,13 @@ const PostsPage = () => {
         totalCount={posts.length}
       />
       <PostAddWithModal />
-      {deleteModal}
+      {Object.keys(selectedPosts).length !== 0 && (
+        <GroupActionsButtons
+          onDelete={openDeleteModal}
+          onAddFav={openAddToFavouriteModal}
+        />
+      )}
+      {deletePostsModal}
       {addToFavouriteModal}
     </>
   )

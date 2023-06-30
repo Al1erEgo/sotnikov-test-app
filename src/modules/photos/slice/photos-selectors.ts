@@ -16,6 +16,9 @@ import { AlbumEntityType } from "../types"
 
 const getAlbums = (state: RootState) => state.photos.albums
 
+export const getSelectedAlbums = (state: RootState) =>
+  state.photos.selectedAlbums
+
 const getFilteredAlbums = (state: RootState) => {
   const albums = getAlbums(state)
   const titleFilter = getFilterByTitle(state)

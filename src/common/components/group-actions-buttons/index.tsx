@@ -3,12 +3,12 @@ import { Button, Tooltip } from "antd"
 import { CloseOutlined, HeartFilled } from "@ant-design/icons"
 import { FC } from "react"
 
-type PostsGroupActionsProps = {
+type GroupActionsButtonsProps = {
   onDelete: () => void
   onAddFav: () => void
 }
 
-export const PostsGroupActions: FC<PostsGroupActionsProps> = ({
+export const GroupActionsButtons: FC<GroupActionsButtonsProps> = ({
   onDelete,
   onAddFav,
 }) => {

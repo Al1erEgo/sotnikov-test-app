@@ -76,6 +76,20 @@ const deleteAlbum = createAsyncThunk<number, number>(
   },
 )
 
+const deleteAlbumsGroup = createAsyncThunk<void, string[]>(
+  "photos/deleteAlbumsGroup",
+  async (albums, { dispatch, rejectWithValue }) => {
+    try {
+      albums.forEach((id) => dispatch(photosThunks.deleteAlbum(+id)))
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(photosActions.clearSelectedAlbums())
+    }
+  },
+)
+
 const photosSlice = createSlice({
   name: "photos",
   initialState,
@@ -132,4 +146,9 @@ const photosSlice = createSlice({
 
 export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
-export const photosThunks = { fetchAlbums, updateAlbum, deleteAlbum }
+export const photosThunks = {
+  fetchAlbums,
+  updateAlbum,
+  deleteAlbum,
+  deleteAlbumsGroup,
+}

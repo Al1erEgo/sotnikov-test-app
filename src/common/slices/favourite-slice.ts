@@ -1,4 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { handleServerNetworkError } from "../utils"
+import { postsActions } from "../../modules/posts/slice"
+import { photosActions } from "../../modules/photos/slice"
 
 type FavouriteState = {
   posts: {
@@ -13,6 +16,34 @@ const initialState: FavouriteState = {
   posts: {},
   albums: {},
 }
+
+const addPostsGroupToFav = createAsyncThunk<void, string[]>(
+  "favourite/addPostsGroupToFav",
+  async (posts, { dispatch, rejectWithValue }) => {
+    try {
+      posts.forEach((id) => dispatch(favouriteActions.addPostToFav(+id)))
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(postsActions.clearSelectedPosts())
+    }
+  },
+)
+
+const addAlbumsGroupToFav = createAsyncThunk<void, string[]>(
+  "favourite/addAlbumsGroupToFav",
+  async (posts, { dispatch, rejectWithValue }) => {
+    try {
+      posts.forEach((id) => dispatch(favouriteActions.addAlbumToFav(+id)))
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(photosActions.clearSelectedAlbums())
+    }
+  },
+)
 
 export const favouriteSlice = createSlice({
   name: "favourite",
@@ -49,4 +80,4 @@ export const favouriteReducer = favouriteSlice.reducer
 
 export const favouriteActions = favouriteSlice.actions
 
-export const favouriteThunks = {}
+export const favouriteThunks = { addPostsGroupToFav, addAlbumsGroupToFav }
