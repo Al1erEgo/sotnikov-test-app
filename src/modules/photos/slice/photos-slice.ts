@@ -186,12 +186,12 @@ const photosSlice = createSlice({
         )
       })
       .addCase(updateAlbum.fulfilled, (state, action) => {
-        const postIndex = state.albums.findIndex(
+        const albumIndex = state.albums.findIndex(
           (album) => album.id === action.payload.id,
         )
-        if (postIndex !== -1) {
-          state.albums[postIndex] = {
-            ...state.albums[postIndex],
+        if (albumIndex !== -1) {
+          state.albums[albumIndex] = {
+            ...state.albums[albumIndex],
             ...action.payload,
           }
         }
@@ -208,10 +208,10 @@ const photosSlice = createSlice({
 export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
 export const photosThunks = {
-    fetchAlbums,
-    fetchPhotos,
-    updateAlbum,
-    deleteAlbum,
-    deleteAlbumsGroup,
-    addAlbum,
+  fetchAlbums,
+  fetchPhotos,
+  updateAlbum,
+  deleteAlbum,
+  deleteAlbumsGroup,
+  addAlbum,
 }
