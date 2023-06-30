@@ -3,15 +3,13 @@ import { FC, memo, useState } from "react"
 import { AddPostPayloadType, PostEntityType } from "../../types"
 import {
   ActionsBar,
+  FlexContainer,
+  SecondaryText,
   useActions,
   useAppSelector,
   useModal,
 } from "../../../../common"
 import { Comments } from "../comments"
-import {
-  FlexContainer,
-  SecondaryText,
-} from "../../../../common/styles/common-styled-components"
 import Title from "antd/lib/typography/Title"
 import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowCommentsIcon } from "./styles"

@@ -13,7 +13,7 @@ import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
 import { Post } from "../../components"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { getIsDataLoading } from "../../../../app/app-selectors"
-import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
+import { favouriteThunks } from "../../../../common/slices"
 import { AddPostWithModal } from "../../components/add-post-with-modal"
 
 const PostsPage = () => {
@@ -23,7 +23,6 @@ const PostsPage = () => {
 
   const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
   const { addPostsGroupToFav } = useActions(favouriteThunks)
-  const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deletePostsModal, handleOpenModal: openDeleteModal } =
     useModal("Удалить выбранные посты?", () =>
@@ -41,8 +40,7 @@ const PostsPage = () => {
 
   useEffect(() => {
     fetchPosts()
-    clearFiltersAndSort()
-  }, [fetchPosts, clearFiltersAndSort])
+  }, [fetchPosts])
 
   if (isDataLoading) {
     return <StyledLoader />

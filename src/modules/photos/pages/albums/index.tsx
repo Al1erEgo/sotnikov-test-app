@@ -10,7 +10,7 @@ import {
 } from "../../../../common"
 import { photosThunks } from "../../slice"
 import { getIsDataLoading } from "../../../../app/app-selectors"
-import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
+import { favouriteThunks } from "../../../../common/slices"
 import {
   getSelectedAlbums,
   getSortedAlbums,
@@ -26,7 +26,6 @@ const AlbumsPage = () => {
 
   const { fetchAlbums, deleteAlbumsGroup } = useActions(photosThunks)
   const { addAlbumsGroupToFav } = useActions(favouriteThunks)
-  const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deleteAlbumsModal, handleOpenModal: openDeleteModal } =
     useModal("Удалить выбранные альбомы?", () =>
@@ -44,8 +43,7 @@ const AlbumsPage = () => {
 
   useEffect(() => {
     fetchAlbums()
-    clearFiltersAndSort()
-  }, [fetchAlbums, clearFiltersAndSort])
+  }, [fetchAlbums])
 
   if (isDataLoading) {
     return <StyledLoader />

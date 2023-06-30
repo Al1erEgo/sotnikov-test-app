@@ -6,7 +6,7 @@ import {
   PostType,
 } from "../types"
 import { postsApi } from "../api"
-import { usersThunks } from "../../../common/slices"
+import { filtersSortActions, usersThunks } from "../../../common/slices"
 import { RootState } from "../../../app/store"
 import { handleServerNetworkError } from "../../../common/utils"
 import { appActions } from "../../../app/app-slice"
@@ -29,6 +29,7 @@ const fetchPosts = createAsyncThunk<PostType[], void>(
     try {
       dispatch(usersThunks.fetchUsers())
       dispatch(appActions.setDataLoading(true))
+      dispatch(filtersSortActions.clearFiltersAndSort())
       const posts = await postsApi.getPosts()
       return posts.data
     } catch (error) {
@@ -227,10 +228,10 @@ const postsSlice = createSlice({
 export const postsReducer = postsSlice.reducer
 export const postsActions = postsSlice.actions
 export const postsThunks = {
-  fetchPosts,
-  fetchComments,
-  addPost,
-  deletePost,
-  updatePost,
-  deletePostsGroup,
+    fetchPosts,
+    fetchComments,
+    addPost,
+    deletePost,
+    updatePost,
+    deletePostsGroup,
 }

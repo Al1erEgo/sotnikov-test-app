@@ -1,25 +1,38 @@
-import { useEffect } from "react"
-import { useActions, useAppSelector } from "../../../../common"
+import React, { useEffect } from "react"
+import {
+  PageContentContainer,
+  Paginator,
+  useActions,
+  useAppSelector,
+} from "../../../../common"
 import { getTodos, todosThunks } from "../../slice"
-import { filtersSortActions } from "../../../../common/slices"
+import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 
 const TodosPage = () => {
   const todos = useAppSelector(getTodos)
 
   const { fetchTodos } = useActions(todosThunks)
-  const { clearFiltersAndSort } = useActions(filtersSortActions)
+
+  const { currentPageContent, paginationConfig, handlePaginationChange } =
+    usePaginationWSearchParams(todos)
 
   useEffect(() => {
     fetchTodos()
-    clearFiltersAndSort()
-  }, [fetchTodos, clearFiltersAndSort])
+  }, [fetchTodos])
 
   return (
-    <div>
-      {todos.map((todo) => (
-        <div key={todo.id}>{todo.title}</div>
-      ))}
-    </div>
+    <>
+      <PageContentContainer>
+        {currentPageContent.map((todo) => (
+          <div key={todo.id}>{todo.title}</div>
+        ))}
+      </PageContentContainer>
+      <Paginator
+        config={paginationConfig}
+        handleChange={handlePaginationChange}
+        totalCount={todos.length}
+      />
+    </>
   )
 }
 

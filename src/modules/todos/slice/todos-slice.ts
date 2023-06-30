@@ -1,6 +1,6 @@
 import { TodoEntityType, TodoType } from "../types"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { usersThunks } from "../../../common/slices"
+import { filtersSortActions, usersThunks } from "../../../common/slices"
 import { appActions } from "../../../app/app-slice"
 import { handleServerNetworkError } from "../../../common/utils"
 import { todosApi } from "../api"
@@ -23,6 +23,8 @@ const fetchTodos = createAsyncThunk<TodoType[], void>(
     try {
       dispatch(usersThunks.fetchUsers())
       dispatch(appActions.setDataLoading(true))
+      dispatch(filtersSortActions.clearFiltersAndSort())
+      dispatch(filtersSortActions.setSorting("complete desc"))
       const todos = await todosApi.getTodos()
       return todos.data
     } catch (error) {
