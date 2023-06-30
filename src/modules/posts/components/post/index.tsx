@@ -1,4 +1,4 @@
-import { Card, Skeleton, Tooltip } from "antd"
+import { Skeleton, Tooltip } from "antd"
 import { FC, memo, useState } from "react"
 import { PostEntityType } from "../../types"
 import {
@@ -36,8 +36,9 @@ export const Post: FC<PostProps> = memo(({ post }) => {
   const { updateUserName } = useActions(usersThunks)
   const { changePostFav } = useActions(favouriteActions)
 
-  const { modal, handleOpenModal } = useModal("Удалить пост?", () =>
-    deletePost(post.id),
+  const { modal: deletePostModal, handleOpenModal } = useModal(
+    "Удалить пост?",
+    () => deletePost(post.id),
   )
 
   const handleFormSubmit = ({
@@ -63,9 +64,9 @@ export const Post: FC<PostProps> = memo(({ post }) => {
 
   if (post.isPostLoading) {
     return (
-      <Card>
+      <PostCard favourite={isFavourite ? "favourite" : ""}>
         <Skeleton />
-      </Card>
+      </PostCard>
     )
   }
 
@@ -118,7 +119,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
           postId={post.id}
         />
       )}
-      {modal}
+      {deletePostModal}
     </PostCard>
   )
 })

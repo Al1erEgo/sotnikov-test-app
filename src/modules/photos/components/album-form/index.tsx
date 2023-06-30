@@ -1,31 +1,24 @@
-import { Button, Form, Input, Select } from "antd"
-import TextArea from "antd/lib/input/TextArea"
+import { AddPostPayloadType } from "../../../posts/types/posts-payloads"
 import { FC, useEffect, useState } from "react"
-import { FlexContainer } from "../../../../common/styles/common-styled-components"
+import { Button, Form, Input, Select } from "antd"
 import { useAppSelector } from "../../../../common"
-import { AddPostPayloadType } from "../../types/posts-payloads"
+import { FlexContainer } from "../../../../common/styles/common-styled-components"
 
-type PostFormProps = {
+type AlbumFormProps = {
   type: "new" | "edit"
   userName?: string
   title?: string
-  body?: string
   onCancel: () => void
-  onSubmit: ({ title, userName, body }: AddPostPayloadType) => void
+  onSubmit: ({ title, userName }: AddPostPayloadType) => void
 }
 
-//TODO сделать сообщения валидации если превышено количество символов
-//TODO посмотреть можно ли вынести отдельные инпуты формы в компоненты
-export const PostForm: FC<PostFormProps> = ({
+export const AlbumForm: FC<AlbumFormProps> = ({
   type,
   userName,
   title,
-  body,
   onCancel,
   onSubmit,
 }) => {
-  //TODO вынести в отдельный хук useForm
-
   const [submittable, setSubmittable] = useState<boolean>(false)
   const [form] = Form.useForm()
   const values = Form.useWatch([], form)
@@ -46,6 +39,7 @@ export const PostForm: FC<PostFormProps> = ({
       },
     )
   }, [values, form])
+
   return (
     <Form
       form={form}
@@ -53,7 +47,6 @@ export const PostForm: FC<PostFormProps> = ({
       initialValues={{
         title: title,
         userName: userName,
-        body: body,
       }}
       onFinish={onSubmit}
     >
@@ -82,18 +75,6 @@ export const PostForm: FC<PostFormProps> = ({
         ]}
       >
         {type === "edit" ? <Input /> : <Select options={userNames} />}
-      </Form.Item>
-      <Form.Item
-        label="Пост"
-        name="body"
-        rules={[
-          {
-            required: true,
-            message: "Пожалуйста, введите текст!",
-          },
-        ]}
-      >
-        <TextArea rows={4} />
       </Form.Item>
       <Form.Item>
         <FlexContainer

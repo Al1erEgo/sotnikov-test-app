@@ -93,9 +93,7 @@ const addPost = createAsyncThunk<PostType, AddPostPayloadType>(
 const deletePost = createAsyncThunk<number, number>(
   "posts/deletePost",
   async (postId, { dispatch, rejectWithValue }) => {
-    dispatch(
-      postsActions.setPostLoadingStatus({ postId: postId, status: true }),
-    )
+    dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
     try {
       await postsApi.deletePost(postId)
       return postId

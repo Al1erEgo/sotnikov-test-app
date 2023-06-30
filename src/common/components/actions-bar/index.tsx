@@ -11,6 +11,7 @@ type ActionsBarProps = {
   onEdit: () => void
   favourite: boolean | undefined
   selected: boolean | undefined
+  scale?: number
 }
 
 export const ActionsBar: FC<ActionsBarProps> = ({
@@ -20,9 +21,10 @@ export const ActionsBar: FC<ActionsBarProps> = ({
   onEdit,
   favourite,
   selected,
+  scale,
 }) => {
   return (
-    <ActionsContainer>
+    <ActionsContainer scale={scale}>
       <Tooltip title={selected ? "Выбрать" : "Отменить выбор"}>
         <Checkbox checked={selected} onClick={onSelect} />
       </Tooltip>
