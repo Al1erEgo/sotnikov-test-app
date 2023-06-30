@@ -49,7 +49,7 @@ const filtersSortSlice = createSlice({
         state.filter.favourite = action.payload
       }
     },
-    clearPostsFiltersAndSort: (state) => {
+    clearFiltersAndSort: (state) => {
       state.sorting = undefined
       state.filter = {
         title: undefined,

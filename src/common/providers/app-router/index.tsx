@@ -6,6 +6,7 @@ import { StyledLoader } from "../../styles"
 import { PostsPage } from "../../../modules/posts"
 import { AlbumPage, AlbumsPage } from "../../../modules/photos"
 import { PageContainer } from "./styles"
+import TodosPage from "../../../modules/todos/pages/todos"
 
 export const AppRouter = () => (
   <PageContainer>
@@ -18,7 +19,7 @@ export const AppRouter = () => (
         <Route path={APP_PATHS.POSTS} element={<PostsPage />} />
         <Route path={APP_PATHS.PHOTOS} element={<AlbumsPage />} />
         <Route path={`${APP_PATHS.PHOTOS}/:id`} element={<AlbumPage />} />
-        <Route path={APP_PATHS.TODOS} element={<div>Todos</div>} />
+        <Route path={APP_PATHS.TODOS} element={<TodosPage />} />
         <Route path={"*"} element={<Error404Page />} />
       </Routes>
     </Suspense>

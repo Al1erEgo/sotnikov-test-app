@@ -14,6 +14,7 @@ type ActionsBarProps = {
   scale?: number
 }
 
+//TODO разделить на отдельные компоненты
 export const ActionsBar: FC<ActionsBarProps> = ({
   onSelect,
   onFavourite,

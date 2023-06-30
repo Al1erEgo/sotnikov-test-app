@@ -26,7 +26,7 @@ const AlbumsPage = () => {
 
   const { fetchAlbums, deleteAlbumsGroup } = useActions(photosThunks)
   const { addAlbumsGroupToFav } = useActions(favouriteThunks)
-  const { clearPostsFiltersAndSort } = useActions(filtersSortActions)
+  const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deleteAlbumsModal, handleOpenModal: openDeleteModal } =
     useModal("Удалить выбранные альбомы?", () =>
@@ -44,8 +44,8 @@ const AlbumsPage = () => {
 
   useEffect(() => {
     fetchAlbums()
-    clearPostsFiltersAndSort()
-  }, [fetchAlbums, clearPostsFiltersAndSort])
+    clearFiltersAndSort()
+  }, [fetchAlbums, clearFiltersAndSort])
 
   if (isDataLoading) {
     return <StyledLoader />

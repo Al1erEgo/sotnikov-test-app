@@ -1,8 +1,12 @@
-import { TodoType } from "../types/todos-api-dtos"
-import { createSlice } from "@reduxjs/toolkit"
+import { TodoEntityType, TodoType } from "../types"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { usersThunks } from "../../../common/slices"
+import { appActions } from "../../../app/app-slice"
+import { handleServerNetworkError } from "../../../common/utils"
+import { todosApi } from "../api"
 
 type TodosStateType = {
-  todos: TodoType[]
+  todos: TodoEntityType[]
   selectedTodos: {
     [key: string]: boolean
   }
@@ -13,12 +17,37 @@ const initialState: TodosStateType = {
   selectedTodos: {},
 }
 
+const fetchTodos = createAsyncThunk<TodoType[], void>(
+  "todos/fetchPosts",
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(usersThunks.fetchUsers())
+      dispatch(appActions.setDataLoading(true))
+      const todos = await todosApi.getTodos()
+      return todos.data
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(appActions.setDataLoading(false))
+    }
+  },
+)
+
 const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchTodos.fulfilled, (state, action) => {
+      state.todos = action.payload.map((post) => ({
+        ...post,
+        isTodoLoading: false,
+      }))
+    })
+  },
 })
 
 export const todosReducer = todosSlice.reducer
 export const todosActions = todosSlice.actions
-export const todosThunks = {}
+export const todosThunks = { fetchTodos }

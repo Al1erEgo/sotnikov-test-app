@@ -23,7 +23,7 @@ const PostsPage = () => {
 
   const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
   const { addPostsGroupToFav } = useActions(favouriteThunks)
-  const { clearPostsFiltersAndSort } = useActions(filtersSortActions)
+  const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deletePostsModal, handleOpenModal: openDeleteModal } =
     useModal("Удалить выбранные посты?", () =>
@@ -41,8 +41,8 @@ const PostsPage = () => {
 
   useEffect(() => {
     fetchPosts()
-    clearPostsFiltersAndSort()
-  }, [fetchPosts, clearPostsFiltersAndSort])
+    clearFiltersAndSort()
+  }, [fetchPosts, clearFiltersAndSort])
 
   if (isDataLoading) {
     return <StyledLoader />
