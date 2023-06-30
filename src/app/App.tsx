@@ -1,6 +1,5 @@
-import {AppRouter, ErrorPopup, GlobalStyle, TabsMenu,} from "../common"
+import {AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu} from "../common"
 import {persistor, store} from "./store"
-import {StyledLoader} from "../common/styles/common-styled-components"
 import React from "react"
 import {Provider} from "react-redux"
 import {PersistGate} from "redux-persist/integration/react"

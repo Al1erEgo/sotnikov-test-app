@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import { Button, Modal } from "antd"
-import { FlexContainer } from "../styles/common-styled-components"
+import { FlexContainer } from "../styles"
 
 export const useModal = (message: string, action: () => void) => {
   const [modalOpen, setModalOpen] = useState(false)

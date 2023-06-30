@@ -9,8 +9,14 @@ export const StyledAlbumCard = styled(Card)<{ favourite: string }>`
   height: 130px;
   border-color: ${(props) => (props.favourite ? "#1677ff" : "#e7e7e7")};
 `
+export const StyledPhotoCard = styled(Card)`
+  max-width: 200px;
+  width: 200px;
+  max-height: 250px;
+  height: 250px;
+`
 
-export const AlbumCardLinkHeader = styled(NavLink)`
+export const AlbumCardHeaderLink = styled(NavLink)`
   font-size: 1.3em;
   color: black;
 `

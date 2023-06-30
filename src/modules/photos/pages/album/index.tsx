@@ -1,10 +1,16 @@
 import { useParams } from "react-router-dom"
-import { useActions, useAppSelector } from "../../../../common"
+import {
+  SecondaryText,
+  StyledLoader,
+  useActions,
+  useAppSelector,
+} from "../../../../common"
+import { Image } from "antd"
 import { photosThunks } from "../../slice"
 import React, { useEffect } from "react"
-import { StyledLoader } from "../../../../common/styles/common-styled-components"
 import { getIsPhotosLoading, getPhotos } from "../../slice/photos-selectors"
-import { Card } from "antd"
+import { PhotosPagesContentContainer } from "../../styles"
+import { StyledPhotoCard } from "../../components/album-card/styles"
 
 const AlbumPage = () => {
   const { id: albumId } = useParams()
@@ -23,13 +29,14 @@ const AlbumPage = () => {
   }
 
   return (
-    <>
+    <PhotosPagesContentContainer>
       {photos?.map((photo) => (
-        <Card key={photo.id}>
-          <img src={photo.thumbnailUrl} alt={"thumbnail"} />
-        </Card>
+        <StyledPhotoCard key={photo.id}>
+          <Image src={photo.url} alt={"thumbnail"} />
+          <SecondaryText>{photo.title}</SecondaryText>
+        </StyledPhotoCard>
       ))}
-    </>
+    </PhotosPagesContentContainer>
   )
 }
 
