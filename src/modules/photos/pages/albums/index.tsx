@@ -3,21 +3,20 @@ import {
   FiltersPanel,
   GroupActionsButtons,
   Paginator,
+  StyledLoader,
   useActions,
   useAppSelector,
   useModal,
 } from "../../../../common"
 import { photosThunks } from "../../slice"
 import { getIsDataLoading } from "../../../../app/app-selectors"
-import { StyledLoader } from "../../../../common/styles/common-styled-components"
 import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
 import {
   getSelectedAlbums,
   getSortedAlbums,
 } from "../../slice/photos-selectors"
-import { usePagination } from "../../../../common/hooks/use-pagination"
-import { AlbumCard } from "../../components"
-import { AddAlbumWithModal } from "../../components/add-album-with-modal"
+import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
+import { AddAlbumWithModal, AlbumCard } from "../../components"
 import { PhotosPagesContentContainer } from "../../styles"
 
 const AlbumsPage = () => {
@@ -41,7 +40,7 @@ const AlbumsPage = () => {
   )
 
   const { currentPageContent, paginationConfig, handlePaginationChange } =
-    usePagination(albums)
+    usePaginationWSearchParams(albums)
 
   useEffect(() => {
     fetchAlbums()

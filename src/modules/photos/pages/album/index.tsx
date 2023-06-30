@@ -35,7 +35,13 @@ const AlbumPage = () => {
           <Image
             src={photo.url}
             alt={"image"}
-            placeholder={<Image preview={false} src={photo.thumbnailUrl} />}
+            placeholder={
+              <Image
+                preview={false}
+                src={photo.thumbnailUrl}
+                placeholder={true}
+              />
+            }
           />
           <SecondaryText>{photo.title}</SecondaryText>
         </StyledPhotoCard>

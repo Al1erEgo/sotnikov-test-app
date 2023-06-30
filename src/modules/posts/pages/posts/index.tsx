@@ -2,18 +2,16 @@ import React, { useEffect } from "react"
 import {
   FiltersPanel,
   GroupActionsButtons,
+  PageContentContainer,
   Paginator,
+  StyledLoader,
   useActions,
   useAppSelector,
   useModal,
 } from "../../../../common"
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
 import { Post } from "../../components"
-import { usePagination } from "../../../../common/hooks/use-pagination"
-import {
-  PageContentContainer,
-  StyledLoader,
-} from "../../../../common/styles/common-styled-components"
+import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { getIsDataLoading } from "../../../../app/app-selectors"
 import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
 import { AddPostWithModal } from "../../components/add-post-with-modal"
@@ -39,7 +37,7 @@ const PostsPage = () => {
   )
 
   const { currentPageContent, paginationConfig, handlePaginationChange } =
-    usePagination(posts)
+    usePaginationWSearchParams(posts)
 
   useEffect(() => {
     fetchPosts()

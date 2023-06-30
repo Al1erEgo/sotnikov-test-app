@@ -1,7 +1,7 @@
 import Link from "antd/lib/typography/Link"
 import { FC } from "react"
 import { Pagination } from "antd"
-import { FlexContainer } from "../../styles/common-styled-components"
+import { FlexContainer } from "../../styles"
 
 type PaginatorProps = {
   totalCount: number
