@@ -1,6 +1,6 @@
 import { RootState } from "../../../app/store"
 import {
-  getFavouritePosts,
+  getFavouriteAlbums,
   getFilterByFavourite,
   getFilterByTitle,
   getFilterByUserId,
@@ -24,7 +24,7 @@ const getFilteredAlbums = (state: RootState) => {
   const titleFilter = getFilterByTitle(state)
   const userIdFilter = getFilterByUserId(state)
   const favouriteFilter = getFilterByFavourite(state)
-  const favouritePostIds = getFavouritePosts(state)
+  const favouriteAlbumsIds = getFavouriteAlbums(state)
 
   let filteredAlbums: AlbumEntityType[] | undefined = albums
   if (titleFilter) {
@@ -45,7 +45,7 @@ const getFilteredAlbums = (state: RootState) => {
     filteredAlbums = getFilteredByFavourite<AlbumEntityType[]>(
       filteredAlbums,
       favouriteFilter,
-      favouritePostIds,
+      favouriteAlbumsIds,
     ) as AlbumEntityType[]
   }
 
@@ -55,7 +55,7 @@ const getFilteredAlbums = (state: RootState) => {
 export const getSortedAlbums = (state: RootState) => {
   const albums = getFilteredAlbums(state)
   const sorting = getSorting(state)
-  const favouritePostsIds = getFavouritePosts(state)
+  const favouriteAlbumsIds = getFavouriteAlbums(state)
   const users = getUsers(state)
   if (!albums) {
     return []
@@ -66,34 +66,34 @@ export const getSortedAlbums = (state: RootState) => {
   }
 
   if (sorting === "asc Id") {
-    return albums.sort((a, b) => a.id - b.id)
+    return [...albums].sort((a, b) => a.id - b.id)
   }
   if (sorting === "desc Id") {
-    return albums.sort((a, b) => b.id - a.id)
+    return [...albums].sort((a, b) => b.id - a.id)
   }
 
-  if (sorting === "asc favourite") {
-    return albums.sort((post) => (favouritePostsIds[post.id] ? 1 : -1))
+  if (sorting === "asc favourite" && Object.keys(favouriteAlbumsIds).length) {
+    return [...albums].sort((post) => (favouriteAlbumsIds[post.id] ? 1 : -1))
   }
 
-  if (sorting === "desc favourite") {
-    return albums.sort((post) => (favouritePostsIds[post.id] ? -1 : 1))
+  if (sorting === "desc favourite" && Object.keys(favouriteAlbumsIds).length) {
+    return [...albums].sort((post) => (favouriteAlbumsIds[post.id] ? -1 : 1))
   }
 
   if (sorting === "asc title") {
-    return albums.sort((a, b) => (a.title > b.title ? 1 : -1))
+    return [...albums].sort((a, b) => (a.title > b.title ? 1 : -1))
   }
   if (sorting === "desc title") {
-    return albums.sort((a, b) => (a.title > b.title ? -1 : 1))
+    return [...albums].sort((a, b) => (a.title > b.title ? -1 : 1))
   }
 
   if (sorting === "asc userName") {
-    return albums.sort((a, b) =>
+    return [...albums].sort((a, b) =>
       users[a.userId].name > users[b.userId].name ? 1 : -1,
     )
   }
   if (sorting === "desc userName") {
-    return albums.sort((a, b) =>
+    return [...albums].sort((a, b) =>
       users[a.userId].name > users[b.userId].name ? -1 : 1,
     )
   }

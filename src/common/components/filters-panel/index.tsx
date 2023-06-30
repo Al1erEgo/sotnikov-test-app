@@ -14,12 +14,13 @@ import {UserType} from "../../types"
 import {useState} from "react"
 
 //TODO вынести значения сортировки в константы или enum
+//TODO реализовать дизейбл невозможных опций(если нет ничего в избранном - дизейблить пункт)
 
 const selectSortOptions = [
   {
     label: "По возрастанию:",
     options: [
-      { value: "asc Id", label: "ID поста" },
+      { value: "asc Id", label: "ID" },
       { value: "asc title", label: "Заголовку" },
       { value: "asc userName", label: "Автору" },
       { value: "asc favourite", label: "Избранному" },
@@ -28,7 +29,7 @@ const selectSortOptions = [
   {
     label: "По убыванию:",
     options: [
-      { value: "desc Id", label: "ID поста" },
+      { value: "desc Id", label: "ID" },
       { value: "desc title", label: "Заголовку" },
       { value: "desc userName", label: "Автору" },
       { value: "desc favourite", label: "Избранному" },
