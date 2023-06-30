@@ -17,7 +17,7 @@ const TodosPage = () => {
   return (
     <div>
       {todos.map((todo) => (
-        <div>{todo.title}</div>
+        <div key={todo.id}>{todo.title}</div>
       ))}
     </div>
   )

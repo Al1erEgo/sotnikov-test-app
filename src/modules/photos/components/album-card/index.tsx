@@ -1,9 +1,9 @@
 import { FC, memo, useState } from "react"
 import { AddAlbumPayloadType, AlbumEntityType } from "../../types"
 import { AlbumCardHeaderLink, StyledAlbumCard } from "./styles"
-import { SecondaryText } from "../../../../common/styles/common-styled-components"
 import {
   ActionsBar,
+  SecondaryText,
   useActions,
   useAppSelector,
   useModal,
@@ -52,7 +52,7 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
   if (album.isAlbumLoading) {
     return (
       <StyledAlbumCard favourite={isFavourite ? "favourite" : ""}>
-        <Skeleton />
+        <Skeleton paragraph={{ rows: 2 }} />
       </StyledAlbumCard>
     )
   }
