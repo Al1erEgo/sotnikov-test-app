@@ -1,9 +1,8 @@
 import React, { FC, memo } from "react"
 import { TodoEntityType } from "../../types"
 import { TaskCard } from "./styles"
-import Checkbox from "antd/lib/checkbox/Checkbox"
 import { FlexContainer, useActions } from "../../../../common"
-import { Skeleton, Tooltip } from "antd"
+import { Skeleton, Switch, Tooltip } from "antd"
 import { todosThunks } from "../../slice"
 
 type TodoProps = {
@@ -30,7 +29,7 @@ export const Todo: FC<TodoProps> = memo(({ todo }) => {
             todo.completed ? "Отметить не выполненым" : "Отметить выполненым"
           }
         >
-          <Checkbox
+          <Switch
             checked={todo.completed}
             onChange={() =>
               changeTodoStatus({ todoId: todo.id, completed: !todo.completed })

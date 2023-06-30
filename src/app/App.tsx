@@ -9,6 +9,7 @@ import {HashRouter} from "react-router-dom"
 //TODO убрать санки в отдельные файлы
 //TODO починить иконку
 //TODO раскидать common слайсы по папкам
+//TODO сделать редактирование через модалки?
 
 export const App = () => {
   return (

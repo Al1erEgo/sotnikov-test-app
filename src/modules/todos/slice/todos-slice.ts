@@ -1,4 +1,4 @@
-import { TodoEntityType, TodoType } from "../types"
+import { AddTodoPayloadType, TodoEntityType, TodoType } from "../types"
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { filtersSortActions, usersThunks } from "../../../common/slices"
 import { appActions } from "../../../app/app-slice"
@@ -66,6 +66,19 @@ const changeTodoStatus = createAsyncThunk<
   },
 )
 
+const addTodo = createAsyncThunk<TodoType, AddTodoPayloadType>(
+  "todos/addTodo",
+  async ({ title, completed }, { dispatch, rejectWithValue }) => {
+    try {
+      const newTodo = await todosApi.addTodo({ title, completed })
+      return newTodo.data
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    }
+  },
+)
+
 const todosSlice = createSlice({
   name: "todos",
   initialState,
@@ -99,9 +112,15 @@ const todosSlice = createSlice({
           }
         }
       })
+      .addCase(addTodo.fulfilled, (state, action) => {
+        state.todos.push({
+          ...action.payload,
+          isTodoLoading: false,
+        })
+      })
   },
 })
 
 export const todosReducer = todosSlice.reducer
 export const todosActions = todosSlice.actions
-export const todosThunks = { fetchTodos, changeTodoStatus }
+export const todosThunks = { fetchTodos, changeTodoStatus, addTodo }

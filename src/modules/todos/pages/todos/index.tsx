@@ -3,7 +3,7 @@ import { Paginator, useActions, useAppSelector } from "../../../../common"
 import { getSortedTodos, todosThunks } from "../../slice"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { TodosContentContainer } from "./styles"
-import { Todo } from "../../components/todo"
+import { AddTodoWithModal, Todo } from "../../components"
 
 const TodosPage = () => {
   const todos = useAppSelector(getSortedTodos)
@@ -19,6 +19,7 @@ const TodosPage = () => {
 
   return (
     <>
+      <AddTodoWithModal />
       <TodosContentContainer>
         {currentPageContent.map((task) => (
           <Todo key={task.id} todo={task} />
