@@ -14,12 +14,12 @@ export const GroupActionsButtons: FC<GroupActionsButtonsProps> = ({
 }) => {
   return (
     <PostsGroupActionsContainer>
-      <Tooltip title={"Добавить посты в избранное"}>
+      <Tooltip title={"Добавить в избранное"}>
         <Button type="primary" shape="circle" onClick={onAddFav}>
           <HeartFilled />
         </Button>
       </Tooltip>
-      <Tooltip title={"Удалить посты"}>
+      <Tooltip title={"Удалить"}>
         <Button type="primary" shape="circle" danger onClick={onDelete}>
           <CloseOutlined />
         </Button>
