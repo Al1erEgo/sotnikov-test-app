@@ -1,10 +1,7 @@
 import styled from "styled-components"
+import { PageContentContainer } from "../../../common"
 
-export const AlbumsContainer = styled.div`
-  max-height: calc(100% - 50px);
-  min-height: 200px;
-  overflow: auto;
-  position: relative;
+export const PhotosPagesContentContainer = styled(PageContentContainer)`
   padding: 10px 0;
 
   display: flex;

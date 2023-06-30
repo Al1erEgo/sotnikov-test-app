@@ -10,8 +10,10 @@ import {
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
 import { Post } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
-import { StyledLoader } from "../../../../common/styles/common-styled-components"
-import { PostsContainer } from "./styles"
+import {
+  PageContentContainer,
+  StyledLoader,
+} from "../../../../common/styles/common-styled-components"
 import { getIsDataLoading } from "../../../../app/app-selectors"
 import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
 import { AddPostWithModal } from "../../components/add-post-with-modal"
@@ -52,11 +54,11 @@ const PostsPage = () => {
     <>
       <AddPostWithModal />
       <FiltersPanel />
-      <PostsContainer>
+      <PageContentContainer>
         {currentPageContent.map((post) => (
           <Post key={post.id} post={post} />
         ))}
-      </PostsContainer>
+      </PageContentContainer>
       <Paginator
         config={paginationConfig}
         handleChange={handlePaginationChange}

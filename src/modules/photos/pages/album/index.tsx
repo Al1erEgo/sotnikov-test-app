@@ -4,6 +4,7 @@ import { photosThunks } from "../../slice"
 import React, { useEffect } from "react"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
 import { getIsPhotosLoading, getPhotos } from "../../slice/photos-selectors"
+import { Card } from "antd"
 
 const AlbumPage = () => {
   const { id: albumId } = useParams()
@@ -23,9 +24,10 @@ const AlbumPage = () => {
 
   return (
     <>
-      <div>Album: {albumId}</div>
       {photos?.map((photo) => (
-        <div key={photo.id}>{photo.title}</div>
+        <Card key={photo.id}>
+          <img src={photo.thumbnailUrl} alt={"thumbnail"} />
+        </Card>
       ))}
     </>
   )

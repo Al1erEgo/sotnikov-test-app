@@ -14,7 +14,7 @@ import {
 } from "../../../../common/styles/common-styled-components"
 import Title from "antd/lib/typography/Title"
 import { postsActions, postsThunks } from "../../slice"
-import { PostCard, ShowComments } from "./styles"
+import { PostCard, ShowCommentsIcon } from "./styles"
 import { PostForm } from "../post-form"
 import { favouriteActions, usersThunks } from "../../../../common/slices"
 
@@ -95,7 +95,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
         <Tooltip
           title={showComments ? "Скрыть комментарии" : "Показать комментарии"}
         >
-          <ShowComments
+          <ShowCommentsIcon
             active={showComments ? "active" : ""}
             onClick={() => {
               setShowComments((prev) => !prev)

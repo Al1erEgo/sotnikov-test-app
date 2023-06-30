@@ -7,7 +7,7 @@ export const PostCard = styled(Card)<{ favourite: string }>`
   border-color: ${(props) => (props.favourite ? "#1677ff" : "#e7e7e7")};
 `
 
-export const ShowComments = styled(MessageOutlined)<{ active: string }>`
+export const ShowCommentsIcon = styled(MessageOutlined)<{ active: string }>`
   font-size: 1em;
   color: ${(props) => (props.active ? "#1677ff" : "gray")};
 `
