@@ -1,5 +1,5 @@
 export type AddPostPayloadType = {
-  userName: string
+  userId: number
   title: string
   body: string
 }

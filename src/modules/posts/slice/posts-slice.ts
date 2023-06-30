@@ -7,7 +7,6 @@ import {
 } from "../types"
 import { postsApi } from "../api"
 import { filtersSortActions, usersThunks } from "../../../common/slices"
-import { RootState } from "../../../app/store"
 import { handleServerNetworkError } from "../../../common/utils"
 import { appActions } from "../../../app/app-slice"
 
@@ -70,24 +69,12 @@ const fetchComments = createAsyncThunk<
   }
 })
 
-//TODO посмотреть логику, чтобы сразу приходил id пользователя
 const addPost = createAsyncThunk<PostType, AddPostPayloadType>(
   "posts/addPost",
-  async (
-    { title, body, userName },
-    { dispatch, rejectWithValue, getState },
-  ) => {
+  async ({ title, body, userId }, { dispatch, rejectWithValue }) => {
     try {
-      const state = getState() as RootState
-      const userId = Object.values(state.users).find(
-        (user) => user.name === userName,
-      )?.id
-      if (userId) {
-        const newPost = await postsApi.addPost({ title, body, userId })
-        return newPost.data
-      } else {
-        throw new Error("Пользователь не найден!")
-      }
+      const newPost = await postsApi.addPost({ title, body, userId })
+      return newPost.data
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
@@ -127,15 +114,16 @@ const updatePost = createAsyncThunk<
   PostType,
   {
     postId: number
+    userId: number
     title: string
     body: string
   }
 >(
   "posts/updatePost",
-  async ({ postId, title, body }, { dispatch, rejectWithValue }) => {
+  async ({ postId, userId, title, body }, { dispatch, rejectWithValue }) => {
     try {
       dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
-      const post = await postsApi.updatePost(postId, title, body)
+      const post = await postsApi.updatePost(postId, userId, title, body)
       return post.data
     } catch (error) {
       handleServerNetworkError(error, dispatch)
@@ -228,10 +216,10 @@ const postsSlice = createSlice({
 export const postsReducer = postsSlice.reducer
 export const postsActions = postsSlice.actions
 export const postsThunks = {
-    fetchPosts,
-    fetchComments,
-    addPost,
-    deletePost,
-    updatePost,
-    deletePostsGroup,
+  fetchPosts,
+  fetchComments,
+  addPost,
+  deletePost,
+  updatePost,
+  deletePostsGroup,
 }

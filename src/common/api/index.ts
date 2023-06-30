@@ -1,2 +1,2 @@
-export * from "./common-api"
+export * from "./common-instance"
 export * from "./users-api"

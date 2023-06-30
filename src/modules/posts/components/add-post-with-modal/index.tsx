@@ -28,7 +28,6 @@ export const AddPostWithModal = () => {
           onCancel={() => setModalOpen(false)}
         >
           <PostForm
-            type={"new"}
             onCancel={() => setModalOpen(false)}
             onSubmit={handleAddPost}
           />

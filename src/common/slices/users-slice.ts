@@ -22,36 +22,17 @@ const fetchUsers = createAsyncThunk<UserType[], void>(
   },
 )
 
-const updateUserName = createAsyncThunk<
-  UserType,
-  { userName: string; userId: number }
->("users/updateUserName", async (arg, { dispatch, rejectWithValue }) => {
-  try {
-    const updatedUser = await usersApi.updateUserName(arg.userName, arg.userId)
-    return updatedUser.data
-  } catch (error) {
-    handleServerNetworkError(error, dispatch)
-    return rejectWithValue(null)
-  }
-})
-
 const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        action.payload.forEach((user) => (state[user.id] = user))
-      })
-      .addCase(updateUserName.fulfilled, (state, action) => {
-        state[action.payload.id] = action.payload
-      })
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      action.payload.forEach((user) => (state[user.id] = user))
+    })
   },
 })
 
 export const usersReducer = usersSlice.reducer
 
-export const usersActions = usersSlice.actions
-
-export const usersThunks = {fetchUsers, updateUserName}
+export const usersThunks = { fetchUsers }

@@ -14,7 +14,7 @@ import Title from "antd/lib/typography/Title"
 import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowCommentsIcon } from "./styles"
 import { PostForm } from "../post-form"
-import { favouriteActions, usersThunks } from "../../../../common/slices"
+import { favouriteActions } from "../../../../common/slices"
 
 type PostProps = {
   post: PostEntityType
@@ -31,7 +31,6 @@ export const Post: FC<PostProps> = memo(({ post }) => {
 
   const { deletePost, updatePost } = useActions(postsThunks)
   const { changePostSelection } = useActions(postsActions)
-  const { updateUserName } = useActions(usersThunks)
   const { changePostFav } = useActions(favouriteActions)
 
   const { modal: deletePostModal, handleOpenModal } = useModal(
@@ -39,13 +38,11 @@ export const Post: FC<PostProps> = memo(({ post }) => {
     () => deletePost(post.id),
   )
 
-  const handleFormSubmit = ({ title, userName, body }: AddPostPayloadType) => {
-    if (user.name !== userName) {
-      updateUserName({ userName, userId: user.id })
-    }
-    if (post.title !== title || post.body !== body)
+  const handleFormSubmit = ({ title, userId, body }: AddPostPayloadType) => {
+    if (post.title !== title || post.body !== body || post.userId !== userId)
       updatePost({
         postId: post.id,
+        userId,
         title,
         body,
       })
@@ -74,10 +71,9 @@ export const Post: FC<PostProps> = memo(({ post }) => {
       />
       {isEdit ? (
         <PostForm
-          type={"edit"}
           title={post.title}
           body={post.body}
-          userName={user.name}
+          userId={post.userId}
           onCancel={() => setIsEdit(false)}
           onSubmit={handleFormSubmit}
         />

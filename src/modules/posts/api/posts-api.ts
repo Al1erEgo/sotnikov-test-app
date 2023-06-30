@@ -11,10 +11,11 @@ export const postsApi = {
   deletePost(postId: number) {
     return commonInstance.delete<{}>(`posts/${postId}`)
   },
-  updatePost(postId: number, title: string, body: string) {
+  updatePost(postId: number, userId: number, title: string, body: string) {
     return commonInstance.patch<PostType>(`posts/${postId}`, {
       title,
       body,
+      userId,
     })
   },
   addPost(arg: AddPostArgType) {

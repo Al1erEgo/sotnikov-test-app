@@ -5,19 +5,17 @@ import { FlexContainer, useAppSelector } from "../../../../common"
 import { AddPostPayloadType } from "../../types"
 
 type PostFormProps = {
-  type: "new" | "edit"
-  userName?: string
+  userId?: number
   title?: string
   body?: string
   onCancel: () => void
-  onSubmit: ({ title, userName, body }: AddPostPayloadType) => void
+  onSubmit: ({ title, userId, body }: AddPostPayloadType) => void
 }
 
 //TODO сделать сообщения валидации если превышено количество символов
 //TODO посмотреть можно ли вынести отдельные инпуты формы в компоненты
 export const PostForm: FC<PostFormProps> = ({
-  type,
-  userName,
+  userId,
   title,
   body,
   onCancel,
@@ -31,7 +29,7 @@ export const PostForm: FC<PostFormProps> = ({
 
   const users = useAppSelector((state) => state.users)
   const userNames = Object.values(users).map((user) => ({
-    value: user.name, //TODO использовать user.id чтобы не искать юзера в санке
+    value: user.id,
     label: user.name,
   }))
 
@@ -51,7 +49,7 @@ export const PostForm: FC<PostFormProps> = ({
       layout="vertical"
       initialValues={{
         title: title,
-        userName: userName,
+        userId: userId,
         body: body,
       }}
       onFinish={onSubmit}
@@ -71,16 +69,15 @@ export const PostForm: FC<PostFormProps> = ({
       </Form.Item>
       <Form.Item
         label="Имя пользователя"
-        name="userName"
+        name="userId"
         rules={[
           {
             required: true,
-            message: "Пожалуйста, введите имя!",
-            max: 40,
+            message: "Пожалуйста, выберите имя!",
           },
         ]}
       >
-        {type === "edit" ? <Input /> : <Select options={userNames} />}
+        <Select options={userNames} />
       </Form.Item>
       <Form.Item
         label="Пост"
