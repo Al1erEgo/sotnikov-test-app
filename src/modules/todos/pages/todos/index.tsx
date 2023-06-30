@@ -1,12 +1,9 @@
 import React, { useEffect } from "react"
-import {
-  PageContentContainer,
-  Paginator,
-  useActions,
-  useAppSelector,
-} from "../../../../common"
+import { Paginator, useActions, useAppSelector } from "../../../../common"
 import { getTodos, todosThunks } from "../../slice"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
+import { TodosContentContainer } from "./styles"
+import { Todo } from "../../components/todo"
 
 const TodosPage = () => {
   const todos = useAppSelector(getTodos)
@@ -22,11 +19,11 @@ const TodosPage = () => {
 
   return (
     <>
-      <PageContentContainer>
-        {currentPageContent.map((todo) => (
-          <div key={todo.id}>{todo.title}</div>
+      <TodosContentContainer>
+        {currentPageContent.map((task) => (
+          <Todo key={task.id} todo={task} />
         ))}
-      </PageContentContainer>
+      </TodosContentContainer>
       <Paginator
         config={paginationConfig}
         handleChange={handlePaginationChange}
