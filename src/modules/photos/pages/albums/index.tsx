@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import {
-  FiltersPanel,
   GroupActionsButtons,
   Paginator,
   useActions,
@@ -54,7 +53,6 @@ const AlbumsPage = () => {
   return (
     <>
       <AddAlbumWithModal />
-      <FiltersPanel />
       <AlbumsContainer>
         {currentPageContent.map((album) => (
           <AlbumCard key={album.id} album={album} />

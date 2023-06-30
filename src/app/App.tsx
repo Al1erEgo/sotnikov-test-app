@@ -1,4 +1,4 @@
-import {AppRouter, ErrorPopup, GlobalStyle, TabsMenu} from "../common"
+import {AppRouter, ErrorPopup, FiltersPanel, GlobalStyle, TabsMenu,} from "../common"
 import {persistor, store} from "./store"
 import {StyledLoader} from "../common/styles/common-styled-components"
 import React from "react"
@@ -17,6 +17,7 @@ export const App = () => {
       <PersistGate loading={<StyledLoader />} persistor={persistor}>
         <HashRouter>
           <TabsMenu />
+          <FiltersPanel />
           <AppRouter />
           <ErrorPopup />
           <GlobalStyle />
