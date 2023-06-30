@@ -5,9 +5,6 @@ import {useSearchParams} from "react-router-dom"
 export const usePaginationWSearchParams = <T>(data: T[]) => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  console.log("currentPage", searchParams.get("currentPage"))
-  console.log("pageSize", searchParams.get("pageSize"))
-
   const [paginationConfig, setPaginationConfig] = useState<[number, number]>([
     Number(searchParams.get("currentPage")) || 1,
     Number(searchParams.get("pageSize")) || 10,
