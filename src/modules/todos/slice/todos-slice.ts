@@ -40,7 +40,7 @@ const fetchTodos = createAsyncThunk<TodoType[], void>(
 )
 
 const changeTodoStatus = createAsyncThunk<
-  TodoType,
+  { todo: TodoType; todoId: number },
   {
     todoId: number
     completed: boolean
@@ -51,7 +51,7 @@ const changeTodoStatus = createAsyncThunk<
     try {
       dispatch(todosActions.setTodoLoadingStatus({ todoId, status: true }))
       const todo = await todosApi.changeTodoStatus(todoId, completed)
-      return todo.data
+      return { todo: todo.data, todoId }
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
@@ -103,12 +103,12 @@ const todosSlice = createSlice({
       })
       .addCase(changeTodoStatus.fulfilled, (state, action) => {
         const todoIndex = state.todos.findIndex(
-          (post) => post.id === action.payload.id,
+          (todo) => todo.id === action.payload.todoId,
         )
         if (todoIndex !== -1) {
           state.todos[todoIndex] = {
             ...state.todos[todoIndex],
-            ...action.payload,
+            ...action.payload.todo,
           }
         }
       })

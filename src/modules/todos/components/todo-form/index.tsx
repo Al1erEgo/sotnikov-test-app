@@ -60,7 +60,7 @@ export const TodoForm: FC<TodoFormProps> = ({
         <Input />
       </Form.Item>
       <Form.Item label="Статус" name="completed" valuePropName="checked">
-        Не выполнено <Switch /> Выполнено
+        <Switch />
       </Form.Item>
       <Form.Item>
         <FlexContainer
