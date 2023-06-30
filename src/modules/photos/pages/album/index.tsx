@@ -22,7 +22,7 @@ const AlbumPage = () => {
 
   useEffect(() => {
     fetchPhotos(Number(albumId))
-  }, [albumId])
+  }, [fetchPhotos, albumId])
 
   if (isPhotosLoading) {
     return <StyledLoader />
@@ -32,7 +32,11 @@ const AlbumPage = () => {
     <PhotosPagesContentContainer>
       {photos?.map((photo) => (
         <StyledPhotoCard key={photo.id}>
-          <Image src={photo.url} alt={"thumbnail"} />
+          <Image
+            src={photo.url}
+            alt={"image"}
+            placeholder={<Image preview={false} src={photo.thumbnailUrl} />}
+          />
           <SecondaryText>{photo.title}</SecondaryText>
         </StyledPhotoCard>
       ))}

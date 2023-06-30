@@ -1,15 +1,15 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import {
-  AddAlbumPayloadType,
-  AlbumEntityType,
-  AlbumType,
-  PhotoType,
-} from "../types"
-import { usersThunks } from "../../../common/slices"
-import { appActions } from "../../../app/app-slice"
-import { handleServerNetworkError } from "../../../common/utils"
-import { photosApi } from "../api"
-import { RootState } from "../../../app/store"
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {AddAlbumPayloadType, AlbumEntityType, AlbumType, PhotoType,} from "../types"
+import {usersThunks} from "../../../common/slices"
+import {appActions} from "../../../app/app-slice"
+import {handleServerNetworkError} from "../../../common/utils"
+import {photosApi} from "../api"
+import {RootState} from "../../../app/store"
+
+//Для фотографий альбома одно поле - для упрощения логики,
+//в случае добавления поля каждому альбому усложняется логика,
+//а так же появляется необходимость предусматривать кейс, когда приложение открывается
+//на странице открытого альбома, а альбомы еще не подгружены
 
 type PhotosStateType = {
   albums: AlbumEntityType[]
@@ -207,10 +207,10 @@ const photosSlice = createSlice({
 export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
 export const photosThunks = {
-  fetchAlbums,
-  fetchPhotos,
-  updateAlbum,
-  deleteAlbum,
-  deleteAlbumsGroup,
-  addAlbum,
+    fetchAlbums,
+    fetchPhotos,
+    updateAlbum,
+    deleteAlbum,
+    deleteAlbumsGroup,
+    addAlbum,
 }
