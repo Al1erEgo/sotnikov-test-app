@@ -1,5 +1,5 @@
 import { FC, memo, useState } from "react"
-import { AlbumEntityType, AppAlbumPayloadType } from "../../types"
+import { AddAlbumPayloadType, AlbumEntityType } from "../../types"
 import { StyledAlbumCard } from "./styles"
 import Title from "antd/lib/typography/Title"
 import { SecondaryText } from "../../../../common/styles/common-styled-components"
@@ -36,7 +36,7 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
     () => deleteAlbum(album.id),
   )
 
-  const handleFormSubmit = ({ title, userName }: AppAlbumPayloadType) => {
+  const handleFormSubmit = ({ title, userName }: AddAlbumPayloadType) => {
     if (user.name !== userName) {
       updateUserName({ userName, userId: user.id })
     }
