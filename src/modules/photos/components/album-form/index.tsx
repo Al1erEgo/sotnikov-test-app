@@ -1,20 +1,17 @@
 import { FC, useEffect, useState } from "react"
 import { Button, Form, Input, Select } from "antd"
-import { useAppSelector } from "../../../../common"
-import { FlexContainer } from "../../../../common/styles/common-styled-components"
-import { AddAlbumPayloadType } from "../../types"
+import { FlexContainer, useAppSelector } from "../../../../common"
+import { AlbumPayloadType } from "../../types"
 
 type AlbumFormProps = {
-  type: "new" | "edit"
-  userName?: string
+  userId?: number
   title?: string
   onCancel: () => void
-  onSubmit: ({ title, userName }: AddAlbumPayloadType) => void
+  onSubmit: ({ title, userId }: AlbumPayloadType) => void
 }
 
 export const AlbumForm: FC<AlbumFormProps> = ({
-  type,
-  userName,
+  userId,
   title,
   onCancel,
   onSubmit,
@@ -25,7 +22,7 @@ export const AlbumForm: FC<AlbumFormProps> = ({
 
   const users = useAppSelector((state) => state.users)
   const userNames = Object.values(users).map((user) => ({
-    value: user.name,
+    value: user.id,
     label: user.name,
   }))
 
@@ -46,7 +43,7 @@ export const AlbumForm: FC<AlbumFormProps> = ({
       layout="vertical"
       initialValues={{
         title: title,
-        userName: userName,
+        userId: userId,
       }}
       onFinish={onSubmit}
     >
@@ -65,16 +62,15 @@ export const AlbumForm: FC<AlbumFormProps> = ({
       </Form.Item>
       <Form.Item
         label="Имя пользователя"
-        name="userName"
+        name="userId"
         rules={[
           {
             required: true,
-            message: "Пожалуйста, введите имя!",
-            max: 40,
+            message: "Пожалуйста, выберите имя!",
           },
         ]}
       >
-        {type === "edit" ? <Input /> : <Select options={userNames} />}
+        <Select options={userNames} />
       </Form.Item>
       <Form.Item>
         <FlexContainer

@@ -1,5 +1,5 @@
 import { FC, memo, useState } from "react"
-import { AddAlbumPayloadType, AlbumEntityType } from "../../types"
+import { AlbumEntityType, AlbumPayloadType } from "../../types"
 import { AlbumCardHeaderLink, StyledAlbumCard } from "./styles"
 import {
   ActionsBar,
@@ -9,7 +9,7 @@ import {
   useModal,
 } from "../../../../common"
 import { photosActions, photosThunks } from "../../slice"
-import { favouriteActions, usersThunks } from "../../../../common/slices"
+import { favouriteActions } from "../../../../common/slices"
 import { Skeleton } from "antd"
 import { AlbumForm } from "../album-form"
 
@@ -28,7 +28,6 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
   const user = useAppSelector((state) => state.users[album.userId])
 
   const { deleteAlbum, updateAlbum } = useActions(photosThunks)
-  const { updateUserName } = useActions(usersThunks)
   const { changeAlbumSelection } = useActions(photosActions)
   const { changeAlbumFav } = useActions(favouriteActions)
 
@@ -37,14 +36,12 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
     () => deleteAlbum(album.id),
   )
 
-  const handleFormSubmit = ({ title, userName }: AddAlbumPayloadType) => {
-    if (user.name !== userName) {
-      updateUserName({ userName, userId: user.id })
-    }
-    if (album.title !== title)
+  const handleFormSubmit = ({ title, userId }: AlbumPayloadType) => {
+    if (album.title !== title || album.userId !== userId)
       updateAlbum({
         albumId: album.id,
         title,
+        userId,
       })
     setIsEdit(false)
   }
@@ -72,9 +69,8 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
       />
       {isEdit ? (
         <AlbumForm
-          type={"edit"}
           title={album.title}
-          userName={user.name}
+          userId={user.id}
           onCancel={() => setIsEdit(false)}
           onSubmit={handleFormSubmit}
         />

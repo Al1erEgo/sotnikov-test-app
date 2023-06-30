@@ -1,8 +1,7 @@
 import { Button, Form, Input, Select } from "antd"
 import TextArea from "antd/lib/input/TextArea"
 import { FC, useEffect, useState } from "react"
-import { FlexContainer } from "../../../../common/styles/common-styled-components"
-import { useAppSelector } from "../../../../common"
+import { FlexContainer, useAppSelector } from "../../../../common"
 import { AddPostPayloadType } from "../../types"
 
 type PostFormProps = {
@@ -32,7 +31,7 @@ export const PostForm: FC<PostFormProps> = ({
 
   const users = useAppSelector((state) => state.users)
   const userNames = Object.values(users).map((user) => ({
-    value: user.name,
+    value: user.name, //TODO использовать user.id чтобы не искать юзера в санке
     label: user.name,
   }))
 

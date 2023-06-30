@@ -1,10 +1,9 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {AddAlbumPayloadType, AlbumEntityType, AlbumType, PhotoType,} from "../types"
+import {AlbumEntityType, AlbumPayloadType, AlbumType, PhotoType,} from "../types"
 import {filtersSortActions, usersThunks} from "../../../common/slices"
 import {appActions} from "../../../app/app-slice"
 import {handleServerNetworkError} from "../../../common/utils"
 import {photosApi} from "../api"
-import {RootState} from "../../../app/store"
 
 //Для фотографий альбома одно поле - для упрощения логики,
 //в случае добавления поля каждому альбому усложняется логика,
@@ -46,20 +45,12 @@ const fetchAlbums = createAsyncThunk<AlbumType[], void>(
   },
 )
 
-const addAlbum = createAsyncThunk<AlbumType, AddAlbumPayloadType>(
+const addAlbum = createAsyncThunk<AlbumType, AlbumPayloadType>(
   "photos/addAlbum",
-  async ({ title, userName }, { dispatch, rejectWithValue, getState }) => {
+  async ({ title, userId }, { dispatch, rejectWithValue }) => {
     try {
-      const state = getState() as RootState
-      const userId = Object.values(state.users).find(
-        (user) => user.name === userName,
-      )?.id
-      if (userId) {
-        const newAlbum = await photosApi.addAlbum({ title, userId })
-        return newAlbum.data
-      } else {
-        throw new Error("Пользователь не найден!")
-      }
+      const newAlbum = await photosApi.addAlbum({ title, userId })
+      return newAlbum.data
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
@@ -72,13 +63,14 @@ const updateAlbum = createAsyncThunk<
   {
     albumId: number
     title: string
+    userId: number
   }
 >(
   "photos/updateAlbum",
-  async ({ albumId, title }, { dispatch, rejectWithValue }) => {
+  async ({ albumId, title, userId }, { dispatch, rejectWithValue }) => {
     try {
       dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
-      const album = await photosApi.updateAlbum(albumId, title)
+      const album = await photosApi.updateAlbum(albumId, title, userId)
       return album.data
     } catch (error) {
       handleServerNetworkError(error, dispatch)

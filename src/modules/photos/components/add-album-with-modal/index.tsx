@@ -2,14 +2,14 @@ import { useState } from "react"
 import { AddEntityButton, useActions } from "../../../../common"
 import { Modal } from "antd"
 import { photosThunks } from "../../slice"
-import { AddAlbumPayloadType } from "../../types"
+import { AlbumPayloadType } from "../../types"
 import { AlbumForm } from "../album-form"
 
 export const AddAlbumWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const { addAlbum } = useActions(photosThunks)
 
-  const handleAddPost = (arg: AddAlbumPayloadType) => {
+  const handleAddPost = (arg: AlbumPayloadType) => {
     addAlbum(arg)
     setModalOpen(false)
   }
@@ -28,7 +28,6 @@ export const AddAlbumWithModal = () => {
           onCancel={() => setModalOpen(false)}
         >
           <AlbumForm
-            type={"new"}
             onCancel={() => setModalOpen(false)}
             onSubmit={handleAddPost}
           />

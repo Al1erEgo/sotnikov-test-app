@@ -1,8 +1,3 @@
-export type AddAlbumPayloadType = {
-  userName: string
-  title: string
-}
-export type AddAlbumArgType = {
-  userId: number
-  title: string
-}
+import { AlbumType } from "./photos-api-dtos"
+
+export type AlbumPayloadType = Omit<AlbumType, "id">
