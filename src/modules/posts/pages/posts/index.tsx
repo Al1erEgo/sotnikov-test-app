@@ -8,12 +8,13 @@ import {
   useModal,
 } from "../../../../common"
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
-import { Post, PostAddWithModal } from "../../components"
+import { Post } from "../../components"
 import { usePagination } from "../../../../common/hooks/use-pagination"
 import { StyledLoader } from "../../../../common/styles/common-styled-components"
 import { PostsContainer } from "./styles"
 import { getIsDataLoading } from "../../../../app/app-selectors"
 import { favouriteThunks, filtersSortActions } from "../../../../common/slices"
+import { AddPostWithModal } from "../../components/add-post-with-modal"
 
 const PostsPage = () => {
   const posts = useAppSelector(getSortedPosts)
@@ -49,6 +50,7 @@ const PostsPage = () => {
 
   return (
     <>
+      <AddPostWithModal />
       <FiltersPanel />
       <PostsContainer>
         {currentPageContent.map((post) => (
@@ -60,7 +62,6 @@ const PostsPage = () => {
         handleChange={handlePaginationChange}
         totalCount={posts.length}
       />
-      <PostAddWithModal />
       {Object.keys(selectedPosts).length !== 0 && (
         <GroupActionsButtons
           onDelete={openDeleteModal}

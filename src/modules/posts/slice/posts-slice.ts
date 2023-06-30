@@ -1,9 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { CommentType, PostEntityType, PostType } from "../types"
+import {
+  AddPostPayloadType,
+  CommentType,
+  PostEntityType,
+  PostType,
+} from "../types"
 import { postsApi } from "../api"
 import { usersThunks } from "../../../common/slices"
 import { RootState } from "../../../app/store"
-import { AddPostPayloadType } from "../types/posts-payloads"
 import { handleServerNetworkError } from "../../../common/utils"
 import { appActions } from "../../../app/app-slice"
 
@@ -22,9 +26,9 @@ const initialState: PostsStateType = {
 const fetchPosts = createAsyncThunk<PostType[], void>(
   "posts/fetchPosts",
   async (_, { dispatch, rejectWithValue }) => {
-    dispatch(usersThunks.fetchUsers())
-    dispatch(appActions.setDataLoading(true))
     try {
+      dispatch(usersThunks.fetchUsers())
+      dispatch(appActions.setDataLoading(true))
       const posts = await postsApi.getPosts()
       return posts.data
     } catch (error) {
@@ -36,31 +40,34 @@ const fetchPosts = createAsyncThunk<PostType[], void>(
   },
 )
 
+//Проверка на наличие загруженных комментариев закомментирована, так как нелогично, но и каждый раз подгружать заново
+// не лучшее решение, стоило бы использовать RTK Query с кешированием
+//Либо можно TODO сделать проверку на наличие комментариев со сроком жизни в стейте
 const fetchComments = createAsyncThunk<
   { comments: CommentType[]; postId: number } | undefined,
   number
 >(
   "posts/fetchComments",
   async (postId, { dispatch, rejectWithValue, getState }) => {
-    const state = getState() as RootState
-    if (!state.posts.posts.find((post) => post.id === postId)?.comments) {
+    try {
       dispatch(
-        postsActions.setCommentsLoadingStatus({ postId: postId, status: true }),
+        postsActions.setCommentsLoadingStatus({
+          postId: postId,
+          status: true,
+        }),
       )
-      try {
-        const comments = await postsApi.getCommentsForPost(postId)
-        return { comments: comments.data, postId }
-      } catch (error) {
-        handleServerNetworkError(error, dispatch)
-        return rejectWithValue(null)
-      } finally {
-        dispatch(
-          postsActions.setCommentsLoadingStatus({
-            postId,
-            status: false,
-          }),
-        )
-      }
+      const comments = await postsApi.getCommentsForPost(postId)
+      return { comments: comments.data, postId }
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(
+        postsActions.setCommentsLoadingStatus({
+          postId,
+          status: false,
+        }),
+      )
     }
   },
 )
@@ -72,11 +79,11 @@ const addPost = createAsyncThunk<PostType, AddPostPayloadType>(
     { title, body, userName },
     { dispatch, rejectWithValue, getState },
   ) => {
-    const state = getState() as RootState
-    const userId = Object.values(state.users).find(
-      (user) => user.name === userName,
-    )?.id
     try {
+      const state = getState() as RootState
+      const userId = Object.values(state.users).find(
+        (user) => user.name === userName,
+      )?.id
       if (userId) {
         const newPost = await postsApi.addPost({ title, body, userId })
         return newPost.data
@@ -93,8 +100,8 @@ const addPost = createAsyncThunk<PostType, AddPostPayloadType>(
 const deletePost = createAsyncThunk<number, number>(
   "posts/deletePost",
   async (postId, { dispatch, rejectWithValue }) => {
-    dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
     try {
+      dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
       await postsApi.deletePost(postId)
       return postId
     } catch (error) {
@@ -128,8 +135,8 @@ const updatePost = createAsyncThunk<
 >(
   "posts/updatePost",
   async ({ postId, title, body }, { dispatch, rejectWithValue }) => {
-    dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
     try {
+      dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
       const post = await postsApi.updatePost(postId, title, body)
       return post.data
     } catch (error) {

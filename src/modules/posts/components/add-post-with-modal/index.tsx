@@ -1,13 +1,11 @@
-import { Button, Modal, Tooltip } from "antd"
-import { PlusOutlined } from "@ant-design/icons"
+import { Modal } from "antd"
 import { useState } from "react"
-import { PostForm } from "../post-form"
-import { useActions } from "../../../../common"
+import { PostForm } from "../index"
+import { AddEntityButton, useActions } from "../../../../common"
 import { postsThunks } from "../../slice"
-import { AddPostPayloadType } from "../../types/posts-payloads"
-import { PostAddWithModalContainer } from "./styles"
+import { AddPostPayloadType } from "../../types"
 
-export const PostAddWithModal = () => {
+export const AddPostWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const { addPost } = useActions(postsThunks)
 
@@ -17,16 +15,11 @@ export const PostAddWithModal = () => {
   }
 
   return (
-    <PostAddWithModalContainer>
-      <Tooltip title={"Добавить пост"}>
-        <Button
-          type="primary"
-          shape="circle"
-          onClick={() => setModalOpen(true)}
-        >
-          <PlusOutlined />
-        </Button>
-      </Tooltip>
+    <>
+      <AddEntityButton
+        tooltip={"Добавить пост"}
+        onClick={() => setModalOpen(true)}
+      />
       {modalOpen && (
         <Modal
           open={modalOpen}
@@ -41,6 +34,6 @@ export const PostAddWithModal = () => {
           />
         </Modal>
       )}
-    </PostAddWithModalContainer>
+    </>
   )
 }

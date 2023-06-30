@@ -1,5 +1,5 @@
 import { commonInstance } from "../../../common"
-import { AlbumType } from "../types"
+import { AddAlbumArgType, AlbumType } from "../types"
 
 export const photosApi = {
   getAlbums() {
@@ -12,5 +12,8 @@ export const photosApi = {
   },
   deleteAlbum(albumId: number) {
     return commonInstance.delete<{}>(`albums/${albumId}`)
+  },
+  addAlbum(arg: AddAlbumArgType) {
+    return commonInstance.post<AlbumType>("posts", arg)
   },
 }

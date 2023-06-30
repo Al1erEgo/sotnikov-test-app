@@ -1,15 +1,15 @@
-import { AddPostPayloadType } from "../../../posts/types/posts-payloads"
 import { FC, useEffect, useState } from "react"
 import { Button, Form, Input, Select } from "antd"
 import { useAppSelector } from "../../../../common"
 import { FlexContainer } from "../../../../common/styles/common-styled-components"
+import { AddAlbumPayloadType } from "../../types"
 
 type AlbumFormProps = {
   type: "new" | "edit"
   userName?: string
   title?: string
   onCancel: () => void
-  onSubmit: ({ title, userName }: AddPostPayloadType) => void
+  onSubmit: ({ title, userName }: AddAlbumPayloadType) => void
 }
 
 export const AlbumForm: FC<AlbumFormProps> = ({

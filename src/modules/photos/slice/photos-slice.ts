@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { AlbumEntityType, AlbumType } from "../types"
+import { AddAlbumPayloadType, AlbumEntityType, AlbumType } from "../types"
 import { usersThunks } from "../../../common/slices"
 import { appActions } from "../../../app/app-slice"
 import { handleServerNetworkError } from "../../../common/utils"
 import { photosApi } from "../api"
+import { RootState } from "../../../app/store"
 
 type PhotosStateType = {
   albums: AlbumEntityType[]
@@ -21,9 +22,9 @@ const fetchAlbums = createAsyncThunk<AlbumType[], void>(
   "photos/fetchAlbums",
   async (_, { dispatch, rejectWithValue }) => {
     //TODO убрать дублирующийся фетч пользователей
-    dispatch(usersThunks.fetchUsers())
-    dispatch(appActions.setDataLoading(true))
     try {
+      dispatch(usersThunks.fetchUsers())
+      dispatch(appActions.setDataLoading(true))
       const albums = await photosApi.getAlbums()
       return albums.data
     } catch (error) {
@@ -31,6 +32,27 @@ const fetchAlbums = createAsyncThunk<AlbumType[], void>(
       return rejectWithValue(null)
     } finally {
       dispatch(appActions.setDataLoading(false))
+    }
+  },
+)
+
+const addAlbum = createAsyncThunk<AlbumType, AddAlbumPayloadType>(
+  "photos/addAlbum",
+  async ({ title, userName }, { dispatch, rejectWithValue, getState }) => {
+    try {
+      const state = getState() as RootState
+      const userId = Object.values(state.users).find(
+        (user) => user.name === userName,
+      )?.id
+      if (userId) {
+        const newAlbum = await photosApi.addAlbum({ title, userId })
+        return newAlbum.data
+      } else {
+        throw new Error("Пользователь не найден!")
+      }
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
     }
   },
 )
@@ -44,8 +66,8 @@ const updateAlbum = createAsyncThunk<
 >(
   "photos/updateAlbum",
   async ({ albumId, title }, { dispatch, rejectWithValue }) => {
-    dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
     try {
+      dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
       const album = await photosApi.updateAlbum(albumId, title)
       return album.data
     } catch (error) {
@@ -65,8 +87,8 @@ const updateAlbum = createAsyncThunk<
 const deleteAlbum = createAsyncThunk<number, number>(
   "photos/deleteAlbum",
   async (albumId, { dispatch, rejectWithValue }) => {
-    dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
     try {
+      dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
       await photosApi.deleteAlbum(albumId)
       return albumId
     } catch (error) {
@@ -141,6 +163,13 @@ const photosSlice = createSlice({
           }
         }
       })
+      .addCase(addAlbum.fulfilled, (state, action) => {
+        state.albums.push({
+          ...action.payload,
+          isAlbumLoading: false,
+          isPhotosLoading: false,
+        })
+      })
   },
 })
 
@@ -151,4 +180,5 @@ export const photosThunks = {
   updateAlbum,
   deleteAlbum,
   deleteAlbumsGroup,
+  addAlbum,
 }

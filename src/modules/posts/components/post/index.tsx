@@ -1,6 +1,6 @@
 import { Skeleton, Tooltip } from "antd"
 import { FC, memo, useState } from "react"
-import { PostEntityType } from "../../types"
+import { AddPostPayloadType, PostEntityType } from "../../types"
 import {
   ActionsBar,
   useActions,
@@ -41,15 +41,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
     () => deletePost(post.id),
   )
 
-  const handleFormSubmit = ({
-    title,
-    userName,
-    body,
-  }: {
-    title: string
-    userName: string
-    body: string
-  }) => {
+  const handleFormSubmit = ({ title, userName, body }: AddPostPayloadType) => {
     if (user.name !== userName) {
       updateUserName({ userName, userId: user.id })
     }
