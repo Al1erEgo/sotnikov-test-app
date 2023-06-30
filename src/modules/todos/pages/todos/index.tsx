@@ -1,12 +1,12 @@
 import React, { useEffect } from "react"
 import { Paginator, useActions, useAppSelector } from "../../../../common"
-import { getTodos, todosThunks } from "../../slice"
+import { getSortedTodos, todosThunks } from "../../slice"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { TodosContentContainer } from "./styles"
 import { Todo } from "../../components/todo"
 
 const TodosPage = () => {
-  const todos = useAppSelector(getTodos)
+  const todos = useAppSelector(getSortedTodos)
 
   const { fetchTodos } = useActions(todosThunks)
 

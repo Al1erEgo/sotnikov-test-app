@@ -4,6 +4,7 @@ import { filtersSortActions, usersThunks } from "../../../common/slices"
 import { appActions } from "../../../app/app-slice"
 import { handleServerNetworkError } from "../../../common/utils"
 import { todosApi } from "../api"
+import { TODOS_SORT_DIRECTIONS } from "../constants"
 
 type TodosStateType = {
   todos: TodoEntityType[]
@@ -24,7 +25,9 @@ const fetchTodos = createAsyncThunk<TodoType[], void>(
       dispatch(usersThunks.fetchUsers())
       dispatch(appActions.setDataLoading(true))
       dispatch(filtersSortActions.clearFiltersAndSort())
-      dispatch(filtersSortActions.setSorting("complete desc"))
+      dispatch(
+        filtersSortActions.setSorting(TODOS_SORT_DIRECTIONS.complete.desc),
+      )
       const todos = await todosApi.getTodos()
       return todos.data
     } catch (error) {
