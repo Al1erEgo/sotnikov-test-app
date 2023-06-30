@@ -19,6 +19,11 @@ const getAlbums = (state: RootState) => state.photos.albums
 export const getSelectedAlbums = (state: RootState) =>
   state.photos.selectedAlbums
 
+export const getIsPhotosLoading = (state: RootState) =>
+  state.photos.isPhotosLoading
+
+export const getPhotos = (state: RootState) => state.photos.photos
+
 const getFilteredAlbums = (state: RootState) => {
   const albums = getAlbums(state)
   const titleFilter = getFilterByTitle(state)

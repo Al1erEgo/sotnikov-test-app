@@ -18,9 +18,12 @@ const tabs = [
 ]
 
 const getDefaultActiveKey = (currentLocation: string): string => {
-  return Object.values(APP_PATHS)
-    .findIndex((value) => value === currentLocation.slice(1))
-    .toString()
+  const key =
+    Object.values(APP_PATHS)
+      .slice(1)
+      .findIndex((value) => currentLocation.slice(1).includes(value)) + 1
+
+  return key.toString()
 }
 
 export const TabsMenu = () => {

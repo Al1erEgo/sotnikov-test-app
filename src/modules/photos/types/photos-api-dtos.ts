@@ -4,7 +4,10 @@ export type AlbumType = {
   title: string
 }
 
-export type AddAlbumArgType = {
-  userId: number
+export type PhotoType = {
+  albumId: number
+  id: number
   title: string
+  url: string
+  thumbnailUrl: string
 }

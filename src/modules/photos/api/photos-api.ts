@@ -1,9 +1,12 @@
 import { commonInstance } from "../../../common"
-import { AddAlbumArgType, AlbumType } from "../types"
+import { AddAlbumArgType, AlbumType, PhotoType } from "../types"
 
 export const photosApi = {
   getAlbums() {
     return commonInstance.get<AlbumType[]>("albums")
+  },
+  getPhotosForAlbum(albumId: number) {
+    return commonInstance.get<PhotoType[]>(`albums/${albumId}/photos`)
   },
   updateAlbum(albumId: number, title: string) {
     return commonInstance.patch<AlbumType>(`albums/${albumId}`, {

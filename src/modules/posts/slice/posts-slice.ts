@@ -40,37 +40,34 @@ const fetchPosts = createAsyncThunk<PostType[], void>(
   },
 )
 
-//Проверка на наличие загруженных комментариев закомментирована, так как нелогично, но и каждый раз подгружать заново
+//Проверка на наличие загруженных комментариев убрана, так как нелогично, но и каждый раз подгружать заново
 // не лучшее решение, стоило бы использовать RTK Query с кешированием
 //Либо можно TODO сделать проверку на наличие комментариев со сроком жизни в стейте
 const fetchComments = createAsyncThunk<
-  { comments: CommentType[]; postId: number } | undefined,
+  { comments: CommentType[]; postId: number },
   number
->(
-  "posts/fetchComments",
-  async (postId, { dispatch, rejectWithValue, getState }) => {
-    try {
-      dispatch(
-        postsActions.setCommentsLoadingStatus({
-          postId: postId,
-          status: true,
-        }),
-      )
-      const comments = await postsApi.getCommentsForPost(postId)
-      return { comments: comments.data, postId }
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    } finally {
-      dispatch(
-        postsActions.setCommentsLoadingStatus({
-          postId,
-          status: false,
-        }),
-      )
-    }
-  },
-)
+>("posts/fetchComments", async (postId, { dispatch, rejectWithValue }) => {
+  try {
+    dispatch(
+      postsActions.setCommentsLoadingStatus({
+        postId,
+        status: true,
+      }),
+    )
+    const comments = await postsApi.getCommentsForPost(postId)
+    return { comments: comments.data, postId }
+  } catch (error) {
+    handleServerNetworkError(error, dispatch)
+    return rejectWithValue(null)
+  } finally {
+    dispatch(
+      postsActions.setCommentsLoadingStatus({
+        postId,
+        status: false,
+      }),
+    )
+  }
+})
 
 //TODO посмотреть логику, чтобы сразу приходил id пользователя
 const addPost = createAsyncThunk<PostType, AddPostPayloadType>(

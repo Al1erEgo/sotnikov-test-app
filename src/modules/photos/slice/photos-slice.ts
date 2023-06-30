@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { AddAlbumPayloadType, AlbumEntityType, AlbumType } from "../types"
+import {
+  AddAlbumPayloadType,
+  AlbumEntityType,
+  AlbumType,
+  PhotoType,
+} from "../types"
 import { usersThunks } from "../../../common/slices"
 import { appActions } from "../../../app/app-slice"
 import { handleServerNetworkError } from "../../../common/utils"
@@ -8,6 +13,8 @@ import { RootState } from "../../../app/store"
 
 type PhotosStateType = {
   albums: AlbumEntityType[]
+  photos?: PhotoType[]
+  isPhotosLoading: boolean
   selectedAlbums: {
     [key: string]: boolean
   }
@@ -15,6 +22,8 @@ type PhotosStateType = {
 
 const initialState: PhotosStateType = {
   albums: [],
+  photos: undefined,
+  isPhotosLoading: false,
   selectedAlbums: {},
 }
 
@@ -112,6 +121,23 @@ const deleteAlbumsGroup = createAsyncThunk<void, string[]>(
   },
 )
 
+const fetchPhotos = createAsyncThunk<PhotoType[], number | undefined>(
+  "photos/fetchPhotos",
+  async (albumId, { dispatch, rejectWithValue }) => {
+    try {
+      if (!albumId) {
+        throw new Error("Что-то пошло не так :(")
+      }
+      dispatch(photosActions.setPhotosLoadingStatus(true))
+      const photos = await photosApi.getPhotosForAlbum(albumId)
+      return photos.data
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    }
+  },
+)
+
 const photosSlice = createSlice({
   name: "photos",
   initialState,
@@ -126,6 +152,9 @@ const photosSlice = createSlice({
       if (album) {
         album.isAlbumLoading = action.payload.status
       }
+    },
+    setPhotosLoadingStatus: (state, action: PayloadAction<boolean>) => {
+      state.isPhotosLoading = action.payload
     },
     changeAlbumSelection: (state, action: PayloadAction<number>) => {
       if (!state.selectedAlbums[action.payload]) {
@@ -144,8 +173,11 @@ const photosSlice = createSlice({
         state.albums = action.payload.map((album) => ({
           ...album,
           isAlbumLoading: false,
-          isPhotosLoading: false,
         }))
+      })
+      .addCase(fetchPhotos.fulfilled, (state, action) => {
+        state.photos = action.payload
+        state.isPhotosLoading = false
       })
       .addCase(deleteAlbum.fulfilled, (state, action) => {
         state.albums = state.albums.filter(
@@ -167,7 +199,6 @@ const photosSlice = createSlice({
         state.albums.push({
           ...action.payload,
           isAlbumLoading: false,
-          isPhotosLoading: false,
         })
       })
   },
@@ -177,6 +208,7 @@ export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
 export const photosThunks = {
   fetchAlbums,
+  fetchPhotos,
   updateAlbum,
   deleteAlbum,
   deleteAlbumsGroup,
