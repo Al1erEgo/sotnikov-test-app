@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from "react"
 import { AddTodoPayloadType } from "../../types"
-import { Button, Form, Input, Switch } from "antd"
+import { Button, Form, Switch } from "antd"
 import { FlexContainer } from "../../../../common"
+import { TodoFormInput } from "./styles"
 
 type TodoFormProps = {
   title?: string
@@ -46,22 +47,26 @@ export const TodoForm: FC<TodoFormProps> = ({
       }}
       onFinish={onSubmit}
     >
-      <Form.Item
-        label="Заголовок"
-        name="title"
-        rules={[
-          {
-            required: true,
-            message: "Пожалуйста, введите заголовок!",
-            max: 100,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item label="Статус" name="completed" valuePropName="checked">
-        <Switch />
-      </Form.Item>
+      <FlexContainer justifycontent={"space-between"} flexdirection={"row"}>
+        <Form.Item
+          label="Заголовок"
+          name="title"
+          rules={[
+            {
+              required: true,
+              message: "Пожалуйста, введите заголовок!",
+              max: 100,
+            },
+          ]}
+        >
+          <TodoFormInput />
+        </Form.Item>
+        <FlexContainer width={"20%"}>
+          <Form.Item label="Статус" name="completed" valuePropName="checked">
+            <Switch />
+          </Form.Item>
+        </FlexContainer>
+      </FlexContainer>
       <Form.Item>
         <FlexContainer
           gap={"10px"}

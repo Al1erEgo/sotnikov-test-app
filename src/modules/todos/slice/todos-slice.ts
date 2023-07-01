@@ -5,6 +5,7 @@ import { appActions } from "../../../app/app-slice"
 import { handleServerNetworkError } from "../../../common/utils"
 import { todosApi } from "../api"
 import { TODOS_SORT_DIRECTIONS } from "../constants"
+import { postsActions } from "../../posts/slice"
 
 type TodosStateType = {
   todos: TodoEntityType[]
@@ -66,6 +67,34 @@ const changeTodoStatus = createAsyncThunk<
   },
 )
 
+const updateTodo = createAsyncThunk<
+  { todo: TodoType; todoId: number },
+  {
+    todoId: number
+    title: string
+    completed: boolean
+  }
+>(
+  "todos/updateTodo",
+  async ({ todoId, title, completed }, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(todosActions.setTodoLoadingStatus({ todoId, status: true }))
+      const todo = await todosApi.updateTodo(todoId, title, completed)
+      return { todo: todo.data, todoId }
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(
+        todosActions.setTodoLoadingStatus({
+          todoId,
+          status: false,
+        }),
+      )
+    }
+  },
+)
+
 const addTodo = createAsyncThunk<TodoType, AddTodoPayloadType>(
   "todos/addTodo",
   async ({ title, completed }, { dispatch, rejectWithValue }) => {
@@ -75,6 +104,34 @@ const addTodo = createAsyncThunk<TodoType, AddTodoPayloadType>(
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
+    }
+  },
+)
+
+const deleteTodo = createAsyncThunk<number, number>(
+  "todos/deleteTodo",
+  async (todoId, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(todosActions.setTodoLoadingStatus({ todoId, status: true }))
+      await todosApi.deleteTodo(todoId)
+      return todoId
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    }
+  },
+)
+
+const deleteTodosGroup = createAsyncThunk<void, string[]>(
+  "todos/deleteTodosGroup",
+  async (todos, { dispatch, rejectWithValue }) => {
+    try {
+      todos.forEach((id) => dispatch(todosThunks.deleteTodo(+id)))
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(postsActions.clearSelectedPosts())
     }
   },
 )
@@ -92,7 +149,15 @@ const todosSlice = createSlice({
         todo.isTodoLoading = action.payload.status
       }
     },
+    changeTodoSelection: (state, action: PayloadAction<number>) => {
+      if (!state.selectedTodos[action.payload]) {
+        state.selectedTodos[action.payload] = true
+      } else {
+        delete state.selectedTodos[action.payload]
+      }
+    },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchTodos.fulfilled, (state, action) => {
@@ -112,15 +177,36 @@ const todosSlice = createSlice({
           }
         }
       })
+      .addCase(updateTodo.fulfilled, (state, action) => {
+        const todoIndex = state.todos.findIndex(
+          (todo) => todo.id === action.payload.todoId,
+        )
+        if (todoIndex !== -1) {
+          state.todos[todoIndex] = {
+            ...state.todos[todoIndex],
+            ...action.payload.todo,
+          }
+        }
+      })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.todos.push({
           ...action.payload,
           isTodoLoading: false,
         })
       })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.todos = state.todos.filter((todo) => todo.id !== action.payload)
+      })
   },
 })
 
 export const todosReducer = todosSlice.reducer
 export const todosActions = todosSlice.actions
-export const todosThunks = { fetchTodos, changeTodoStatus, addTodo }
+export const todosThunks = {
+  fetchTodos,
+  changeTodoStatus,
+  addTodo,
+  updateTodo,
+  deleteTodo,
+  deleteTodosGroup,
+}

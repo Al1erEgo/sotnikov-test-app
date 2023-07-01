@@ -1,14 +1,26 @@
 import React, { useEffect } from "react"
-import { Paginator, useActions, useAppSelector } from "../../../../common"
-import { getSortedTodos, todosThunks } from "../../slice"
+import {
+  GroupActionsButtons,
+  Paginator,
+  useActions,
+  useAppSelector,
+  useModal,
+} from "../../../../common"
+import { getSelectedTodos, getSortedTodos, todosThunks } from "../../slice"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { TodosContentContainer } from "./styles"
 import { AddTodoWithModal, Todo } from "../../components"
 
 const TodosPage = () => {
   const todos = useAppSelector(getSortedTodos)
+  const selectedTodos = useAppSelector(getSelectedTodos)
 
-  const { fetchTodos } = useActions(todosThunks)
+  const { fetchTodos, deleteTodosGroup } = useActions(todosThunks)
+
+  const { modal: deletePostsModal, handleOpenModal: openDeleteModal } =
+    useModal("Удалить выбранные задачи?", () =>
+      deleteTodosGroup(Object.keys(selectedTodos)),
+    )
 
   const { currentPageContent, paginationConfig, handlePaginationChange } =
     usePaginationWSearchParams(todos)
@@ -30,6 +42,10 @@ const TodosPage = () => {
         handleChange={handlePaginationChange}
         totalCount={todos.length}
       />
+      {Object.keys(selectedTodos).length !== 0 && (
+        <GroupActionsButtons onDelete={openDeleteModal} />
+      )}
+      {deletePostsModal}
     </>
   )
 }

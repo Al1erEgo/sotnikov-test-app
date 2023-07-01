@@ -13,4 +13,13 @@ export const todosApi = {
       completed,
     })
   },
+  updateTodo(todoId: number, title: string, completed: boolean) {
+    return commonInstance.patch<TodoType>(`todos/${todoId}`, {
+      title,
+      completed,
+    })
+  },
+  deleteTodo(todoId: number) {
+    return commonInstance.delete<{}>(`todos/${todoId}`)
+  },
 }

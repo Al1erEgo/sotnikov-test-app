@@ -4,8 +4,8 @@ import { CloseOutlined, HeartFilled } from "@ant-design/icons"
 import { FC } from "react"
 
 type GroupActionsButtonsProps = {
-  onDelete: () => void
-  onAddFav: () => void
+  onDelete?: () => void
+  onAddFav?: () => void
 }
 
 export const GroupActionsButtons: FC<GroupActionsButtonsProps> = ({
@@ -14,16 +14,20 @@ export const GroupActionsButtons: FC<GroupActionsButtonsProps> = ({
 }) => {
   return (
     <PostsGroupActionsContainer>
-      <Tooltip title={"Добавить в избранное"}>
-        <Button type="primary" shape="circle" onClick={onAddFav}>
-          <HeartFilled />
-        </Button>
-      </Tooltip>
-      <Tooltip title={"Удалить"}>
-        <Button type="primary" shape="circle" danger onClick={onDelete}>
-          <CloseOutlined />
-        </Button>
-      </Tooltip>
+      {onAddFav && (
+        <Tooltip title={"Добавить в избранное"}>
+          <Button type="primary" shape="circle" onClick={onAddFav}>
+            <HeartFilled />
+          </Button>
+        </Tooltip>
+      )}
+      {onDelete && (
+        <Tooltip title={"Удалить выбранные"}>
+          <Button type="primary" shape="circle" danger onClick={onDelete}>
+            <CloseOutlined />
+          </Button>
+        </Tooltip>
+      )}
     </PostsGroupActionsContainer>
   )
 }

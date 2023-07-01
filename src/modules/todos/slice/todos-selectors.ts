@@ -4,6 +4,8 @@ import { TODOS_SORT_DIRECTIONS } from "../constants"
 
 export const getTodos = (state: RootState) => state.todos.todos
 
+export const getSelectedTodos = (state: RootState) => state.todos.selectedTodos
+
 export const getSortedTodos = (state: RootState) => {
   const todos = getTodos(state)
   const sorting = getSorting(state)
