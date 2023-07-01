@@ -14,15 +14,15 @@ const selectSortOptions = [
   {
     label: "По возрастанию:",
     options: [
-      { value: TODOS_SORT_DIRECTIONS.complete.asc, label: "Статусу" },
-      { value: TODOS_SORT_DIRECTIONS.title.asc, label: "Названию" },
+      { value: TODOS_SORT_DIRECTIONS.asc.complete, label: "Статусу (вверх)" },
+      { value: TODOS_SORT_DIRECTIONS.asc.title, label: "Названию (вверх)" },
     ],
   },
   {
     label: "По убыванию:",
     options: [
-      { value: TODOS_SORT_DIRECTIONS.complete.desc, label: "Статусу" },
-      { value: TODOS_SORT_DIRECTIONS.title.desc, label: "Названию" },
+      { value: TODOS_SORT_DIRECTIONS.desc.complete, label: "Статусу (вниз)" },
+      { value: TODOS_SORT_DIRECTIONS.desc.title, label: "Названию (вниз)" },
     ],
   },
 ]

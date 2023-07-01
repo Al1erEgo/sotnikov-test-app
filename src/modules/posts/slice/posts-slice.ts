@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { PostEntityType } from "../types"
-import { postsThunks } from "./posts-thunks"
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {PostEntityType} from "../types"
+import {postsThunks} from "./posts-thunks"
 
+//selectedPosts для упрощения логики и доступа к состоянию
+//и упрощения взаимодействия с этим состоянием для групповых действий
 type PostsStateType = {
   posts: PostEntityType[]
   selectedPosts: {

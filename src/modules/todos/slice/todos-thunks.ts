@@ -18,7 +18,7 @@ const fetchTodos = createAsyncThunk<TodoType[], void>(
       dispatch(appActions.setDataLoading(true))
       dispatch(filtersSortActions.clearFiltersAndSort())
       dispatch(
-        filtersSortActions.setSorting(TODOS_SORT_DIRECTIONS.complete.desc),
+        filtersSortActions.setSorting(TODOS_SORT_DIRECTIONS.desc.complete),
       )
       const todos = await todosApi.getTodos()
       return todos.data

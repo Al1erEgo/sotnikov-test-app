@@ -8,7 +8,7 @@ import {
   useAppSelector,
 } from "../../../../common"
 import { Skeleton, Switch, Tooltip } from "antd"
-import { todosActions, todosThunks } from "../../slice"
+import { getIsTodoSelected, todosActions, todosThunks } from "../../slice"
 import { TodoForm } from "../todo-form"
 
 type TodoProps = {
@@ -17,8 +17,8 @@ type TodoProps = {
 
 export const Todo: FC<TodoProps> = memo(({ todo }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const isSelected = useAppSelector(
-    (state) => state.todos.selectedTodos[todo.id],
+  const isSelected = useAppSelector((state) =>
+    getIsTodoSelected(state, todo.id),
   )
 
   const { changeTodoStatus, updateTodo } = useActions(todosThunks)

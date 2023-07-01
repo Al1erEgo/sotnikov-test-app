@@ -8,10 +8,17 @@ import {
 } from "../../../common"
 import { TODOS_SORT_DIRECTIONS } from "../constants"
 import { TodoEntityType } from "../types"
+import { createSelector } from "@reduxjs/toolkit"
 
 export const getTodos = (state: RootState) => state.todos.todos
 
 export const getSelectedTodos = (state: RootState) => state.todos.selectedTodos
+
+const selectedTodoId = (state: RootState, todoId: number) => todoId
+export const getIsTodoSelected = createSelector(
+  [getSelectedTodos, selectedTodoId],
+  (selectedTodos, todoId) => selectedTodos[todoId],
+)
 
 export const getFilteredTodos = (state: RootState) => {
   const todos = getTodos(state)
@@ -49,18 +56,18 @@ export const getSortedTodos = (state: RootState) => {
     return todos
   }
 
-  if (sorting === TODOS_SORT_DIRECTIONS.complete.asc) {
+  if (sorting === TODOS_SORT_DIRECTIONS.asc.complete) {
     return [...todos].sort((a) => (a.completed ? -1 : 1))
   }
 
-  if (sorting === TODOS_SORT_DIRECTIONS.complete.desc) {
+  if (sorting === TODOS_SORT_DIRECTIONS.desc.complete) {
     return [...todos].sort((a) => (a.completed ? 1 : -1))
   }
 
-  if (sorting === TODOS_SORT_DIRECTIONS.title.asc) {
+  if (sorting === TODOS_SORT_DIRECTIONS.asc.title) {
     return [...todos].sort((a, b) => (a.title > b.title ? 1 : -1))
   }
-  if (sorting === TODOS_SORT_DIRECTIONS.title.desc) {
+  if (sorting === TODOS_SORT_DIRECTIONS.desc.title) {
     return [...todos].sort((a, b) => (a.title > b.title ? -1 : 1))
   }
 

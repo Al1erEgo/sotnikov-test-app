@@ -20,12 +20,6 @@ export const TodoForm: FC<TodoFormProps> = ({
   const [form] = Form.useForm()
   const values = Form.useWatch([], form)
 
-  // const users = useAppSelector((state) => state.users)
-  // const userNames = Object.values(users).map((user) => ({
-  //   value: user.name,
-  //   label: user.name,
-  // }))
-
   useEffect(() => {
     form.validateFields({ validateOnly: true }).then(
       () => {

@@ -1,10 +1,10 @@
 export const TODOS_SORT_DIRECTIONS = {
-  complete: {
-    asc: "asc complete",
-    desc: "desc complete",
+  asc: {
+    complete: "asc complete",
+    title: "asc title",
   },
-  title: {
-    asc: "asc title",
-    desc: "desc title",
+  desc: {
+    complete: "desc complete",
+    title: "desc title",
   },
 }
