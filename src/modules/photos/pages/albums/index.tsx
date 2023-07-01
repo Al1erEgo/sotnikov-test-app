@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import {
-  FiltersPanel,
+  CommonFiltersPanel,
   GroupActionsButtons,
   Paginator,
   StyledLoader,
@@ -51,7 +51,7 @@ const AlbumsPage = () => {
   return (
     <>
       <AddAlbumWithModal />
-      <FiltersPanel />
+      <CommonFiltersPanel />
       <PhotosPagesContentContainer>
         {currentPageContent.map((album) => (
           <AlbumCard key={album.id} album={album} />

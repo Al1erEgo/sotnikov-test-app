@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import {
-  FiltersPanel,
+  CommonFiltersPanel,
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
@@ -49,7 +49,7 @@ const PostsPage = () => {
   return (
     <>
       <AddPostWithModal />
-      <FiltersPanel />
+      <CommonFiltersPanel />
       <PageContentContainer>
         {currentPageContent.map((post) => (
           <Post key={post.id} post={post} />
