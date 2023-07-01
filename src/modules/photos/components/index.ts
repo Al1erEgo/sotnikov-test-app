@@ -1,3 +1,3 @@
 export * from "./album-card"
 export * from "./album-form"
-export * from "./add-album-with-modal"
+export * from "./add-album-button-with-modal"

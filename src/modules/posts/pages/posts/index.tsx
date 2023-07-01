@@ -11,7 +11,7 @@ import {
   useModal,
 } from "../../../../common"
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
-import { AddPostWithModal, Post } from "../../components"
+import { AddPostButtonWithModal, Post } from "../../components"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { getIsDataLoading } from "../../../../app/app-selectors"
 
@@ -47,7 +47,7 @@ const PostsPage = () => {
 
   return (
     <>
-      <AddPostWithModal />
+      <AddPostButtonWithModal />
       <CommonFiltersPanel />
       <PageContentContainer>
         {currentPageContent.map((post) => (

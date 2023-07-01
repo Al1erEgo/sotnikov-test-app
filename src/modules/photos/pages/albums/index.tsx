@@ -12,7 +12,7 @@ import {
 import { getSelectedAlbums, getSortedAlbums, photosThunks } from "../../slice"
 import { getIsDataLoading } from "../../../../app/app-selectors"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
-import { AddAlbumWithModal, AlbumCard } from "../../components"
+import { AddAlbumButtonWithModal, AlbumCard } from "../../components"
 import { PhotosPagesContentContainer } from "../../styles"
 
 const AlbumsPage = () => {
@@ -46,7 +46,7 @@ const AlbumsPage = () => {
   }
   return (
     <>
-      <AddAlbumWithModal />
+      <AddAlbumButtonWithModal />
       <CommonFiltersPanel />
       <PhotosPagesContentContainer>
         {currentPageContent.map((album) => (

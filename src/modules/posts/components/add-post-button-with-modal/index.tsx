@@ -5,7 +5,7 @@ import { AddEntityButton, useActions } from "../../../../common"
 import { postsThunks } from "../../slice"
 import { AddPostPayloadType } from "../../types"
 
-export const AddPostWithModal = () => {
+export const AddPostButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const { addPost } = useActions(postsThunks)
 

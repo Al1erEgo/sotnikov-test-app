@@ -1,35 +1,35 @@
 import { useState } from "react"
 import { AddEntityButton, useActions } from "../../../../common"
 import { Modal } from "antd"
-import { photosThunks } from "../../slice"
-import { AlbumPayloadType } from "../../types"
-import { AlbumForm } from "../album-form"
+import { AddTodoPayloadType } from "../../types"
+import { todosThunks } from "../../slice"
+import { TodoForm } from "../todo-form"
 
-export const AddAlbumWithModal = () => {
+export const AddTodoButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
-  const { addAlbum } = useActions(photosThunks)
+  const { addTodo } = useActions(todosThunks)
 
-  const handleAddPost = (arg: AlbumPayloadType) => {
-    addAlbum(arg)
+  const handleAddTodo = (arg: AddTodoPayloadType) => {
+    addTodo(arg)
     setModalOpen(false)
   }
 
   return (
     <>
       <AddEntityButton
-        tooltip={"Добавить альбом"}
+        tooltip={"Добавить задачу"}
         onClick={() => setModalOpen(true)}
       />
       {modalOpen && (
         <Modal
           open={modalOpen}
-          title={"Добавить альбом"}
+          title={"Добавить задачу"}
           footer={null}
           onCancel={() => setModalOpen(false)}
         >
-          <AlbumForm
+          <TodoForm
             onCancel={() => setModalOpen(false)}
-            onSubmit={handleAddPost}
+            onSubmit={handleAddTodo}
           />
         </Modal>
       )}
