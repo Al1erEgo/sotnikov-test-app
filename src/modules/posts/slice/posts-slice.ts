@@ -104,8 +104,6 @@ const deletePostsGroup = createAsyncThunk<void, string[]>(
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
-    } finally {
-      dispatch(postsActions.clearSelectedPosts())
     }
   },
 )
@@ -168,9 +166,6 @@ const postsSlice = createSlice({
         delete state.selectedPosts[action.payload]
       }
     },
-    clearSelectedPosts: (state) => {
-      state.selectedPosts = {}
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -198,6 +193,7 @@ const postsSlice = createSlice({
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.posts = state.posts.filter((post) => post.id !== action.payload)
+        delete state.selectedPosts[action.payload]
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         const postIndex = state.posts.findIndex(
@@ -216,10 +212,10 @@ const postsSlice = createSlice({
 export const postsReducer = postsSlice.reducer
 export const postsActions = postsSlice.actions
 export const postsThunks = {
-  fetchPosts,
-  fetchComments,
-  addPost,
-  deletePost,
-  updatePost,
-  deletePostsGroup,
+    fetchPosts,
+    fetchComments,
+    addPost,
+    deletePost,
+    updatePost,
+    deletePostsGroup,
 }

@@ -108,8 +108,6 @@ const deleteAlbumsGroup = createAsyncThunk<void, string[]>(
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
-    } finally {
-      dispatch(photosActions.clearSelectedAlbums())
     }
   },
 )
@@ -156,9 +154,6 @@ const photosSlice = createSlice({
         delete state.selectedAlbums[action.payload]
       }
     },
-    clearSelectedAlbums: (state) => {
-      state.selectedAlbums = {}
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -176,6 +171,7 @@ const photosSlice = createSlice({
         state.albums = state.albums.filter(
           (album) => album.id !== action.payload,
         )
+        delete state.selectedAlbums[action.payload]
       })
       .addCase(updateAlbum.fulfilled, (state, action) => {
         const albumIndex = state.albums.findIndex(
@@ -200,10 +196,10 @@ const photosSlice = createSlice({
 export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
 export const photosThunks = {
-  fetchAlbums,
-  fetchPhotos,
-  updateAlbum,
-  deleteAlbum,
-  deleteAlbumsGroup,
-  addAlbum,
+    fetchAlbums,
+    fetchPhotos,
+    updateAlbum,
+    deleteAlbum,
+    deleteAlbumsGroup,
+    addAlbum,
 }

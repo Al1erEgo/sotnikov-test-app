@@ -5,7 +5,6 @@ import { appActions } from "../../../app/app-slice"
 import { handleServerNetworkError } from "../../../common/utils"
 import { todosApi } from "../api"
 import { TODOS_SORT_DIRECTIONS } from "../constants"
-import { postsActions } from "../../posts/slice"
 
 type TodosStateType = {
   todos: TodoEntityType[]
@@ -130,8 +129,6 @@ const deleteTodosGroup = createAsyncThunk<void, string[]>(
     } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
-    } finally {
-      dispatch(postsActions.clearSelectedPosts())
     }
   },
 )
@@ -196,6 +193,7 @@ const todosSlice = createSlice({
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.todos = state.todos.filter((todo) => todo.id !== action.payload)
+        delete state.selectedTodos[action.payload]
       })
   },
 })
