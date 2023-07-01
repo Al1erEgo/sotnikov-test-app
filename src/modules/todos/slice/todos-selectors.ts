@@ -8,7 +8,7 @@ import {
   getFilteredByTitle,
   getSorting,
 } from '../../../common'
-import { TODOS_SORT_DIRECTIONS } from '../constants'
+import { TODOS_SORTING_DIRECTIONS } from '../constants'
 import { TodoEntityType } from '../types'
 
 export const getTodos = (state: RootState) => state.todos.todos
@@ -52,18 +52,18 @@ export const getSortedTodos = (state: RootState) => {
     return todos
   }
 
-  if (sorting === TODOS_SORT_DIRECTIONS.asc.complete) {
+  if (sorting === TODOS_SORTING_DIRECTIONS.asc.complete) {
     return [...todos].sort(a => (a.completed ? -1 : 1))
   }
 
-  if (sorting === TODOS_SORT_DIRECTIONS.desc.complete) {
+  if (sorting === TODOS_SORTING_DIRECTIONS.desc.complete) {
     return [...todos].sort(a => (a.completed ? 1 : -1))
   }
 
-  if (sorting === TODOS_SORT_DIRECTIONS.asc.title) {
+  if (sorting === TODOS_SORTING_DIRECTIONS.asc.title) {
     return [...todos].sort((a, b) => (a.title > b.title ? 1 : -1))
   }
-  if (sorting === TODOS_SORT_DIRECTIONS.desc.title) {
+  if (sorting === TODOS_SORTING_DIRECTIONS.desc.title) {
     return [...todos].sort((a, b) => (a.title > b.title ? -1 : 1))
   }
 

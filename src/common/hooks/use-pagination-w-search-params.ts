@@ -21,17 +21,33 @@ export const usePaginationWSearchParams = <T>(data: T[]) => {
   }
 
   useEffect(() => {
-    setSearchParams({
-      currentPage: paginationConfig[0].toString(),
-      pageSize: paginationConfig[1].toString(),
-    })
+    if (data.length && !currentPageContent.length) {
+      setPaginationConfig([1, 10])
+    }
+  }, [currentPageContent])
+
+  useEffect(() => {
+    if (
+      paginationConfig[0] !== Number(searchParams.get('currentPage')) ||
+      paginationConfig[1] !== Number(searchParams.get('pageSize'))
+    ) {
+      setSearchParams({
+        currentPage: paginationConfig[0].toString(),
+        pageSize: paginationConfig[1].toString(),
+      })
+    }
   }, [paginationConfig])
 
   useEffect(() => {
-    setPaginationConfig([
-      Number(searchParams.get('currentPage')) || 1,
-      Number(searchParams.get('pageSize')) || 10,
-    ])
+    if (
+      paginationConfig[0] !== Number(searchParams.get('currentPage')) ||
+      paginationConfig[1] !== Number(searchParams.get('pageSize'))
+    ) {
+      setPaginationConfig([
+        Number(searchParams.get('currentPage')) || 1,
+        Number(searchParams.get('pageSize')) || 10,
+      ])
+    }
   }, [searchParams])
 
   return { currentPageContent, paginationConfig, handlePaginationChange }

@@ -11,8 +11,8 @@ import {
   useActions,
   useAppSelector,
   useModal,
+  usePaginationWSearchParams,
 } from '../../../../common'
-import { usePaginationWSearchParams } from '../../../../common/hooks/use-pagination-w-search-params'
 import { AddPostButtonWithModal, PostItem } from '../../components'
 import { getSelectedPosts, getSortedPosts, postsThunks } from '../../slice'
 

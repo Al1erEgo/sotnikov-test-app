@@ -7,6 +7,7 @@ import {
   getFilteredByFavourite,
   getFilteredByTitle,
   getFilteredByUserId,
+  getSortedItems,
   getSorting,
   getUsers,
 } from '../../../common'
@@ -60,42 +61,5 @@ export const getSortedAlbums = (state: RootState) => {
   const favouriteAlbumsIds = getFavouriteAlbums(state)
   const users = getUsers(state)
 
-  if (!albums) {
-    return []
-  }
-
-  if (!sorting) {
-    return albums
-  }
-
-  if (sorting === 'asc Id') {
-    return [...albums].sort((a, b) => a.id - b.id)
-  }
-  if (sorting === 'desc Id') {
-    return [...albums].sort((a, b) => b.id - a.id)
-  }
-
-  if (sorting === 'asc favourite' && Object.keys(favouriteAlbumsIds).length) {
-    return [...albums].sort(post => (favouriteAlbumsIds[post.id] ? 1 : -1))
-  }
-
-  if (sorting === 'desc favourite' && Object.keys(favouriteAlbumsIds).length) {
-    return [...albums].sort(post => (favouriteAlbumsIds[post.id] ? -1 : 1))
-  }
-
-  if (sorting === 'asc title') {
-    return [...albums].sort((a, b) => (a.title > b.title ? 1 : -1))
-  }
-  if (sorting === 'desc title') {
-    return [...albums].sort((a, b) => (a.title > b.title ? -1 : 1))
-  }
-
-  if (sorting === 'asc userName') {
-    return [...albums].sort((a, b) => (users[a.userId].name > users[b.userId].name ? 1 : -1))
-  }
-  if (sorting === 'desc userName') {
-    return [...albums].sort((a, b) => (users[a.userId].name > users[b.userId].name ? -1 : 1))
-  }
-
-  return albums
+  return getSortedItems(albums, sorting, favouriteAlbumsIds, users)
 }

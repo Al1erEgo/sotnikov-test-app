@@ -1,1 +1,1 @@
-export * from './sorting-directions'
+export * from './todos-sorting-directions'
