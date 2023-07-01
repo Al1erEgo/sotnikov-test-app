@@ -10,6 +10,7 @@ import { getSelectedTodos, getSortedTodos, todosThunks } from "../../slice"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { TodosContentContainer } from "./styles"
 import { AddTodoWithModal, Todo } from "../../components"
+import { TodosFiltersPanel } from "../../components/todos-filters-panel"
 
 const TodosPage = () => {
   const todos = useAppSelector(getSortedTodos)
@@ -31,6 +32,7 @@ const TodosPage = () => {
 
   return (
     <>
+      <TodosFiltersPanel />
       <AddTodoWithModal />
       <TodosContentContainer>
         {currentPageContent.map((task) => (

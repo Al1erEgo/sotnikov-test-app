@@ -166,6 +166,9 @@ const postsSlice = createSlice({
         delete state.selectedPosts[action.payload]
       }
     },
+    clearSelectedPosts: (state) => {
+      state.selectedPosts = {}
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -212,10 +215,10 @@ const postsSlice = createSlice({
 export const postsReducer = postsSlice.reducer
 export const postsActions = postsSlice.actions
 export const postsThunks = {
-    fetchPosts,
-    fetchComments,
-    addPost,
-    deletePost,
-    updatePost,
-    deletePostsGroup,
+  fetchPosts,
+  fetchComments,
+  addPost,
+  deletePost,
+  updatePost,
+  deletePostsGroup,
 }

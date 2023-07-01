@@ -9,4 +9,7 @@ export const getFilterByUserId = (state: RootState) =>
 export const getFilterByFavourite = (state: RootState) =>
   state.filtersSort.filter.favourite
 
+export const getFilterByCompleted = (state: RootState) =>
+  state.filtersSort.filter.completed
+
 export const getSorting = (state: RootState) => state.filtersSort.sorting

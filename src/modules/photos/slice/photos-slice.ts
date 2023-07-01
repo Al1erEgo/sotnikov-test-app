@@ -154,6 +154,9 @@ const photosSlice = createSlice({
         delete state.selectedAlbums[action.payload]
       }
     },
+    clearSelectedAlbums: (state) => {
+      state.selectedAlbums = {}
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -196,10 +199,10 @@ const photosSlice = createSlice({
 export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
 export const photosThunks = {
-    fetchAlbums,
-    fetchPhotos,
-    updateAlbum,
-    deleteAlbum,
-    deleteAlbumsGroup,
-    addAlbum,
+  fetchAlbums,
+  fetchPhotos,
+  updateAlbum,
+  deleteAlbum,
+  deleteAlbumsGroup,
+  addAlbum,
 }

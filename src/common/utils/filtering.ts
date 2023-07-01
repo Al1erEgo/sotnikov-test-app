@@ -1,7 +1,10 @@
 import { PostEntityType } from "../../modules/posts/types"
 import { AlbumEntityType } from "../../modules/photos/types"
+import { TodoEntityType } from "../../modules/todos/types"
 
-type EntitiesType = (PostEntityType | AlbumEntityType)[] | undefined
+type EntitiesType =
+  | (PostEntityType | AlbumEntityType | TodoEntityType)[]
+  | undefined
 
 export const getFilteredByTitle = <T extends EntitiesType>(
   entities: T,
@@ -22,9 +25,17 @@ export const getFilteredByUserId = <T extends EntitiesType>(
 export const getFilteredByFavourite = <T extends EntitiesType>(
   entities: T,
   favouriteFilter: boolean,
-  favouritePostIds: { [p: string]: boolean },
+  favouriteIds: { [p: string]: boolean },
 ) => {
   return entities?.filter(
-    (entity) => !!favouritePostIds[entity.id] === favouriteFilter,
+    (entity) => !!favouriteIds[entity.id] === favouriteFilter,
   )
+}
+
+//TODO убрать в свой модуль?
+export const getFilteredByCompleted = (
+  entities: TodoEntityType[],
+  favouriteFilter: boolean,
+) => {
+  return entities?.filter((entity) => entity.completed === favouriteFilter)
 }

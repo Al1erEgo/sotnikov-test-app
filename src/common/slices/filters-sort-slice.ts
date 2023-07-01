@@ -6,6 +6,7 @@ type FiltersSortSlice = {
     title?: string
     userId?: number[]
     favourite?: boolean
+    completed?: boolean
   }
 }
 
@@ -15,6 +16,7 @@ const initialState: FiltersSortSlice = {
     title: undefined,
     userId: undefined,
     favourite: undefined,
+    completed: undefined,
   },
 }
 
@@ -49,12 +51,21 @@ const filtersSortSlice = createSlice({
         state.filter.favourite = action.payload
       }
     },
+    setFilteringByCompleted: (
+      state,
+      action: PayloadAction<boolean | undefined>,
+    ) => {
+      if (action.payload !== state.filter.favourite) {
+        state.filter.completed = action.payload
+      }
+    },
     clearFiltersAndSort: (state) => {
       state.sorting = undefined
       state.filter = {
         title: undefined,
         userId: undefined,
         favourite: undefined,
+        completed: undefined,
       }
     },
   },

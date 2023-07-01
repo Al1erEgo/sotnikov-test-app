@@ -9,7 +9,7 @@ type FilterByFavouriteProps = {
 }
 
 export const FilterByFavourite: FC<FilterByFavouriteProps> = ({ options }) => {
-  const postsFilterByFavourite = useAppSelector(getFilterByFavourite)
+  const filterByFavourite = useAppSelector(getFilterByFavourite)
 
   const { setFilteringByFavourite } = useActions(filtersSortActions)
   return (
@@ -22,7 +22,7 @@ export const FilterByFavourite: FC<FilterByFavouriteProps> = ({ options }) => {
         style={{ width: "90%" }}
         onChange={setFilteringByFavourite}
         options={options}
-        value={postsFilterByFavourite}
+        value={filterByFavourite}
       />
     </FlexContainer>
   )
