@@ -6,7 +6,6 @@ import {PersistGate} from "redux-persist/integration/react"
 import {HashRouter} from "react-router-dom"
 
 //TODO убрать селекторы в отдельные файлы
-//TODO убрать санки в отдельные файлы
 //TODO починить иконку
 //TODO раскидать common слайсы по папкам
 //TODO сделать редактирование через модалки?

@@ -1,4 +1,4 @@
-import { RootState } from "../../app/store"
+import { RootState } from "../../../app/store"
 
 export const getFilterByTitle = (state: RootState) =>
   state.filtersSort.filter.title

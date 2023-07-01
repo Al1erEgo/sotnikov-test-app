@@ -1,8 +1,6 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {AlbumEntityType, AlbumPayloadType, AlbumType, PhotoType,} from "../types"
-import {filtersSortActions, handleServerNetworkError, usersThunks} from "../../../common"
-import {appActions} from "../../../app/app-slice"
-import {photosApi} from "../api"
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {AlbumEntityType, PhotoType} from "../types"
+import {photosThunks} from "./photos-thunks"
 
 //Для фотографий альбома одно поле - для упрощения логики,
 //в случае добавления поля каждому альбому усложняется логика,
@@ -24,109 +22,6 @@ const initialState: PhotosStateType = {
   isPhotosLoading: false,
   selectedAlbums: {},
 }
-
-const fetchAlbums = createAsyncThunk<AlbumType[], void>(
-  "photos/fetchAlbums",
-  async (_, { dispatch, rejectWithValue }) => {
-    //TODO убрать дублирующийся фетч пользователей
-    try {
-      dispatch(usersThunks.fetchUsers())
-      dispatch(appActions.setDataLoading(true))
-      dispatch(filtersSortActions.clearFiltersAndSort())
-      const albums = await photosApi.getAlbums()
-      return albums.data
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    } finally {
-      dispatch(appActions.setDataLoading(false))
-    }
-  },
-)
-
-const addAlbum = createAsyncThunk<AlbumType, AlbumPayloadType>(
-  "photos/addAlbum",
-  async ({ title, userId }, { dispatch, rejectWithValue }) => {
-    try {
-      const newAlbum = await photosApi.addAlbum({ title, userId })
-      return newAlbum.data
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    }
-  },
-)
-
-const updateAlbum = createAsyncThunk<
-  { album: AlbumType; albumId: number },
-  {
-    albumId: number
-    title: string
-    userId: number
-  }
->(
-  "photos/updateAlbum",
-  async ({ albumId, title, userId }, { dispatch, rejectWithValue }) => {
-    try {
-      dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
-      const album = await photosApi.updateAlbum(albumId, title, userId)
-      return { album: album.data, albumId }
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    } finally {
-      dispatch(
-        photosActions.setAlbumLoadingStatus({
-          albumId,
-          status: false,
-        }),
-      )
-    }
-  },
-)
-
-const deleteAlbum = createAsyncThunk<number, number>(
-  "photos/deleteAlbum",
-  async (albumId, { dispatch, rejectWithValue }) => {
-    try {
-      dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
-      await photosApi.deleteAlbum(albumId)
-      return albumId
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    }
-  },
-)
-
-const deleteAlbumsGroup = createAsyncThunk<void, string[]>(
-  "photos/deleteAlbumsGroup",
-  async (albums, { dispatch, rejectWithValue }) => {
-    try {
-      albums.forEach((id) => dispatch(photosThunks.deleteAlbum(+id)))
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    }
-  },
-)
-
-const fetchPhotos = createAsyncThunk<PhotoType[], number | undefined>(
-  "photos/fetchPhotos",
-  async (albumId, { dispatch, rejectWithValue }) => {
-    try {
-      if (!albumId) {
-        throw new Error("Что-то пошло не так :(")
-      }
-      dispatch(photosActions.setPhotosLoadingStatus(true))
-      const photos = await photosApi.getPhotosForAlbum(albumId)
-      return photos.data
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-      return rejectWithValue(null)
-    }
-  },
-)
 
 const photosSlice = createSlice({
   name: "photos",
@@ -159,23 +54,23 @@ const photosSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAlbums.fulfilled, (state, action) => {
+      .addCase(photosThunks.fetchAlbums.fulfilled, (state, action) => {
         state.albums = action.payload.map((album) => ({
           ...album,
           isAlbumLoading: false,
         }))
       })
-      .addCase(fetchPhotos.fulfilled, (state, action) => {
+      .addCase(photosThunks.fetchPhotos.fulfilled, (state, action) => {
         state.photos = action.payload
         state.isPhotosLoading = false
       })
-      .addCase(deleteAlbum.fulfilled, (state, action) => {
+      .addCase(photosThunks.deleteAlbum.fulfilled, (state, action) => {
         state.albums = state.albums.filter(
           (album) => album.id !== action.payload,
         )
         delete state.selectedAlbums[action.payload]
       })
-      .addCase(updateAlbum.fulfilled, (state, action) => {
+      .addCase(photosThunks.updateAlbum.fulfilled, (state, action) => {
         const albumIndex = state.albums.findIndex(
           (album) => album.id === action.payload.albumId,
         )
@@ -186,7 +81,7 @@ const photosSlice = createSlice({
           }
         }
       })
-      .addCase(addAlbum.fulfilled, (state, action) => {
+      .addCase(photosThunks.addAlbum.fulfilled, (state, action) => {
         state.albums.push({
           ...action.payload,
           isAlbumLoading: false,
@@ -197,11 +92,3 @@ const photosSlice = createSlice({
 
 export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
-export const photosThunks = {
-    fetchAlbums,
-    fetchPhotos,
-    updateAlbum,
-    deleteAlbum,
-    deleteAlbumsGroup,
-    addAlbum,
-}
