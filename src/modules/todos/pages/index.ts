@@ -1,3 +1,3 @@
-import { lazy } from "react"
+import { lazy } from 'react'
 
-export const TodosPage = lazy(() => import("./todos"))
+export const TodosPage = lazy(() => import('./todos'))

@@ -1,9 +1,10 @@
-import {AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu,} from "../common"
-import {persistor, store} from "./store"
-import React from "react"
-import {Provider} from "react-redux"
-import {PersistGate} from "redux-persist/integration/react"
-import {HashRouter} from "react-router-dom"
+import { Provider } from 'react-redux'
+import { HashRouter } from 'react-router-dom'
+import { PersistGate } from 'redux-persist/integration/react'
+
+import { AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu } from '../common'
+
+import { persistor, store } from './store'
 
 //TODO убрать селекторы в отдельные файлы
 //TODO починить иконку

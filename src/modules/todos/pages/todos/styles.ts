@@ -1,5 +1,6 @@
-import styled from "styled-components"
-import { PageContentContainer } from "../../../../common"
+import { styled } from 'styled-components'
+
+import { PageContentContainer } from '../../../../common'
 
 export const TodosContentContainer = styled(PageContentContainer)`
   display: flex;

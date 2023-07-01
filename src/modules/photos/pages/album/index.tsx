@@ -1,15 +1,13 @@
-import { useParams } from "react-router-dom"
-import {
-  SecondaryText,
-  StyledLoader,
-  useActions,
-  useAppSelector,
-} from "../../../../common"
-import { Image } from "antd"
-import { getIsPhotosLoading, getPhotos, photosThunks } from "../../slice"
-import React, { useEffect } from "react"
-import { PhotosPagesContentContainer } from "../../styles"
-import { PhotoCard } from "./styles"
+import { useEffect } from 'react'
+
+import { Image } from 'antd'
+import { useParams } from 'react-router-dom'
+
+import { SecondaryText, StyledLoader, useActions, useAppSelector } from '../../../../common'
+import { getIsPhotosLoading, getPhotos, photosThunks } from '../../slice'
+import { PhotosPagesContentContainer } from '../../styles'
+
+import { PhotoCard } from './styles'
 
 const AlbumPage = () => {
   const { id: albumId } = useParams()
@@ -29,18 +27,12 @@ const AlbumPage = () => {
 
   return (
     <PhotosPagesContentContainer>
-      {photos?.map((photo) => (
+      {photos?.map(photo => (
         <PhotoCard key={photo.id}>
           <Image
             src={photo.url}
-            alt={"image"}
-            placeholder={
-              <Image
-                preview={false}
-                src={photo.thumbnailUrl}
-                placeholder={true}
-              />
-            }
+            alt={'image'}
+            placeholder={<Image preview={false} src={photo.thumbnailUrl} placeholder={true} />}
           />
           <SecondaryText>{photo.title}</SecondaryText>
         </PhotoCard>

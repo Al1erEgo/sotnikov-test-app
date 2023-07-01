@@ -1,6 +1,8 @@
-import { TodoEntityType } from "../types"
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { todosThunks } from "./todos-thunks"
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { TodoEntityType } from '../types'
+
+import { todosThunks } from './todos-thunks'
 
 type TodosStateType = {
   todos: TodoEntityType[]
@@ -15,14 +17,12 @@ const initialState: TodosStateType = {
 }
 
 const todosSlice = createSlice({
-  name: "todos",
+  name: 'todos',
   initialState,
   reducers: {
-    setTodoLoadingStatus: (
-      state,
-      action: PayloadAction<{ todoId: number; status: boolean }>,
-    ) => {
-      const todo = state.todos.find((todo) => todo.id === action.payload.todoId)
+    setTodoLoadingStatus: (state, action: PayloadAction<{ todoId: number; status: boolean }>) => {
+      const todo = state.todos.find(todo => todo.id === action.payload.todoId)
+
       if (todo) {
         todo.isTodoLoading = action.payload.status
       }
@@ -36,18 +36,17 @@ const todosSlice = createSlice({
     },
   },
 
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(todosThunks.fetchTodos.fulfilled, (state, action) => {
-        state.todos = action.payload.map((post) => ({
+        state.todos = action.payload.map(post => ({
           ...post,
           isTodoLoading: false,
         }))
       })
       .addCase(todosThunks.changeTodoStatus.fulfilled, (state, action) => {
-        const todoIndex = state.todos.findIndex(
-          (todo) => todo.id === action.payload.todoId,
-        )
+        const todoIndex = state.todos.findIndex(todo => todo.id === action.payload.todoId)
+
         if (todoIndex !== -1) {
           state.todos[todoIndex] = {
             ...state.todos[todoIndex],
@@ -56,9 +55,8 @@ const todosSlice = createSlice({
         }
       })
       .addCase(todosThunks.updateTodo.fulfilled, (state, action) => {
-        const todoIndex = state.todos.findIndex(
-          (todo) => todo.id === action.payload.todoId,
-        )
+        const todoIndex = state.todos.findIndex(todo => todo.id === action.payload.todoId)
+
         if (todoIndex !== -1) {
           state.todos[todoIndex] = {
             ...state.todos[todoIndex],
@@ -73,7 +71,7 @@ const todosSlice = createSlice({
         })
       })
       .addCase(todosThunks.deleteTodo.fulfilled, (state, action) => {
-        state.todos = state.todos.filter((todo) => todo.id !== action.payload)
+        state.todos = state.todos.filter(todo => todo.id !== action.payload)
         delete state.selectedTodos[action.payload]
       })
   },

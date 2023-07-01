@@ -1,9 +1,9 @@
-import { commonInstance } from "../../../common"
-import { AlbumPayloadType, AlbumType, PhotoType } from "../types"
+import { commonInstance } from '../../../common'
+import { AlbumPayloadType, AlbumType, PhotoType } from '../types'
 
 export const photosApi = {
   getAlbums() {
-    return commonInstance.get<AlbumType[]>("albums")
+    return commonInstance.get<AlbumType[]>('albums')
   },
   getPhotosForAlbum(albumId: number) {
     return commonInstance.get<PhotoType[]>(`albums/${albumId}/photos`)
@@ -18,6 +18,6 @@ export const photosApi = {
     return commonInstance.delete<{}>(`albums/${albumId}`)
   },
   addAlbum(arg: AlbumPayloadType) {
-    return commonInstance.post<AlbumType>("posts", arg)
+    return commonInstance.post<AlbumType>('posts', arg)
   },
 }

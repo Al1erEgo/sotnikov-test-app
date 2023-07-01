@@ -1,3 +1,3 @@
-import { AlbumType } from "./photos-api-dtos"
+import { AlbumType } from './photos-api-dtos'
 
-export type AlbumPayloadType = Omit<AlbumType, "id">
+export type AlbumPayloadType = Omit<AlbumType, 'id'>

@@ -1,4 +1,6 @@
-import React, { useEffect } from "react"
+import { useEffect } from 'react'
+
+import { getIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   favouriteThunks,
@@ -9,11 +11,10 @@ import {
   useActions,
   useAppSelector,
   useModal,
-} from "../../../../common"
-import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
-import { AddPostButtonWithModal, PostItem } from "../../components"
-import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
-import { getIsDataLoading } from "../../../../app/app-selectors"
+} from '../../../../common'
+import { usePaginationWSearchParams } from '../../../../common/hooks/use-pagination-w-search-params'
+import { AddPostButtonWithModal, PostItem } from '../../components'
+import { getSelectedPosts, getSortedPosts, postsThunks } from '../../slice'
 
 const PostsPage = () => {
   const posts = useAppSelector(getSortedPosts)
@@ -23,17 +24,14 @@ const PostsPage = () => {
   const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
   const { addPostsGroupToFav } = useActions(favouriteThunks)
 
-  const { modal: deletePostsModal, handleOpenModal: openDeleteModal } =
-    useModal("Удалить выбранные посты?", () =>
-      deletePostsGroup(Object.keys(selectedPosts)),
-    )
-  const {
-    modal: addToFavouriteModal,
-    handleOpenModal: openAddToFavouriteModal,
-  } = useModal("Добавить выбранные посты в избранное?", () =>
-    addPostsGroupToFav(Object.keys(selectedPosts)),
+  const { modal: deletePostsModal, handleOpenModal: openDeleteModal } = useModal(
+    'Удалить выбранные посты?',
+    () => deletePostsGroup(Object.keys(selectedPosts))
   )
-
+  const { modal: addToFavouriteModal, handleOpenModal: openAddToFavouriteModal } = useModal(
+    'Добавить выбранные посты в избранное?',
+    () => addPostsGroupToFav(Object.keys(selectedPosts))
+  )
   const { currentPageContent, paginationConfig, handlePaginationChange } =
     usePaginationWSearchParams(posts)
 
@@ -50,7 +48,7 @@ const PostsPage = () => {
       <AddPostButtonWithModal />
       <CommonFiltersPanel />
       <PageContentContainer>
-        {currentPageContent.map((post) => (
+        {currentPageContent.map(post => (
           <PostItem key={post.id} post={post} />
         ))}
       </PageContentContainer>
@@ -60,10 +58,7 @@ const PostsPage = () => {
         totalCount={posts.length}
       />
       {Object.keys(selectedPosts).length !== 0 && (
-        <GroupActionsButtons
-          onDelete={openDeleteModal}
-          onAddFav={openAddToFavouriteModal}
-        />
+        <GroupActionsButtons onDelete={openDeleteModal} onAddFav={openAddToFavouriteModal} />
       )}
       {deletePostsModal}
       {addToFavouriteModal}

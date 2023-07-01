@@ -1,8 +1,10 @@
-import { Button, Form, Input, Select } from "antd"
-import TextArea from "antd/lib/input/TextArea"
-import { FC, useEffect, useState } from "react"
-import { FlexContainer, useAppSelector } from "../../../../common"
-import { AddPostPayloadType } from "../../types"
+import { FC, useEffect, useState } from 'react'
+
+import { Button, Form, Input, Select } from 'antd'
+import TextArea from 'antd/lib/input/TextArea'
+
+import { FlexContainer, useAppSelector } from '../../../../common'
+import { AddPostPayloadType } from '../../types'
 
 type PostFormProps = {
   userId?: number
@@ -14,21 +16,15 @@ type PostFormProps = {
 
 //TODO сделать сообщения валидации если превышено количество символов
 //TODO посмотреть можно ли вынести отдельные инпуты формы в компоненты
-export const PostForm: FC<PostFormProps> = ({
-  userId,
-  title,
-  body,
-  onCancel,
-  onSubmit,
-}) => {
+export const PostForm: FC<PostFormProps> = ({ userId, title, body, onCancel, onSubmit }) => {
   //TODO вынести в отдельный хук useForm
 
   const [submittable, setSubmittable] = useState<boolean>(false)
   const [form] = Form.useForm()
   const values = Form.useWatch([], form)
 
-  const users = useAppSelector((state) => state.users)
-  const userNames = Object.values(users).map((user) => ({
+  const users = useAppSelector(state => state.users)
+  const userNames = Object.values(users).map(user => ({
     value: user.id,
     label: user.name,
   }))
@@ -40,9 +36,10 @@ export const PostForm: FC<PostFormProps> = ({
       },
       () => {
         setSubmittable(false)
-      },
+      }
     )
   }, [values, form])
+
   return (
     <Form
       form={form}
@@ -60,7 +57,7 @@ export const PostForm: FC<PostFormProps> = ({
         rules={[
           {
             required: true,
-            message: "Пожалуйста, введите заголовок!",
+            message: 'Пожалуйста, введите заголовок!',
             max: 100,
           },
         ]}
@@ -73,7 +70,7 @@ export const PostForm: FC<PostFormProps> = ({
         rules={[
           {
             required: true,
-            message: "Пожалуйста, выберите имя!",
+            message: 'Пожалуйста, выберите имя!',
           },
         ]}
       >
@@ -85,18 +82,14 @@ export const PostForm: FC<PostFormProps> = ({
         rules={[
           {
             required: true,
-            message: "Пожалуйста, введите текст!",
+            message: 'Пожалуйста, введите текст!',
           },
         ]}
       >
         <TextArea rows={4} />
       </Form.Item>
       <Form.Item>
-        <FlexContainer
-          gap={"10px"}
-          flexdirection={"row"}
-          justifycontent={"start"}
-        >
+        <FlexContainer gap={'10px'} flexdirection={'row'} justifycontent={'start'}>
           <Button type="primary" htmlType="submit" disabled={!submittable}>
             Ок
           </Button>

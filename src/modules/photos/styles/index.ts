@@ -1,1 +1,1 @@
-export * from "./photos-styled-components"
+export * from './photos-styled-components'

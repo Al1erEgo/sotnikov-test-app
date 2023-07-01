@@ -9,8 +9,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "format": "prettier --write .",
-    "lint": "eslint .",
+    "format": "prettier --write src",
+    "lint": "eslint --fix src/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -24,9 +24,13 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.14.0",
     "redux-persist": "^6.0.0",
-    "styled-components": "6.0.0-rc.3"
+    "styled-components": "6.0.0-rc.3",
+    "stylelint": "^15.9.0"
   },
   "devDependencies": {
+    "@it-incubator/eslint-config": "^0.1.2",
+    "@it-incubator/prettier-config": "^0.1.1",
+    "@it-incubator/stylelint-config": "^0.1.4",
     "@testing-library/dom": "^9.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^14.0.0",
@@ -34,30 +38,15 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/redux-persist": "^4.3.1",
+    "@types/styled-components": "^5.1.26",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^4.0.0",
-    "eslint": "8.1.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint": "^8.44.0",
+    "prettier": "^2.8.8",
+    "stylelint": "^15.9.0",
     "jsdom": "^21.1.0",
-    "prettier": "^2.7.1",
-    "prettier-config-nick": "^1.0.2",
     "typescript": "^5.0.2",
     "vite": "^4.0.0",
     "vitest": "^0.30.1"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": "error",
-      "react/jsx-no-target-blank": "off"
-    }
-  },
-  "prettier": "prettier-config-nick"
+  }
 }

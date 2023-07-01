@@ -1,9 +1,11 @@
-import { useState } from "react"
-import { AddEntityButton, useActions } from "../../../../common"
-import { Modal } from "antd"
-import { photosThunks } from "../../slice"
-import { AlbumPayloadType } from "../../types"
-import { AlbumForm } from "../album-form"
+import { useState } from 'react'
+
+import { Modal } from 'antd'
+
+import { AddEntityButton, useActions } from '../../../../common'
+import { photosThunks } from '../../slice'
+import { AlbumPayloadType } from '../../types'
+import { AlbumForm } from '../album-form'
 
 export const AddAlbumButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -16,21 +18,15 @@ export const AddAlbumButtonWithModal = () => {
 
   return (
     <>
-      <AddEntityButton
-        tooltip={"Добавить альбом"}
-        onClick={() => setModalOpen(true)}
-      />
+      <AddEntityButton tooltip={'Добавить альбом'} onClick={() => setModalOpen(true)} />
       {modalOpen && (
         <Modal
           open={modalOpen}
-          title={"Добавить альбом"}
+          title={'Добавить альбом'}
           footer={null}
           onCancel={() => setModalOpen(false)}
         >
-          <AlbumForm
-            onCancel={() => setModalOpen(false)}
-            onSubmit={handleAddPost}
-          />
+          <AlbumForm onCancel={() => setModalOpen(false)} onSubmit={handleAddPost} />
         </Modal>
       )}
     </>

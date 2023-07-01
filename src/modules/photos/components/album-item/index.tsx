@@ -1,6 +1,7 @@
-import { FC, memo, useState } from "react"
-import { AlbumEntityType, AlbumPayloadType } from "../../types"
-import { AlbumCard, AlbumCardHeaderLink } from "./styles"
+import { FC, memo, useState } from 'react'
+
+import { Skeleton } from 'antd'
+
 import {
   ActionsBar,
   favouriteActions,
@@ -8,10 +9,12 @@ import {
   useActions,
   useAppSelector,
   useModal,
-} from "../../../../common"
-import { photosActions, photosThunks } from "../../slice"
-import { Skeleton } from "antd"
-import { AlbumForm } from "../album-form"
+} from '../../../../common'
+import { photosActions, photosThunks } from '../../slice'
+import { AlbumEntityType, AlbumPayloadType } from '../../types'
+import { AlbumForm } from '../album-form'
+
+import { AlbumCard, AlbumCardHeaderLink } from './styles'
 
 type AlbumItemProps = {
   album: AlbumEntityType
@@ -19,21 +22,16 @@ type AlbumItemProps = {
 export const AlbumItem: FC<AlbumItemProps> = memo(({ album }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const isFavourite = useAppSelector(
-    (state) => state.favourite.albums[album.id],
-  )
-  const isSelected = useAppSelector(
-    (state) => state.photos.selectedAlbums[album.id],
-  )
-  const user = useAppSelector((state) => state.users[album.userId])
+  const isFavourite = useAppSelector(state => state.favourite.albums[album.id])
+  const isSelected = useAppSelector(state => state.photos.selectedAlbums[album.id])
+  const user = useAppSelector(state => state.users[album.userId])
 
   const { deleteAlbum, updateAlbum } = useActions(photosThunks)
   const { changeAlbumSelection } = useActions(photosActions)
   const { changeAlbumFav } = useActions(favouriteActions)
 
-  const { modal: deleteAlbumModal, handleOpenModal } = useModal(
-    "Удалить альбом?",
-    () => deleteAlbum(album.id),
+  const { modal: deleteAlbumModal, handleOpenModal } = useModal('Удалить альбом?', () =>
+    deleteAlbum(album.id)
   )
 
   const handleFormSubmit = ({ title, userId }: AlbumPayloadType) => {
@@ -48,14 +46,14 @@ export const AlbumItem: FC<AlbumItemProps> = memo(({ album }) => {
 
   if (album.isAlbumLoading) {
     return (
-      <AlbumCard favourite={isFavourite ? "favourite" : ""}>
+      <AlbumCard favourite={isFavourite ? 'favourite' : ''}>
         <Skeleton paragraph={{ rows: 2 }} />
       </AlbumCard>
     )
   }
 
   return (
-    <AlbumCard favourite={isFavourite ? "favourite" : ""}>
+    <AlbumCard favourite={isFavourite ? 'favourite' : ''}>
       <ActionsBar
         scale={0.8}
         selected={isSelected}
@@ -64,7 +62,7 @@ export const AlbumItem: FC<AlbumItemProps> = memo(({ album }) => {
         onFavourite={() => changeAlbumFav(album.id)}
         onDelete={handleOpenModal}
         onEdit={() => {
-          setIsEdit((prev) => !prev)
+          setIsEdit(prev => !prev)
         }}
       />
       {isEdit ? (
@@ -76,9 +74,7 @@ export const AlbumItem: FC<AlbumItemProps> = memo(({ album }) => {
         />
       ) : (
         <>
-          <AlbumCardHeaderLink to={`${album.id}`}>
-            {album.title}
-          </AlbumCardHeaderLink>
+          <AlbumCardHeaderLink to={`${album.id}`}>{album.title}</AlbumCardHeaderLink>
           <SecondaryText>by {user?.name}</SecondaryText>
         </>
       )}

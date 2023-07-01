@@ -1,5 +1,6 @@
-import styled from "styled-components"
-import { PageContentContainer } from "../../../common"
+import styled from 'styled-components'
+
+import { PageContentContainer } from '../../../common'
 
 export const PhotosPagesContentContainer = styled(PageContentContainer)`
   padding: 10px 0;

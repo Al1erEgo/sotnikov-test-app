@@ -1,7 +1,9 @@
-import { FC } from "react"
-import { Button, Result } from "antd"
-import { useNavigate } from "react-router-dom"
-import { APP_PATHS } from "../../constants"
+import { FC } from 'react'
+
+import { Button, Result } from 'antd'
+import { useNavigate } from 'react-router-dom'
+
+import { APP_PATHS } from '../../constants'
 
 const Error404Page: FC = () => {
   const navigate = useNavigate()

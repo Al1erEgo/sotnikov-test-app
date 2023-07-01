@@ -1,2 +1,2 @@
-export * from "./pages"
-export { postsReducer } from "./slice"
+export * from './pages'
+export { postsReducer } from './slice'

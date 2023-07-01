@@ -1,9 +1,11 @@
-import { Modal } from "antd"
-import { useState } from "react"
-import { PostForm } from "../index"
-import { AddEntityButton, useActions } from "../../../../common"
-import { postsThunks } from "../../slice"
-import { AddPostPayloadType } from "../../types"
+import { useState } from 'react'
+
+import { Modal } from 'antd'
+
+import { AddEntityButton, useActions } from '../../../../common'
+import { postsThunks } from '../../slice'
+import { AddPostPayloadType } from '../../types'
+import { PostForm } from '../index'
 
 export const AddPostButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -16,21 +18,15 @@ export const AddPostButtonWithModal = () => {
 
   return (
     <>
-      <AddEntityButton
-        tooltip={"Добавить пост"}
-        onClick={() => setModalOpen(true)}
-      />
+      <AddEntityButton tooltip={'Добавить пост'} onClick={() => setModalOpen(true)} />
       {modalOpen && (
         <Modal
           open={modalOpen}
-          title={"Добавить новый пост"}
+          title={'Добавить новый пост'}
           footer={null}
           onCancel={() => setModalOpen(false)}
         >
-          <PostForm
-            onCancel={() => setModalOpen(false)}
-            onSubmit={handleAddPost}
-          />
+          <PostForm onCancel={() => setModalOpen(false)} onSubmit={handleAddPost} />
         </Modal>
       )}
     </>

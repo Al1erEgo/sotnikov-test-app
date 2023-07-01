@@ -1,8 +1,10 @@
-import { ActionsBarContainer, FavouriteFilled } from "./styles"
-import { CloseOutlined, EditOutlined, HeartOutlined } from "@ant-design/icons"
-import Checkbox from "antd/lib/checkbox/Checkbox"
-import { Tooltip } from "antd"
-import { FC } from "react"
+import { FC } from 'react'
+
+import { CloseOutlined, EditOutlined, HeartOutlined } from '@ant-design/icons'
+import { Tooltip } from 'antd'
+import Checkbox from 'antd/lib/checkbox/Checkbox'
+
+import { ActionsBarContainer, FavouriteFilled } from './styles'
 
 type ActionsBarProps = {
   onSelect?: () => void
@@ -26,14 +28,12 @@ export const ActionsBar: FC<ActionsBarProps> = ({
   return (
     <ActionsBarContainer scale={scale}>
       {(selected || onSelect) && (
-        <Tooltip title={selected ? "Отменить выбор" : "Выбрать"}>
+        <Tooltip title={selected ? 'Отменить выбор' : 'Выбрать'}>
           <Checkbox checked={selected} onClick={onSelect} />
         </Tooltip>
       )}
       {(favourite || onFavourite) && (
-        <Tooltip
-          title={favourite ? "Удалить из избранного" : "Добавить в избранное"}
-        >
+        <Tooltip title={favourite ? 'Удалить из избранного' : 'Добавить в избранное'}>
           {favourite ? (
             <FavouriteFilled onClick={onFavourite} />
           ) : (
@@ -42,12 +42,12 @@ export const ActionsBar: FC<ActionsBarProps> = ({
         </Tooltip>
       )}
       {onEdit && (
-        <Tooltip title={"Редактировать"}>
+        <Tooltip title={'Редактировать'}>
           <EditOutlined onClick={onEdit} />
         </Tooltip>
       )}
       {onDelete && (
-        <Tooltip title={"Удалить"}>
+        <Tooltip title={'Удалить'}>
           <CloseOutlined onClick={onDelete} />
         </Tooltip>
       )}

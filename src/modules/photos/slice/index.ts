@@ -1,3 +1,3 @@
-export * from "./photos-slice"
-export * from "./photos-selectors"
-export * from "./photos-thunks"
+export * from './photos-slice'
+export * from './photos-selectors'
+export * from './photos-thunks'

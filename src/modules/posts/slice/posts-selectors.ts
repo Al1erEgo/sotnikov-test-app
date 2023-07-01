@@ -1,4 +1,4 @@
-import { RootState } from "../../../app/store"
+import { RootState } from '../../../app/store'
 import {
   getFavouritePosts,
   getFilterByFavourite,
@@ -9,8 +9,8 @@ import {
   getFilteredByUserId,
   getSorting,
   getUsers,
-} from "../../../common"
-import { PostEntityType } from "../types"
+} from '../../../common'
+import { PostEntityType } from '../types'
 
 export const getPosts = (state: RootState) => state.posts.posts
 
@@ -24,25 +24,20 @@ const getFilteredPosts = (state: RootState) => {
   const favouritePostIds = getFavouritePosts(state)
 
   let filteredPosts: PostEntityType[] | undefined = posts
+
   if (titleFilter) {
-    filteredPosts = getFilteredByTitle(
-      filteredPosts,
-      titleFilter,
-    ) as PostEntityType[]
+    filteredPosts = getFilteredByTitle(filteredPosts, titleFilter) as PostEntityType[]
   }
 
   if (userIdFilter && userIdFilter.length > 0) {
-    filteredPosts = getFilteredByUserId(
-      filteredPosts,
-      userIdFilter,
-    ) as PostEntityType[]
+    filteredPosts = getFilteredByUserId(filteredPosts, userIdFilter) as PostEntityType[]
   }
 
   if (favouriteFilter !== undefined) {
     filteredPosts = getFilteredByFavourite(
       filteredPosts,
       favouriteFilter,
-      favouritePostIds,
+      favouritePostIds
     ) as PostEntityType[]
   }
 
@@ -54,6 +49,7 @@ export const getSortedPosts = (state: RootState) => {
   const sorting = getSorting(state)
   const favouritePostsIds = getFavouritePosts(state)
   const users = getUsers(state)
+
   if (!posts) {
     return []
   }
@@ -62,37 +58,33 @@ export const getSortedPosts = (state: RootState) => {
     return posts
   }
 
-  if (sorting === "asc Id") {
+  if (sorting === 'asc Id') {
     return [...posts].sort((a, b) => a.id - b.id)
   }
-  if (sorting === "desc Id") {
+  if (sorting === 'desc Id') {
     return [...posts].sort((a, b) => b.id - a.id)
   }
 
-  if (sorting === "asc favourite" && Object.keys(favouritePostsIds).length) {
-    return [...posts].sort((post) => (favouritePostsIds[post.id] ? 1 : -1))
+  if (sorting === 'asc favourite' && Object.keys(favouritePostsIds).length) {
+    return [...posts].sort(post => (favouritePostsIds[post.id] ? 1 : -1))
   }
 
-  if (sorting === "desc favourite" && Object.keys(favouritePostsIds).length) {
-    return [...posts].sort((post) => (favouritePostsIds[post.id] ? -1 : 1))
+  if (sorting === 'desc favourite' && Object.keys(favouritePostsIds).length) {
+    return [...posts].sort(post => (favouritePostsIds[post.id] ? -1 : 1))
   }
 
-  if (sorting === "asc title") {
+  if (sorting === 'asc title') {
     return [...posts].sort((a, b) => (a.title > b.title ? 1 : -1))
   }
-  if (sorting === "desc title") {
+  if (sorting === 'desc title') {
     return [...posts].sort((a, b) => (a.title > b.title ? -1 : 1))
   }
 
-  if (sorting === "asc userName") {
-    return [...posts].sort((a, b) =>
-      users[a.userId].name > users[b.userId].name ? 1 : -1,
-    )
+  if (sorting === 'asc userName') {
+    return [...posts].sort((a, b) => (users[a.userId].name > users[b.userId].name ? 1 : -1))
   }
-  if (sorting === "desc userName") {
-    return [...posts].sort((a, b) =>
-      users[a.userId].name > users[b.userId].name ? -1 : 1,
-    )
+  if (sorting === 'desc userName') {
+    return [...posts].sort((a, b) => (users[a.userId].name > users[b.userId].name ? -1 : 1))
   }
 
   return posts

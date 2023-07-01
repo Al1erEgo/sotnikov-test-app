@@ -1,9 +1,11 @@
-import { useState } from "react"
-import { AddEntityButton, useActions } from "../../../../common"
-import { Modal } from "antd"
-import { AddTodoPayloadType } from "../../types"
-import { todosThunks } from "../../slice"
-import { TodoForm } from "../todo-form"
+import { useState } from 'react'
+
+import { Modal } from 'antd'
+
+import { AddEntityButton, useActions } from '../../../../common'
+import { todosThunks } from '../../slice'
+import { AddTodoPayloadType } from '../../types'
+import { TodoForm } from '../todo-form'
 
 export const AddTodoButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -16,21 +18,15 @@ export const AddTodoButtonWithModal = () => {
 
   return (
     <>
-      <AddEntityButton
-        tooltip={"Добавить задачу"}
-        onClick={() => setModalOpen(true)}
-      />
+      <AddEntityButton tooltip={'Добавить задачу'} onClick={() => setModalOpen(true)} />
       {modalOpen && (
         <Modal
           open={modalOpen}
-          title={"Добавить задачу"}
+          title={'Добавить задачу'}
           footer={null}
           onCancel={() => setModalOpen(false)}
         >
-          <TodoForm
-            onCancel={() => setModalOpen(false)}
-            onSubmit={handleAddTodo}
-          />
+          <TodoForm onCancel={() => setModalOpen(false)} onSubmit={handleAddTodo} />
         </Modal>
       )}
     </>

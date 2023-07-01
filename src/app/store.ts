@@ -1,11 +1,4 @@
-import {
-  Action,
-  combineReducers,
-  configureStore,
-  ThunkAction,
-} from "@reduxjs/toolkit"
-import { favouriteReducer, filtersSortReducer, usersReducer } from "../common"
-import storage from "redux-persist/lib/storage"
+import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import {
   FLUSH,
   PAUSE,
@@ -15,16 +8,20 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-} from "redux-persist"
-import { appReducer } from "./app-slice"
-import { postsReducer } from "../modules/posts"
-import { photosReducer } from "../modules/photos"
-import { todosReducer } from "../modules/todos"
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+import { favouriteReducer, filtersSortReducer, usersReducer } from '../common'
+import { photosReducer } from '../modules/photos'
+import { postsReducer } from '../modules/posts'
+import { todosReducer } from '../modules/todos'
+
+import { appReducer } from './app-slice'
 
 const rootPersistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["favourite"],
+  whitelist: ['favourite'],
 }
 
 const rootReducer = combineReducers({
@@ -41,7 +38,7 @@ const persistedReducer = persistReducer(rootPersistConfig, rootReducer)
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

@@ -1,7 +1,9 @@
-import { FC, useEffect, useState } from "react"
-import { Button, Form, Input, Select } from "antd"
-import { FlexContainer, useAppSelector } from "../../../../common"
-import { AlbumPayloadType } from "../../types"
+import { FC, useEffect, useState } from 'react'
+
+import { Button, Form, Input, Select } from 'antd'
+
+import { FlexContainer, useAppSelector } from '../../../../common'
+import { AlbumPayloadType } from '../../types'
 
 type AlbumFormProps = {
   userId?: number
@@ -10,30 +12,21 @@ type AlbumFormProps = {
   onSubmit: ({ title, userId }: AlbumPayloadType) => void
 }
 
-export const AlbumForm: FC<AlbumFormProps> = ({
-  userId,
-  title,
-  onCancel,
-  onSubmit,
-}) => {
+export const AlbumForm: FC<AlbumFormProps> = ({ userId, title, onCancel, onSubmit }) => {
   const [submittable, setSubmittable] = useState<boolean>(false)
   const [form] = Form.useForm()
   const values = Form.useWatch([], form)
 
-  const users = useAppSelector((state) => state.users)
-  const userNames = Object.values(users).map((user) => ({
+  const users = useAppSelector(state => state.users)
+  const userNames = Object.values(users).map(user => ({
     value: user.id,
     label: user.name,
   }))
 
   useEffect(() => {
     form.validateFields({ validateOnly: true }).then(
-      () => {
-        setSubmittable(true)
-      },
-      () => {
-        setSubmittable(false)
-      },
+      () => setSubmittable(true),
+      () => setSubmittable(false)
     )
   }, [values, form])
 
@@ -41,10 +34,7 @@ export const AlbumForm: FC<AlbumFormProps> = ({
     <Form
       form={form}
       layout="vertical"
-      initialValues={{
-        title: title,
-        userId: userId,
-      }}
+      initialValues={{ title: title, userId: userId }}
       onFinish={onSubmit}
     >
       <Form.Item
@@ -53,7 +43,7 @@ export const AlbumForm: FC<AlbumFormProps> = ({
         rules={[
           {
             required: true,
-            message: "Пожалуйста, введите заголовок!",
+            message: 'Пожалуйста, введите заголовок!',
             max: 100,
           },
         ]}
@@ -66,18 +56,14 @@ export const AlbumForm: FC<AlbumFormProps> = ({
         rules={[
           {
             required: true,
-            message: "Пожалуйста, выберите имя!",
+            message: 'Пожалуйста, выберите имя!',
           },
         ]}
       >
         <Select options={userNames} />
       </Form.Item>
       <Form.Item>
-        <FlexContainer
-          gap={"10px"}
-          flexdirection={"row"}
-          justifycontent={"start"}
-        >
+        <FlexContainer gap={'10px'} flexdirection={'row'} justifycontent={'start'}>
           <Button type="primary" htmlType="submit" disabled={!submittable}>
             Ок
           </Button>

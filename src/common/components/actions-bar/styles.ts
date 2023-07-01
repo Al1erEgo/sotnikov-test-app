@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { HeartFilled } from "@ant-design/icons"
+import { HeartFilled } from '@ant-design/icons'
+import styled from 'styled-components'
 
 export const FavouriteFilled = styled(HeartFilled)`
   color: red;
@@ -12,5 +12,5 @@ export const ActionsBarContainer = styled.div<{ scale: number | undefined }>`
   display: flex;
   align-items: center;
   gap: 7px;
-  scale: ${(props) => props.scale || 1};
+  scale: ${props => props.scale || 1};
 `

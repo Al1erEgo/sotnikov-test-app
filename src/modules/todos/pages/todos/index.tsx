@@ -1,19 +1,17 @@
-import React, { useEffect } from "react"
+import { useEffect } from 'react'
+
 import {
   GroupActionsButtons,
   Paginator,
   useActions,
   useAppSelector,
   useModal,
-} from "../../../../common"
-import { getSelectedTodos, getSortedTodos, todosThunks } from "../../slice"
-import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
-import { TodosContentContainer } from "./styles"
-import {
-  AddTodoButtonWithModal,
-  TodoItem,
-  TodosFiltersPanel,
-} from "../../components"
+} from '../../../../common'
+import { usePaginationWSearchParams } from '../../../../common/hooks/use-pagination-w-search-params'
+import { AddTodoButtonWithModal, TodoItem, TodosFiltersPanel } from '../../components'
+import { getSelectedTodos, getSortedTodos, todosThunks } from '../../slice'
+
+import { TodosContentContainer } from './styles'
 
 const TodosPage = () => {
   const todos = useAppSelector(getSortedTodos)
@@ -21,10 +19,10 @@ const TodosPage = () => {
 
   const { fetchTodos, deleteTodosGroup } = useActions(todosThunks)
 
-  const { modal: deletePostsModal, handleOpenModal: openDeleteModal } =
-    useModal("Удалить выбранные задачи?", () =>
-      deleteTodosGroup(Object.keys(selectedTodos)),
-    )
+  const { modal: deletePostsModal, handleOpenModal: openDeleteModal } = useModal(
+    'Удалить выбранные задачи?',
+    () => deleteTodosGroup(Object.keys(selectedTodos))
+  )
 
   const { currentPageContent, paginationConfig, handlePaginationChange } =
     usePaginationWSearchParams(todos)
@@ -38,7 +36,7 @@ const TodosPage = () => {
       <TodosFiltersPanel />
       <AddTodoButtonWithModal />
       <TodosContentContainer>
-        {currentPageContent.map((task) => (
+        {currentPageContent.map(task => (
           <TodoItem key={task.id} todo={task} />
         ))}
       </TodosContentContainer>

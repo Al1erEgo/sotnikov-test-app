@@ -1,6 +1,8 @@
-import { UserType } from "../../types"
-import { createSlice } from "@reduxjs/toolkit"
-import { usersThunks } from "./users-thunks"
+import { createSlice } from '@reduxjs/toolkit'
+
+import { UserType } from '../../types'
+
+import { usersThunks } from './users-thunks'
 
 type UsersState = {
   [key: string]: UserType
@@ -9,12 +11,12 @@ type UsersState = {
 const initialState: UsersState = {}
 
 const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(usersThunks.fetchUsers.fulfilled, (state, action) => {
-      action.payload.forEach((user) => (state[user.id] = user))
+      action.payload.forEach(user => (state[user.id] = user))
     })
   },
 })

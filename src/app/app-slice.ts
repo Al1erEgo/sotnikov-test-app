@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type AppState = {
   dataLoading: boolean
@@ -11,7 +11,7 @@ const initialState: AppState = {
 }
 
 export const appSlice = createSlice({
-  name: "app",
+  name: 'app',
   initialState,
   reducers: {
     setDataLoading: (state, action: PayloadAction<boolean>) => {
@@ -20,7 +20,7 @@ export const appSlice = createSlice({
     setError: (state, action: PayloadAction<{ error: string | null }>) => {
       state.error = action.payload.error
     },
-    clearError: (state) => {
+    clearError: state => {
       state.error = null
     },
   },

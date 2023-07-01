@@ -1,1 +1,1 @@
-export * from "./app-paths"
+export * from './app-paths'

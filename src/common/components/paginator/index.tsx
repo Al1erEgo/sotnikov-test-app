@@ -1,7 +1,9 @@
-import Link from "antd/lib/typography/Link"
-import { FC } from "react"
-import { Pagination } from "antd"
-import { FlexContainer } from "../../styles"
+import { FC } from 'react'
+
+import { Pagination } from 'antd'
+import Link from 'antd/lib/typography/Link'
+
+import { FlexContainer } from '../../styles'
 
 type PaginatorProps = {
   totalCount: number
@@ -9,13 +11,9 @@ type PaginatorProps = {
   handleChange: (page: number, pageSize: number) => void
 }
 
-export const Paginator: FC<PaginatorProps> = ({
-  totalCount,
-  config,
-  handleChange,
-}) => {
+export const Paginator: FC<PaginatorProps> = ({ totalCount, config, handleChange }) => {
   return (
-    <FlexContainer padding={"10px"} gap={"10px"}>
+    <FlexContainer padding={'10px'} gap={'10px'}>
       <Pagination
         onChange={handleChange}
         current={config[0]}

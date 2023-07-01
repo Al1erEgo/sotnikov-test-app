@@ -1,23 +1,20 @@
+import { useMemo } from 'react'
+
 import {
   ActionCreator,
   ActionCreatorsMapObject,
   AsyncThunk,
   bindActionCreators,
-} from "@reduxjs/toolkit"
-import { useMemo } from "react"
-import { useAppDispatch } from "./use-app-dispatch"
+} from '@reduxjs/toolkit'
 
-export const useActions = <
-  Actions extends ActionCreatorsMapObject = ActionCreatorsMapObject,
->(
-  actions: Actions,
+import { useAppDispatch } from './use-app-dispatch'
+
+export const useActions = <Actions extends ActionCreatorsMapObject = ActionCreatorsMapObject>(
+  actions: Actions
 ): BoundActions<Actions> => {
   const dispatch = useAppDispatch()
 
-  return useMemo(
-    () => bindActionCreators(actions, dispatch),
-    [actions, dispatch],
-  )
+  return useMemo(() => bindActionCreators(actions, dispatch), [actions, dispatch])
 }
 
 // Types

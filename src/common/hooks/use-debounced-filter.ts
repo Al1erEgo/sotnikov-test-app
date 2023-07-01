@@ -1,17 +1,14 @@
-import { ChangeEventHandler, useEffect, useState } from "react"
+import { ChangeEventHandler, useEffect, useState } from 'react'
 
-export const useDebouncedFilter = (
-  onFilter: (value: string) => void,
-  filterValue?: string,
-) => {
-  const [localFilterValue, setLocalFilterValue] = useState<string>("")
+export const useDebouncedFilter = (onFilter: (value: string) => void, filterValue?: string) => {
+  const [localFilterValue, setLocalFilterValue] = useState<string>('')
 
-  const handleFilterChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+  const handleFilterChange: ChangeEventHandler<HTMLInputElement> = e =>
     setLocalFilterValue(e.target.value)
 
   useEffect(() => {
     if (!filterValue) {
-      setLocalFilterValue("")
+      setLocalFilterValue('')
     }
   }, [filterValue])
 

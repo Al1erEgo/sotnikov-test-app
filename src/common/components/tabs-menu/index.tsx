@@ -1,19 +1,20 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import { APP_PATHS } from "../../constants"
-import { Tabs } from "antd"
+import { Tabs } from 'antd'
+import { useLocation, useNavigate } from 'react-router-dom'
+
+import { APP_PATHS } from '../../constants'
 
 const tabs = [
   {
-    key: "1",
-    label: "Посты",
+    key: '1',
+    label: 'Посты',
   },
   {
-    key: "2",
-    label: "Альбомы",
+    key: '2',
+    label: 'Альбомы',
   },
   {
-    key: "3",
-    label: "Задачи",
+    key: '3',
+    label: 'Задачи',
   },
 ]
 
@@ -21,7 +22,7 @@ const getDefaultActiveKey = (currentLocation: string): string => {
   const key =
     Object.values(APP_PATHS)
       .slice(1)
-      .findIndex((value) => currentLocation.slice(1).includes(value)) + 1
+      .findIndex(value => currentLocation.slice(1).includes(value)) + 1
 
   return key.toString()
 }

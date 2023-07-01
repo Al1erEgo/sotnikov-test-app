@@ -1,8 +1,10 @@
-import { message } from "antd"
-import { useActions, useAppSelector } from "../../hooks"
-import { getAppErrorMessage } from "../../../app/app-selectors"
-import { useEffect } from "react"
-import { appActions } from "../../../app/app-slice"
+import { useEffect } from 'react'
+
+import { message } from 'antd'
+
+import { getAppErrorMessage } from '../../../app/app-selectors'
+import { appActions } from '../../../app/app-slice'
+import { useActions, useAppSelector } from '../../hooks'
 
 export const ErrorPopup = () => {
   const appErrorMessage = useAppSelector(getAppErrorMessage)
@@ -13,7 +15,7 @@ export const ErrorPopup = () => {
   useEffect(() => {
     const showError = () => {
       messageApi.open({
-        type: "error",
+        type: 'error',
         content: appErrorMessage,
         duration: 5,
         onClose: clearError,

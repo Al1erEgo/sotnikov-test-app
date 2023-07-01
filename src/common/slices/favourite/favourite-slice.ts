@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type FavouriteState = {
   posts: {
@@ -15,7 +15,7 @@ const initialState: FavouriteState = {
 }
 
 export const favouriteSlice = createSlice({
-  name: "favourite",
+  name: 'favourite',
   initialState,
   reducers: {
     addPostToFav: (state, action: PayloadAction<number>) => {

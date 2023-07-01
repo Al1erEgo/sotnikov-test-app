@@ -1,23 +1,25 @@
-import { RootState } from "../../../app/store"
+import { createSelector } from '@reduxjs/toolkit'
+
+import { RootState } from '../../../app/store'
 import {
   getFilterByCompleted,
   getFilterByTitle,
   getFilteredByCompleted,
   getFilteredByTitle,
   getSorting,
-} from "../../../common"
-import { TODOS_SORT_DIRECTIONS } from "../constants"
-import { TodoEntityType } from "../types"
-import { createSelector } from "@reduxjs/toolkit"
+} from '../../../common'
+import { TODOS_SORT_DIRECTIONS } from '../constants'
+import { TodoEntityType } from '../types'
 
 export const getTodos = (state: RootState) => state.todos.todos
 
 export const getSelectedTodos = (state: RootState) => state.todos.selectedTodos
 
 const selectedTodoId = (state: RootState, todoId: number) => todoId
+
 export const getIsTodoSelected = createSelector(
   [getSelectedTodos, selectedTodoId],
-  (selectedTodos, todoId) => selectedTodos[todoId],
+  (selectedTodos, todoId) => selectedTodos[todoId]
 )
 
 export const getFilteredTodos = (state: RootState) => {
@@ -28,17 +30,11 @@ export const getFilteredTodos = (state: RootState) => {
   let filteredTodos: TodoEntityType[] | undefined = todos
 
   if (titleFilter) {
-    filteredTodos = getFilteredByTitle(
-      filteredTodos,
-      titleFilter,
-    ) as TodoEntityType[]
+    filteredTodos = getFilteredByTitle(filteredTodos, titleFilter) as TodoEntityType[]
   }
 
   if (completedFilter !== undefined) {
-    filteredTodos = getFilteredByCompleted(
-      filteredTodos,
-      completedFilter,
-    ) as TodoEntityType[]
+    filteredTodos = getFilteredByCompleted(filteredTodos, completedFilter) as TodoEntityType[]
   }
 
   return filteredTodos
@@ -57,11 +53,11 @@ export const getSortedTodos = (state: RootState) => {
   }
 
   if (sorting === TODOS_SORT_DIRECTIONS.asc.complete) {
-    return [...todos].sort((a) => (a.completed ? -1 : 1))
+    return [...todos].sort(a => (a.completed ? -1 : 1))
   }
 
   if (sorting === TODOS_SORT_DIRECTIONS.desc.complete) {
-    return [...todos].sort((a) => (a.completed ? 1 : -1))
+    return [...todos].sort(a => (a.completed ? 1 : -1))
   }
 
   if (sorting === TODOS_SORT_DIRECTIONS.asc.title) {

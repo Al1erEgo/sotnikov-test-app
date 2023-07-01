@@ -1,6 +1,8 @@
-import { Skeleton, Tooltip } from "antd"
-import { FC, memo, useState } from "react"
-import { AddPostPayloadType, PostEntityType } from "../../types"
+import { FC, memo, useState } from 'react'
+
+import { Skeleton, Tooltip } from 'antd'
+import Title from 'antd/lib/typography/Title'
+
 import {
   ActionsBar,
   favouriteActions,
@@ -9,12 +11,13 @@ import {
   useActions,
   useAppSelector,
   useModal,
-} from "../../../../common"
-import { CommentsBlock } from "../comments-block"
-import Title from "antd/lib/typography/Title"
-import { postsActions, postsThunks } from "../../slice"
-import { PostCard, ShowCommentsIcon } from "./styles"
-import { PostForm } from "../post-form"
+} from '../../../../common'
+import { postsActions, postsThunks } from '../../slice'
+import { AddPostPayloadType, PostEntityType } from '../../types'
+import { CommentsBlock } from '../comments-block'
+import { PostForm } from '../post-form'
+
+import { PostCard, ShowCommentsIcon } from './styles'
 
 type PostItemProps = {
   post: PostEntityType
@@ -23,19 +26,16 @@ export const PostItem: FC<PostItemProps> = memo(({ post }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const isFavourite = useAppSelector((state) => state.favourite.posts[post.id])
-  const isSelected = useAppSelector(
-    (state) => state.posts.selectedPosts[post.id],
-  )
-  const user = useAppSelector((state) => state.users[post.userId])
+  const isFavourite = useAppSelector(state => state.favourite.posts[post.id])
+  const isSelected = useAppSelector(state => state.posts.selectedPosts[post.id])
+  const user = useAppSelector(state => state.users[post.userId])
 
   const { deletePost, updatePost } = useActions(postsThunks)
   const { changePostSelection } = useActions(postsActions)
   const { changePostFav } = useActions(favouriteActions)
 
-  const { modal: deletePostModal, handleOpenModal } = useModal(
-    "Удалить пост?",
-    () => deletePost(post.id),
+  const { modal: deletePostModal, handleOpenModal } = useModal('Удалить пост?', () =>
+    deletePost(post.id)
   )
 
   const handleFormSubmit = ({ title, userId, body }: AddPostPayloadType) => {
@@ -51,14 +51,14 @@ export const PostItem: FC<PostItemProps> = memo(({ post }) => {
 
   if (post.isPostLoading) {
     return (
-      <PostCard favourite={isFavourite ? "favourite" : ""}>
+      <PostCard favourite={isFavourite ? 'favourite' : ''}>
         <Skeleton />
       </PostCard>
     )
   }
 
   return (
-    <PostCard favourite={isFavourite ? "favourite" : ""}>
+    <PostCard favourite={isFavourite ? 'favourite' : ''}>
       <ActionsBar
         selected={isSelected}
         favourite={isFavourite}
@@ -66,7 +66,7 @@ export const PostItem: FC<PostItemProps> = memo(({ post }) => {
         onFavourite={() => changePostFav(post.id)}
         onDelete={handleOpenModal}
         onEdit={() => {
-          setIsEdit((prev) => !prev)
+          setIsEdit(prev => !prev)
         }}
       />
       {isEdit ? (
@@ -85,14 +85,12 @@ export const PostItem: FC<PostItemProps> = memo(({ post }) => {
         </>
       )}
 
-      <FlexContainer justifycontent={"flex-end"} padding={"5px 0 0 0"}>
-        <Tooltip
-          title={showComments ? "Скрыть комментарии" : "Показать комментарии"}
-        >
+      <FlexContainer justifycontent={'flex-end'} padding={'5px 0 0 0'}>
+        <Tooltip title={showComments ? 'Скрыть комментарии' : 'Показать комментарии'}>
           <ShowCommentsIcon
-            active={showComments ? "active" : ""}
+            active={showComments ? 'active' : ''}
             onClick={() => {
-              setShowComments((prev) => !prev)
+              setShowComments(prev => !prev)
             }}
           />
         </Tooltip>

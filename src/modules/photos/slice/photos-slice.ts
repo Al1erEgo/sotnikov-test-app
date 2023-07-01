@@ -1,6 +1,8 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {AlbumEntityType, PhotoType} from "../types"
-import {photosThunks} from "./photos-thunks"
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { AlbumEntityType, PhotoType } from '../types'
+
+import { photosThunks } from './photos-thunks'
 
 //Для фотографий альбома одно поле - для упрощения логики,
 //в случае добавления поля каждому альбому усложняется логика,
@@ -24,16 +26,12 @@ const initialState: PhotosStateType = {
 }
 
 const photosSlice = createSlice({
-  name: "photos",
+  name: 'photos',
   initialState,
   reducers: {
-    setAlbumLoadingStatus: (
-      state,
-      action: PayloadAction<{ albumId: number; status: boolean }>,
-    ) => {
-      const album = state.albums.find(
-        (album) => album.id === action.payload.albumId,
-      )
+    setAlbumLoadingStatus: (state, action: PayloadAction<{ albumId: number; status: boolean }>) => {
+      const album = state.albums.find(album => album.id === action.payload.albumId)
+
       if (album) {
         album.isAlbumLoading = action.payload.status
       }
@@ -48,14 +46,14 @@ const photosSlice = createSlice({
         delete state.selectedAlbums[action.payload]
       }
     },
-    clearSelectedAlbums: (state) => {
+    clearSelectedAlbums: state => {
       state.selectedAlbums = {}
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(photosThunks.fetchAlbums.fulfilled, (state, action) => {
-        state.albums = action.payload.map((album) => ({
+        state.albums = action.payload.map(album => ({
           ...album,
           isAlbumLoading: false,
         }))
@@ -65,15 +63,12 @@ const photosSlice = createSlice({
         state.isPhotosLoading = false
       })
       .addCase(photosThunks.deleteAlbum.fulfilled, (state, action) => {
-        state.albums = state.albums.filter(
-          (album) => album.id !== action.payload,
-        )
+        state.albums = state.albums.filter(album => album.id !== action.payload)
         delete state.selectedAlbums[action.payload]
       })
       .addCase(photosThunks.updateAlbum.fulfilled, (state, action) => {
-        const albumIndex = state.albums.findIndex(
-          (album) => album.id === action.payload.albumId,
-        )
+        const albumIndex = state.albums.findIndex(album => album.id === action.payload.albumId)
+
         if (albumIndex !== -1) {
           state.albums[albumIndex] = {
             ...state.albums[albumIndex],

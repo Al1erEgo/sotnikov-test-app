@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { Button, Modal } from "antd"
-import { FlexContainer } from "../styles"
+import { Button, Modal } from 'antd'
+
+import { FlexContainer } from '../styles'
 
 export const useModal = (message: string, action: () => void) => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -16,19 +17,10 @@ export const useModal = (message: string, action: () => void) => {
   }
 
   const modal = (
-    <Modal
-      open={modalOpen}
-      title={message}
-      footer={null}
-      onCancel={() => setModalOpen(false)}
-    >
-      <FlexContainer
-        gap={"10px"}
-        flexdirection={"row"}
-        justifycontent={"start"}
-      >
+    <Modal open={modalOpen} title={message} footer={null} onCancel={() => setModalOpen(false)}>
+      <FlexContainer gap={'10px'} flexdirection={'row'} justifycontent={'start'}>
         <Button danger onClick={handleAction}>
-          {message.split(" ")[0]}
+          {message.split(' ')[0]}
         </Button>
         <Button onClick={() => setModalOpen(false)}>Отмена</Button>
       </FlexContainer>

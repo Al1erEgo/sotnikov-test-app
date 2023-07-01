@@ -1,6 +1,8 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {PostEntityType} from "../types"
-import {postsThunks} from "./posts-thunks"
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { PostEntityType } from '../types'
+
+import { postsThunks } from './posts-thunks'
 
 //selectedPosts для упрощения логики и доступа к состоянию
 //и упрощения взаимодействия с этим состоянием для групповых действий
@@ -17,23 +19,22 @@ const initialState: PostsStateType = {
 }
 
 const postsSlice = createSlice({
-  name: "posts",
+  name: 'posts',
   initialState,
   reducers: {
     setCommentsLoadingStatus: (
       state,
-      action: PayloadAction<{ postId: number; status: boolean }>,
+      action: PayloadAction<{ postId: number; status: boolean }>
     ) => {
-      const post = state.posts.find((post) => post.id === action.payload.postId)
+      const post = state.posts.find(post => post.id === action.payload.postId)
+
       if (post) {
         post.isCommentsLoading = action.payload.status
       }
     },
-    setPostLoadingStatus: (
-      state,
-      action: PayloadAction<{ postId: number; status: boolean }>,
-    ) => {
-      const post = state.posts.find((post) => post.id === action.payload.postId)
+    setPostLoadingStatus: (state, action: PayloadAction<{ postId: number; status: boolean }>) => {
+      const post = state.posts.find(post => post.id === action.payload.postId)
+
       if (post) {
         post.isPostLoading = action.payload.status
       }
@@ -45,23 +46,22 @@ const postsSlice = createSlice({
         delete state.selectedPosts[action.payload]
       }
     },
-    clearSelectedPosts: (state) => {
+    clearSelectedPosts: state => {
       state.selectedPosts = {}
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(postsThunks.fetchPosts.fulfilled, (state, action) => {
-        state.posts = action.payload.map((post) => ({
+        state.posts = action.payload.map(post => ({
           ...post,
           isPostLoading: false,
           isCommentsLoading: false,
         }))
       })
       .addCase(postsThunks.fetchComments.fulfilled, (state, action) => {
-        const post = state.posts.find(
-          (post) => post.id === action.payload?.postId,
-        )
+        const post = state.posts.find(post => post.id === action.payload?.postId)
+
         if (action.payload && post) {
           post.comments = action.payload.comments
         }
@@ -74,13 +74,12 @@ const postsSlice = createSlice({
         })
       })
       .addCase(postsThunks.deletePost.fulfilled, (state, action) => {
-        state.posts = state.posts.filter((post) => post.id !== action.payload)
+        state.posts = state.posts.filter(post => post.id !== action.payload)
         delete state.selectedPosts[action.payload]
       })
       .addCase(postsThunks.updatePost.fulfilled, (state, action) => {
-        const postIndex = state.posts.findIndex(
-          (post) => post.id === action.payload.postId,
-        )
+        const postIndex = state.posts.findIndex(post => post.id === action.payload.postId)
+
         if (postIndex !== -1) {
           state.posts[postIndex] = {
             ...state.posts[postIndex],

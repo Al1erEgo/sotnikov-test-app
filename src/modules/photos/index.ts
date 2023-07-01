@@ -1,2 +1,2 @@
-export * from "./pages"
-export { photosReducer } from "./slice"
+export * from './pages'
+export { photosReducer } from './slice'
