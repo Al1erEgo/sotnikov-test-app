@@ -20,11 +20,13 @@ export const usePaginationWSearchParams = <T>(data: T[]) => {
     setPaginationConfig([page, pageSize])
   }
 
+  console.log('render')
+
   useEffect(() => {
     if (data.length && !currentPageContent.length) {
       setPaginationConfig([1, 10])
     }
-  }, [currentPageContent])
+  }, [data])
 
   useEffect(() => {
     if (
