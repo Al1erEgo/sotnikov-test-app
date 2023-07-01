@@ -1,27 +1,38 @@
-# vite-template-redux
+# Sotnikov Test App
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+Выполненное тестовое задание в компанию SOTNIKOV - Digital Studio
 
-```sh
-npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
+Приложение представляет из себя три модуля:
+
+- Посты
+- Альбомы с фотографиями
+- Список задач
+
+В каждом из модулей реализованы: набор CRUD операций, добавление в избранное с сохранением в LocalStorage, пагинация,
+разные виды фильтрации и сортировки данных, простая маршрутизация.
+Данные запрашиваются с сервера jsonplaceholder.
+
+## Запуск приложения
+
+Склонируйте репозиторий и выполните следующие команды:
+
+```
+$ yarn install
+$ yarn dev
 ```
 
-## Goals
+Ввиду использования библиотеки redux-persist может потребоваться очистка localStorage через DevTools Вашего браузера.
 
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
+## Techs
 
-## Scripts
-
-- `dev`/`start` - start dev server and open browser
-- `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
-
-## Inspiration
-
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+- React JS
+- Typescript
+- Redux Toolkit w Thunks
+- Redux Persist
+- axios
+- React Router Dom
+- Vite
+- Ant Design
+- Styled Components
+- ESLint
+- Prettier
