@@ -1,8 +1,11 @@
 import { AddTodoPayloadType, TodoEntityType, TodoType } from "../types"
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { filtersSortActions, usersThunks } from "../../../common/slices"
+import {
+  filtersSortActions,
+  handleServerNetworkError,
+  usersThunks,
+} from "../../../common"
 import { appActions } from "../../../app/app-slice"
-import { handleServerNetworkError } from "../../../common/utils"
 import { todosApi } from "../api"
 import { TODOS_SORT_DIRECTIONS } from "../constants"
 
@@ -201,10 +204,10 @@ const todosSlice = createSlice({
 export const todosReducer = todosSlice.reducer
 export const todosActions = todosSlice.actions
 export const todosThunks = {
-  fetchTodos,
-  changeTodoStatus,
-  addTodo,
-  updateTodo,
-  deleteTodo,
-  deleteTodosGroup,
+    fetchTodos,
+    changeTodoStatus,
+    addTodo,
+    updateTodo,
+    deleteTodo,
+    deleteTodosGroup,
 }

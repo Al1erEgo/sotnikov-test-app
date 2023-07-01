@@ -3,13 +3,13 @@ import { AlbumEntityType, AlbumPayloadType } from "../../types"
 import { AlbumCardHeaderLink, StyledAlbumCard } from "./styles"
 import {
   ActionsBar,
+  favouriteActions,
   SecondaryText,
   useActions,
   useAppSelector,
   useModal,
 } from "../../../../common"
 import { photosActions, photosThunks } from "../../slice"
-import { favouriteActions } from "../../../../common/slices"
 import { Skeleton } from "antd"
 import { AlbumForm } from "../album-form"
 

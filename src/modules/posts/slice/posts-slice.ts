@@ -6,8 +6,11 @@ import {
   PostType,
 } from "../types"
 import { postsApi } from "../api"
-import { filtersSortActions, usersThunks } from "../../../common/slices"
-import { handleServerNetworkError } from "../../../common/utils"
+import {
+  filtersSortActions,
+  handleServerNetworkError,
+  usersThunks,
+} from "../../../common"
 import { appActions } from "../../../app/app-slice"
 
 type PostsStateType = {
@@ -215,10 +218,10 @@ const postsSlice = createSlice({
 export const postsReducer = postsSlice.reducer
 export const postsActions = postsSlice.actions
 export const postsThunks = {
-  fetchPosts,
-  fetchComments,
-  addPost,
-  deletePost,
-  updatePost,
-  deletePostsGroup,
+    fetchPosts,
+    fetchComments,
+    addPost,
+    deletePost,
+    updatePost,
+    deletePostsGroup,
 }

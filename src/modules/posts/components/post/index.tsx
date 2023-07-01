@@ -3,6 +3,7 @@ import { FC, memo, useState } from "react"
 import { AddPostPayloadType, PostEntityType } from "../../types"
 import {
   ActionsBar,
+  favouriteActions,
   FlexContainer,
   SecondaryText,
   useActions,
@@ -14,7 +15,6 @@ import Title from "antd/lib/typography/Title"
 import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowCommentsIcon } from "./styles"
 import { PostForm } from "../post-form"
-import { favouriteActions } from "../../../../common/slices"
 
 type PostProps = {
   post: PostEntityType

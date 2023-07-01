@@ -1,9 +1,8 @@
-import { useActions } from "../../../../common"
+import { FlexContainer, useActions } from "../../../../common"
 import { FC, useEffect } from "react"
 import { postsThunks } from "../../slice"
 import { Comment } from "../comment"
 import { Skeleton } from "antd"
-import { FlexContainer } from "../../../../common/styles/common-styled-components"
 import { CommentType } from "../../types"
 
 type CommentsProps = {

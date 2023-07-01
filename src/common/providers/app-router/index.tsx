@@ -6,7 +6,7 @@ import { StyledLoader } from "../../styles"
 import { PostsPage } from "../../../modules/posts"
 import { AlbumPage, AlbumsPage } from "../../../modules/photos"
 import { PageContainer } from "./styles"
-import TodosPage from "../../../modules/todos/pages/todos"
+import { TodosPage } from "../../../modules/todos"
 
 export const AppRouter = () => (
   <PageContainer>

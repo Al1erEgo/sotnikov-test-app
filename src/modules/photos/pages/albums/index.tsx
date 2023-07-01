@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import {
   CommonFiltersPanel,
+  favouriteThunks,
   GroupActionsButtons,
   Paginator,
   StyledLoader,
@@ -8,13 +9,8 @@ import {
   useAppSelector,
   useModal,
 } from "../../../../common"
-import { photosThunks } from "../../slice"
+import { getSelectedAlbums, getSortedAlbums, photosThunks } from "../../slice"
 import { getIsDataLoading } from "../../../../app/app-selectors"
-import { favouriteThunks } from "../../../../common/slices"
-import {
-  getSelectedAlbums,
-  getSortedAlbums,
-} from "../../slice/photos-selectors"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { AddAlbumWithModal, AlbumCard } from "../../components"
 import { PhotosPagesContentContainer } from "../../styles"

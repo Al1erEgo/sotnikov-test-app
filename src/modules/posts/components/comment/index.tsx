@@ -1,7 +1,7 @@
 import { CommentType } from "../../types"
 import { FC } from "react"
 import { CommentCard } from "./styles"
-import { SecondaryText } from "../../../../common/styles/common-styled-components"
+import { SecondaryText } from "../../../../common"
 import Title from "antd/lib/typography/Title"
 
 type CommentProps = {

@@ -1,8 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {AlbumEntityType, AlbumPayloadType, AlbumType, PhotoType,} from "../types"
-import {filtersSortActions, usersThunks} from "../../../common/slices"
+import {filtersSortActions, handleServerNetworkError, usersThunks} from "../../../common"
 import {appActions} from "../../../app/app-slice"
-import {handleServerNetworkError} from "../../../common/utils"
 import {photosApi} from "../api"
 
 //Для фотографий альбома одно поле - для упрощения логики,
@@ -199,10 +198,10 @@ const photosSlice = createSlice({
 export const photosReducer = photosSlice.reducer
 export const photosActions = photosSlice.actions
 export const photosThunks = {
-  fetchAlbums,
-  fetchPhotos,
-  updateAlbum,
-  deleteAlbum,
-  deleteAlbumsGroup,
-  addAlbum,
+    fetchAlbums,
+    fetchPhotos,
+    updateAlbum,
+    deleteAlbum,
+    deleteAlbumsGroup,
+    addAlbum,
 }

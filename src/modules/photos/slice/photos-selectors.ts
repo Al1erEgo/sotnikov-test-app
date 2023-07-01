@@ -4,14 +4,12 @@ import {
   getFilterByFavourite,
   getFilterByTitle,
   getFilterByUserId,
-  getSorting,
-  getUsers,
-} from "../../../common/slices"
-import {
   getFilteredByFavourite,
   getFilteredByTitle,
   getFilteredByUserId,
-} from "../../../common/utils"
+  getSorting,
+  getUsers,
+} from "../../../common"
 import { AlbumEntityType } from "../types"
 
 const getAlbums = (state: RootState) => state.photos.albums

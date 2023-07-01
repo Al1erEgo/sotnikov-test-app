@@ -2,14 +2,12 @@ import { RootState } from "../../../app/store"
 import {
   getFilterByCompleted,
   getFilterByTitle,
-  getSorting,
-} from "../../../common/slices"
-import { TODOS_SORT_DIRECTIONS } from "../constants"
-import { TodoEntityType } from "../types"
-import {
   getFilteredByCompleted,
   getFilteredByTitle,
-} from "../../../common/utils"
+  getSorting,
+} from "../../../common"
+import { TODOS_SORT_DIRECTIONS } from "../constants"
+import { TodoEntityType } from "../types"
 
 export const getTodos = (state: RootState) => state.todos.todos
 

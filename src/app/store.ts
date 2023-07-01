@@ -4,11 +4,7 @@ import {
   configureStore,
   ThunkAction,
 } from "@reduxjs/toolkit"
-import {
-  favouriteReducer,
-  filtersSortReducer,
-  usersReducer,
-} from "../common/slices"
+import { favouriteReducer, filtersSortReducer, usersReducer } from "../common"
 import storage from "redux-persist/lib/storage"
 import {
   FLUSH,

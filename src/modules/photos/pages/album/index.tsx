@@ -6,9 +6,8 @@ import {
   useAppSelector,
 } from "../../../../common"
 import { Image } from "antd"
-import { photosThunks } from "../../slice"
+import { getIsPhotosLoading, getPhotos, photosThunks } from "../../slice"
 import React, { useEffect } from "react"
-import { getIsPhotosLoading, getPhotos } from "../../slice/photos-selectors"
 import { PhotosPagesContentContainer } from "../../styles"
 import { StyledPhotoCard } from "../../components/album-card/styles"
 

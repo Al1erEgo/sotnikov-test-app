@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import {
   CommonFiltersPanel,
+  favouriteThunks,
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
@@ -10,11 +11,9 @@ import {
   useModal,
 } from "../../../../common"
 import { getSelectedPosts, getSortedPosts, postsThunks } from "../../slice"
-import { Post } from "../../components"
+import { AddPostWithModal, Post } from "../../components"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { getIsDataLoading } from "../../../../app/app-selectors"
-import { favouriteThunks } from "../../../../common/slices"
-import { AddPostWithModal } from "../../components/add-post-with-modal"
 
 const PostsPage = () => {
   const posts = useAppSelector(getSortedPosts)

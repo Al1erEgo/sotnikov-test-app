@@ -9,8 +9,7 @@ import {
 import { getSelectedTodos, getSortedTodos, todosThunks } from "../../slice"
 import { usePaginationWSearchParams } from "../../../../common/hooks/use-pagination-w-search-params"
 import { TodosContentContainer } from "./styles"
-import { AddTodoWithModal, Todo } from "../../components"
-import { TodosFiltersPanel } from "../../components/todos-filters-panel"
+import { AddTodoWithModal, Todo, TodosFiltersPanel } from "../../components"
 
 const TodosPage = () => {
   const todos = useAppSelector(getSortedTodos)

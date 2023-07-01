@@ -4,15 +4,13 @@ import {
   getFilterByFavourite,
   getFilterByTitle,
   getFilterByUserId,
-  getSorting,
-  getUsers,
-} from "../../../common/slices"
-import { PostEntityType } from "../types"
-import {
   getFilteredByFavourite,
   getFilteredByTitle,
   getFilteredByUserId,
-} from "../../../common/utils"
+  getSorting,
+  getUsers,
+} from "../../../common"
+import { PostEntityType } from "../types"
 
 export const getPosts = (state: RootState) => state.posts.posts
 

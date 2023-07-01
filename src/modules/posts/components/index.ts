@@ -1,3 +1,4 @@
+export * from "./add-post-with-modal"
 export * from "./post"
 export * from "./comments"
 export * from "./comment"
