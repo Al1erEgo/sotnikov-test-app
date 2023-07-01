@@ -1,6 +1,6 @@
 import { Card } from 'antd'
 import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 export const AlbumCard = styled(Card)<{ favourite: string }>`
   max-width: 300px;

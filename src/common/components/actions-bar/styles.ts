@@ -1,5 +1,5 @@
 import { HeartFilled } from '@ant-design/icons'
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 export const FavouriteFilled = styled(HeartFilled)`
   color: red;

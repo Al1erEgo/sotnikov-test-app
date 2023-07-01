@@ -9,6 +9,7 @@ import { FlexContainer } from '../../styles'
 type FilterByCompletedProps = {
   options: { value: boolean; label: string }[]
 }
+
 export const FilterByCompleted: FC<FilterByCompletedProps> = ({ options }) => {
   const filterByCompleted = useAppSelector(getFilterByCompleted)
 

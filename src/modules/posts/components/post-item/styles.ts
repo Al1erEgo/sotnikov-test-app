@@ -1,6 +1,6 @@
 import { MessageOutlined } from '@ant-design/icons'
 import { Card } from 'antd'
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 export const PostCard = styled(Card)<{ favourite: string }>`
   margin: 10px 0;

@@ -1,5 +1,5 @@
 import { Card } from 'antd'
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 export const PhotoCard = styled(Card)`
   max-width: 200px;

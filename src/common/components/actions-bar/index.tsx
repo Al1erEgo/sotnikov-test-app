@@ -32,6 +32,7 @@ export const ActionsBar: FC<ActionsBarProps> = ({
           <Checkbox checked={selected} onClick={onSelect} />
         </Tooltip>
       )}
+
       {(favourite || onFavourite) && (
         <Tooltip title={favourite ? 'Удалить из избранного' : 'Добавить в избранное'}>
           {favourite ? (
@@ -41,11 +42,13 @@ export const ActionsBar: FC<ActionsBarProps> = ({
           )}
         </Tooltip>
       )}
+
       {onEdit && (
         <Tooltip title={'Редактировать'}>
           <EditOutlined onClick={onEdit} />
         </Tooltip>
       )}
+
       {onDelete && (
         <Tooltip title={'Удалить'}>
           <CloseOutlined onClick={onDelete} />
