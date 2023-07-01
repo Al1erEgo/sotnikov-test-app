@@ -9,7 +9,7 @@ import { Image } from "antd"
 import { getIsPhotosLoading, getPhotos, photosThunks } from "../../slice"
 import React, { useEffect } from "react"
 import { PhotosPagesContentContainer } from "../../styles"
-import { StyledPhotoCard } from "../../components/album-card/styles"
+import { PhotoCard } from "./styles"
 
 const AlbumPage = () => {
   const { id: albumId } = useParams()
@@ -30,7 +30,7 @@ const AlbumPage = () => {
   return (
     <PhotosPagesContentContainer>
       {photos?.map((photo) => (
-        <StyledPhotoCard key={photo.id}>
+        <PhotoCard key={photo.id}>
           <Image
             src={photo.url}
             alt={"image"}
@@ -43,7 +43,7 @@ const AlbumPage = () => {
             }
           />
           <SecondaryText>{photo.title}</SecondaryText>
-        </StyledPhotoCard>
+        </PhotoCard>
       ))}
     </PhotosPagesContentContainer>
   )

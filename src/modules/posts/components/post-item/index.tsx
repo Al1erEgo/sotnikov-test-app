@@ -10,16 +10,16 @@ import {
   useAppSelector,
   useModal,
 } from "../../../../common"
-import { Comments } from "../comments"
+import { CommentsBlock } from "../comments-block"
 import Title from "antd/lib/typography/Title"
 import { postsActions, postsThunks } from "../../slice"
 import { PostCard, ShowCommentsIcon } from "./styles"
 import { PostForm } from "../post-form"
 
-type PostProps = {
+type PostItemProps = {
   post: PostEntityType
 }
-export const Post: FC<PostProps> = memo(({ post }) => {
+export const PostItem: FC<PostItemProps> = memo(({ post }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
@@ -99,7 +99,7 @@ export const Post: FC<PostProps> = memo(({ post }) => {
       </FlexContainer>
 
       {showComments && (
-        <Comments
+        <CommentsBlock
           content={post.comments}
           isLoading={post.isCommentsLoading}
           postId={post.id}

@@ -11,7 +11,7 @@ import { usePaginationWSearchParams } from "../../../../common/hooks/use-paginat
 import { TodosContentContainer } from "./styles"
 import {
   AddTodoButtonWithModal,
-  Todo,
+  TodoItem,
   TodosFiltersPanel,
 } from "../../components"
 
@@ -39,7 +39,7 @@ const TodosPage = () => {
       <AddTodoButtonWithModal />
       <TodosContentContainer>
         {currentPageContent.map((task) => (
-          <Todo key={task.id} todo={task} />
+          <TodoItem key={task.id} todo={task} />
         ))}
       </TodosContentContainer>
       <Paginator

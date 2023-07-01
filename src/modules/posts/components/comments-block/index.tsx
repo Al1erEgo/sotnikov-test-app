@@ -1,17 +1,21 @@
 import { FlexContainer, useActions } from "../../../../common"
 import { FC, useEffect } from "react"
 import { postsThunks } from "../../slice"
-import { Comment } from "../comment"
+import { Comment } from "../comment-item"
 import { Skeleton } from "antd"
 import { CommentType } from "../../types"
 
-type CommentsProps = {
+type CommentsBlockProps = {
   content?: CommentType[]
   isLoading: boolean
   postId: number
 }
 
-export const Comments: FC<CommentsProps> = ({ content, isLoading, postId }) => {
+export const CommentsBlock: FC<CommentsBlockProps> = ({
+  content,
+  isLoading,
+  postId,
+}) => {
   const { fetchComments } = useActions(postsThunks)
 
   useEffect(() => {

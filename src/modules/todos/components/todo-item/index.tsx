@@ -11,11 +11,11 @@ import { Skeleton, Switch, Tooltip } from "antd"
 import { getIsTodoSelected, todosActions, todosThunks } from "../../slice"
 import { TodoForm } from "../todo-form"
 
-type TodoProps = {
+type TodoItemProps = {
   todo: TodoEntityType
 }
 
-export const Todo: FC<TodoProps> = memo(({ todo }) => {
+export const TodoItem: FC<TodoItemProps> = memo(({ todo }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const isSelected = useAppSelector((state) =>
     getIsTodoSelected(state, todo.id),

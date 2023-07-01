@@ -1,6 +1,6 @@
 import { FC, memo, useState } from "react"
 import { AlbumEntityType, AlbumPayloadType } from "../../types"
-import { AlbumCardHeaderLink, StyledAlbumCard } from "./styles"
+import { AlbumCard, AlbumCardHeaderLink } from "./styles"
 import {
   ActionsBar,
   favouriteActions,
@@ -13,10 +13,10 @@ import { photosActions, photosThunks } from "../../slice"
 import { Skeleton } from "antd"
 import { AlbumForm } from "../album-form"
 
-type AlbumCardProps = {
+type AlbumItemProps = {
   album: AlbumEntityType
 }
-export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
+export const AlbumItem: FC<AlbumItemProps> = memo(({ album }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const isFavourite = useAppSelector(
@@ -48,14 +48,14 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
 
   if (album.isAlbumLoading) {
     return (
-      <StyledAlbumCard favourite={isFavourite ? "favourite" : ""}>
+      <AlbumCard favourite={isFavourite ? "favourite" : ""}>
         <Skeleton paragraph={{ rows: 2 }} />
-      </StyledAlbumCard>
+      </AlbumCard>
     )
   }
 
   return (
-    <StyledAlbumCard favourite={isFavourite ? "favourite" : ""}>
+    <AlbumCard favourite={isFavourite ? "favourite" : ""}>
       <ActionsBar
         scale={0.8}
         selected={isSelected}
@@ -83,6 +83,6 @@ export const AlbumCard: FC<AlbumCardProps> = memo(({ album }) => {
         </>
       )}
       {deleteAlbumModal}
-    </StyledAlbumCard>
+    </AlbumCard>
   )
 })

@@ -4,10 +4,10 @@ import { CommentCard } from "./styles"
 import { SecondaryText } from "../../../../common"
 import Title from "antd/lib/typography/Title"
 
-type CommentProps = {
+type CommentItemProps = {
   content: CommentType
 }
-export const Comment: FC<CommentProps> = ({ content }) => {
+export const Comment: FC<CommentItemProps> = ({ content }) => {
   return (
     <CommentCard>
       <Title level={5}>{content.name}</Title>
