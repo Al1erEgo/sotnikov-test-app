@@ -8,7 +8,7 @@ import { FilterByFavourite, FilterByUser, FiltersCleanupButton, Sorter } from '.
 import { FlexContainer } from '../../styles'
 import { FilterByTitle } from '../filter-by-title'
 
-//TODO реализовать дизейбл невозможных опций(если нет ничего в избранном - дизейблить пункт)
+//TODO реализовать дизейбл невозможных опций в сортировке(если нет ничего в избранном - дизейблить пункт)
 
 const selectSortOptions = [
   {
@@ -55,31 +55,35 @@ export const CommonFiltersPanel = () => {
   }
 
   return (
-    <FlexContainer gap={'5px'}>
-      <FlexContainer
-        gap={'10px'}
-        flexdirection={'column'}
-        alignitems={'center'}
-        justifycontent={'flex-start'}
-        padding={'5px'}
-      >
-        <FlexContainer gap={'5px'}>
-          <Sorter options={selectSortOptions} />
-          <FilterByUser />
+    <>
+      <FlexContainer gap={'5px'}>
+        <FlexContainer
+          gap={'10px'}
+          flexdirection={'column'}
+          alignitems={'center'}
+          justifycontent={'flex-start'}
+          padding={'5px'}
+        >
+          <FlexContainer gap={'5px'}>
+            <Sorter options={selectSortOptions} />
+            <FilterByUser />
+          </FlexContainer>
+          <FlexContainer gap={'5px'}>
+            <FilterByFavourite options={selectFavouriteOptions} />
+            <FilterByTitle />
+          </FlexContainer>
         </FlexContainer>
-        <FlexContainer gap={'5px'}>
-          <FilterByFavourite options={selectFavouriteOptions} />
-          <FilterByTitle />
+        <FlexContainer gap={'5px'} flexdirection={'column'} width={'10%'}>
+          <FiltersCleanupButton />
         </FlexContainer>
       </FlexContainer>
-      <FlexContainer gap={'5px'} flexdirection={'column'} width={'10%'}>
-        <FiltersCleanupButton />
+      <FlexContainer padding={'10px'}>
         <Tooltip title={'Закрыть панель фильтров'}>
           <Button shape="circle" size={'small'} onClick={() => setIsOpen(false)}>
             <UpCircleOutlined />
           </Button>
         </Tooltip>
       </FlexContainer>
-    </FlexContainer>
+    </>
   )
 }

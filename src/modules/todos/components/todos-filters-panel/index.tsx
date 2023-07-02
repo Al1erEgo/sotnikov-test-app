@@ -42,7 +42,7 @@ export const TodosFiltersPanel = () => {
 
   if (!isOpen) {
     return (
-      <FlexContainer gap={'5px'}>
+      <FlexContainer gap={'5px'} padding={'10px'}>
         <Tooltip title={'Открыть панель фильтров'}>
           <Button shape="circle" size={'small'} onClick={() => setIsOpen(true)}>
             <DownCircleOutlined />
@@ -53,28 +53,32 @@ export const TodosFiltersPanel = () => {
   }
 
   return (
-    <FlexContainer gap={'5px'}>
-      <FlexContainer
-        gap={'10px'}
-        flexdirection={'column'}
-        alignitems={'center'}
-        justifycontent={'flex-start'}
-        padding={'5px'}
-      >
-        <FlexContainer gap={'5px'}>
-          <Sorter options={selectSortOptions} />
-          <FilterByTitle />
-          <FilterByCompleted options={selectCompleteOptions} />
+    <>
+      <FlexContainer gap={'5px'}>
+        <FlexContainer
+          gap={'10px'}
+          flexdirection={'column'}
+          alignitems={'center'}
+          justifycontent={'flex-start'}
+          padding={'5px'}
+        >
+          <FlexContainer gap={'5px'}>
+            <Sorter options={selectSortOptions} />
+            <FilterByTitle />
+            <FilterByCompleted options={selectCompleteOptions} />
+          </FlexContainer>
+        </FlexContainer>
+        <FlexContainer gap={'5px'} flexdirection={'column'} width={'10%'}>
+          <FiltersCleanupButton />
         </FlexContainer>
       </FlexContainer>
-      <FlexContainer gap={'5px'} flexdirection={'column'} width={'10%'}>
-        <FiltersCleanupButton />
+      <FlexContainer padding={'10px'}>
         <Tooltip title={'Закрыть панель фильтров'}>
           <Button shape="circle" size={'small'} onClick={() => setIsOpen(false)}>
             <UpCircleOutlined />
           </Button>
         </Tooltip>
       </FlexContainer>
-    </FlexContainer>
+    </>
   )
 }
