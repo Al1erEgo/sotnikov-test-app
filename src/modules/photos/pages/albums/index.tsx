@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 
+import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   filtersSortActions,
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
+  StyledLoader,
   useActions,
   useAppSelector,
   useModal,
@@ -18,6 +20,7 @@ import { AlbumsContentContainer } from '../../styles'
 const AlbumsPage = () => {
   const albums = useAppSelector(selectSortedAlbums)
   const selectedAlbums = useAppSelector(selectSelectedAlbums)
+  const isLoading = useAppSelector(selectIsDataLoading)
 
   const { fetchAlbums, deleteAlbumsGroup, addAlbumsGroupToFav } = useActions(photosThunks)
   const { clearFiltersAndSort } = useActions(filtersSortActions)
@@ -49,6 +52,10 @@ const AlbumsPage = () => {
       clear()
     }
   }, [fetchAlbums])
+
+  if (isLoading) {
+    return <StyledLoader />
+  }
 
   return (
     <>

@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
 
+import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   filtersSortActions,
   GroupActionsButtons,
   Paginator,
+  StyledLoader,
   useActions,
   useAppSelector,
   useModal,
@@ -18,6 +20,7 @@ import { TodosContentContainer } from './styles'
 const TodosPage = () => {
   const todos = useAppSelector(selectSortedTodos)
   const selectedTodos = useAppSelector(selectSelectedTodos)
+  const isLoading = useAppSelector(selectIsDataLoading)
 
   const { fetchTodos, deleteTodosGroup } = useActions(todosThunks)
   const { clearFiltersAndSort, setSorting } = useActions(filtersSortActions)
@@ -46,6 +49,10 @@ const TodosPage = () => {
       clear()
     }
   }, [fetchTodos])
+
+  if (isLoading) {
+    return <StyledLoader />
+  }
 
   return (
     <>

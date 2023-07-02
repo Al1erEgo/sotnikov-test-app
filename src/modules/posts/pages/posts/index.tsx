@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 
+import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   filtersSortActions,
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
+  StyledLoader,
   useActions,
   useAppSelector,
   useModal,
@@ -17,6 +19,7 @@ import { postsActions, postsThunks, selectSelectedPosts, selectSortedPosts } fro
 const PostsPage = () => {
   const posts = useAppSelector(selectSortedPosts)
   const selectedPosts = useAppSelector(selectSelectedPosts)
+  const isLoading = useAppSelector(selectIsDataLoading)
 
   const { fetchPosts, deletePostsGroup, addPostsGroupToFav } = useActions(postsThunks)
   const { clearSelectedPosts } = useActions(postsActions)
@@ -47,6 +50,10 @@ const PostsPage = () => {
       clear()
     }
   }, [fetchPosts])
+
+  if (isLoading) {
+    return <StyledLoader />
+  }
 
   return (
     <>
