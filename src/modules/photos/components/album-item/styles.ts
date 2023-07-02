@@ -12,5 +12,4 @@ export const AlbumCard = styled(Card)<{ favourite: string; isEdit?: string }>`
 
 export const AlbumCardHeaderLink = styled(NavLink)`
   font-size: 1.3em;
-  color: black;
 `
