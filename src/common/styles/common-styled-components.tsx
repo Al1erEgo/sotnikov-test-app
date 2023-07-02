@@ -50,4 +50,5 @@ export const PageContentContainer = styled.div`
   min-height: 200px;
   overflow: auto;
   position: relative;
+  margin-top: 7px;
 `

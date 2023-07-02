@@ -30,9 +30,14 @@ const TodosPage = () => {
     usePaginationWSearchParams(todos)
 
   useEffect(() => {
-    clearFiltersAndSort()
     if (!todos.length) {
       fetchTodos()
+    }
+
+    return () => {
+      const clear = () => clearFiltersAndSort()
+
+      clear()
     }
   }, [fetchTodos])
 

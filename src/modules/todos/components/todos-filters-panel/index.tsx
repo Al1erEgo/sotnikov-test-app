@@ -42,7 +42,7 @@ export const TodosFiltersPanel = () => {
 
   if (!isOpen) {
     return (
-      <FlexContainer gap={'5px'} padding={'10px'}>
+      <FlexContainer gap={'5px'}>
         <Tooltip title={'Открыть панель фильтров'}>
           <Button shape="circle" size={'small'} onClick={() => setIsOpen(true)}>
             <DownCircleOutlined />

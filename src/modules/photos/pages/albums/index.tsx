@@ -37,9 +37,14 @@ const AlbumsPage = () => {
     usePaginationWSearchParams(albums)
 
   useEffect(() => {
-    clearFiltersAndSort()
     if (!albums.length) {
       fetchAlbums()
+    }
+
+    return () => {
+      const clear = () => clearFiltersAndSort()
+
+      clear()
     }
   }, [fetchAlbums])
 

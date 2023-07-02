@@ -35,9 +35,14 @@ const PostsPage = () => {
     usePaginationWSearchParams(posts)
 
   useEffect(() => {
-    clearFiltersAndSort()
     if (!posts.length) {
       fetchPosts()
+    }
+
+    return () => {
+      const clear = () => clearFiltersAndSort()
+
+      clear()
     }
   }, [fetchPosts])
 
