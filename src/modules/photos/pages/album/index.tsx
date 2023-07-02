@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-import { Image, Typography } from 'antd'
+import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 
 import {
-  FlexContainer,
+  NoContentMessageProvider,
   SecondaryText,
   StyledLoader,
   useActions,
@@ -33,26 +33,20 @@ const AlbumPage = () => {
     return <StyledLoader />
   }
 
-  if (!photos?.length) {
-    return (
-      <FlexContainer>
-        <Typography.Text>Альбом пуст :(</Typography.Text>
-      </FlexContainer>
-    )
-  }
-
   return (
     <AlbumsContentContainer>
-      {photos?.map(photo => (
-        <PhotoCard key={photo.id}>
-          <Image
-            src={photo.url}
-            alt={'image'}
-            placeholder={<Image preview={false} src={photo.thumbnailUrl} placeholder={true} />}
-          />
-          <SecondaryText>{photo.title}</SecondaryText>
-        </PhotoCard>
-      ))}
+      <NoContentMessageProvider message={'Альбом пуст :('} isContent={!!photos?.length}>
+        {photos?.map(photo => (
+          <PhotoCard key={photo.id}>
+            <Image
+              src={photo.url}
+              alt={'image'}
+              placeholder={<Image preview={false} src={photo.thumbnailUrl} placeholder={true} />}
+            />
+            <SecondaryText>{photo.title}</SecondaryText>
+          </PhotoCard>
+        ))}
+      </NoContentMessageProvider>
     </AlbumsContentContainer>
   )
 }

@@ -1,13 +1,11 @@
 import { useEffect } from 'react'
 
-import { Typography } from 'antd'
-
 import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   filtersSortActions,
-  FlexContainer,
   GroupActionsButtons,
+  NoContentMessageProvider,
   PageContentContainer,
   Paginator,
   StyledLoader,
@@ -58,22 +56,16 @@ const PostsPage = () => {
     return <StyledLoader />
   }
 
-  if (!posts?.length) {
-    return (
-      <FlexContainer>
-        <Typography.Text>Нечего отобразить :(</Typography.Text>
-      </FlexContainer>
-    )
-  }
-
   return (
     <>
       <AddPostButtonWithModal />
       <CommonFiltersPanel />
       <PageContentContainer>
-        {currentPageContent.map(post => (
-          <PostItem key={post.id} post={post} />
-        ))}
+        <NoContentMessageProvider isContent={!!currentPageContent.length}>
+          {currentPageContent.map(post => (
+            <PostItem key={post.id} post={post} />
+          ))}
+        </NoContentMessageProvider>
       </PageContentContainer>
       <Paginator
         config={paginationConfig}

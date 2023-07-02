@@ -1,12 +1,10 @@
 import { useEffect } from 'react'
 
-import { Typography } from 'antd'
-
 import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   filtersSortActions,
-  FlexContainer,
   GroupActionsButtons,
+  NoContentMessageProvider,
   Paginator,
   StyledLoader,
   useActions,
@@ -57,22 +55,16 @@ const TodosPage = () => {
     return <StyledLoader />
   }
 
-  if (!todos?.length) {
-    return (
-      <FlexContainer>
-        <Typography.Text>Нечего отобразить :(</Typography.Text>
-      </FlexContainer>
-    )
-  }
-
   return (
     <>
       <TodosFiltersPanel />
       <AddTodoButtonWithModal />
       <TodosContentContainer>
-        {currentPageContent.map(task => (
-          <TodoItem key={task.id} todo={task} />
-        ))}
+        <NoContentMessageProvider isContent={!!currentPageContent.length}>
+          {currentPageContent.map(task => (
+            <TodoItem key={task.id} todo={task} />
+          ))}
+        </NoContentMessageProvider>
       </TodosContentContainer>
       <Paginator
         config={paginationConfig}

@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react'
 
-import { Skeleton, Typography } from 'antd'
+import { Skeleton } from 'antd'
 
-import { FlexContainer, useActions } from '../../../../common'
+import { FlexContainer, NoContentMessageProvider, useActions } from '../../../../common'
 import { postsThunks } from '../../slice'
 import { CommentType } from '../../types'
 import { Comment } from '../comment-item'
@@ -26,13 +26,11 @@ export const CommentsBlock: FC<CommentsBlockProps> = ({ content, isLoading, post
 
   return (
     <FlexContainer flexdirection={'column'} alignitems={'flex-start'} gap={'5px'} padding={'5px'}>
-      {!content?.length ? (
-        <FlexContainer>
-          <Typography.Text>Комментариев нет :(</Typography.Text>
-        </FlexContainer>
-      ) : (
-        content?.map(comment => <Comment key={comment.id} content={comment} />)
-      )}
+      <NoContentMessageProvider message={'Комментариев нет :('} isContent={!!content?.length}>
+        {content?.map(comment => (
+          <Comment key={comment.id} content={comment} />
+        ))}
+      </NoContentMessageProvider>
     </FlexContainer>
   )
 }

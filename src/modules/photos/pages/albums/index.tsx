@@ -1,13 +1,11 @@
 import { useEffect } from 'react'
 
-import { Typography } from 'antd'
-
 import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   filtersSortActions,
-  FlexContainer,
   GroupActionsButtons,
+  NoContentMessageProvider,
   PageContentContainer,
   Paginator,
   StyledLoader,
@@ -60,23 +58,17 @@ const AlbumsPage = () => {
     return <StyledLoader />
   }
 
-  if (!albums?.length) {
-    return (
-      <FlexContainer>
-        <Typography.Text>Нечего отобразить :(</Typography.Text>
-      </FlexContainer>
-    )
-  }
-
   return (
     <>
       <AddAlbumButtonWithModal />
       <CommonFiltersPanel />
       <PageContentContainer>
         <AlbumsContentContainer>
-          {currentPageContent.map(album => (
-            <AlbumItem key={album.id} album={album} />
-          ))}
+          <NoContentMessageProvider isContent={!!currentPageContent.length}>
+            {currentPageContent.map(album => (
+              <AlbumItem key={album.id} album={album} />
+            ))}
+          </NoContentMessageProvider>
         </AlbumsContentContainer>
       </PageContentContainer>
       <Paginator
