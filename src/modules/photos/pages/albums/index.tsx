@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 
+import { Typography } from 'antd'
+
 import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   filtersSortActions,
+  FlexContainer,
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
@@ -55,6 +58,14 @@ const AlbumsPage = () => {
 
   if (isLoading) {
     return <StyledLoader />
+  }
+
+  if (!albums?.length) {
+    return (
+      <FlexContainer>
+        <Typography.Text>Нечего отобразить :(</Typography.Text>
+      </FlexContainer>
+    )
   }
 
   return (

@@ -1,8 +1,11 @@
 import { useEffect } from 'react'
 
+import { Typography } from 'antd'
+
 import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   filtersSortActions,
+  FlexContainer,
   GroupActionsButtons,
   Paginator,
   StyledLoader,
@@ -52,6 +55,14 @@ const TodosPage = () => {
 
   if (isLoading) {
     return <StyledLoader />
+  }
+
+  if (!todos?.length) {
+    return (
+      <FlexContainer>
+        <Typography.Text>Нечего отобразить :(</Typography.Text>
+      </FlexContainer>
+    )
   }
 
   return (
