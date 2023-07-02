@@ -28,7 +28,9 @@ const TodosPage = () => {
     usePaginationWSearchParams(todos)
 
   useEffect(() => {
-    fetchTodos()
+    if (!todos.length) {
+      fetchTodos()
+    }
   }, [fetchTodos])
 
   return (

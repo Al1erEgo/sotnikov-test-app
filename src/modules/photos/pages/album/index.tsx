@@ -18,7 +18,9 @@ const AlbumPage = () => {
   const { fetchPhotos } = useActions(photosThunks)
 
   useEffect(() => {
-    fetchPhotos(Number(albumId))
+    if (!photos?.length) {
+      fetchPhotos(Number(albumId))
+    }
   }, [fetchPhotos, albumId])
 
   if (isPhotosLoading) {

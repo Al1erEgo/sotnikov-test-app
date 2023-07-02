@@ -10,8 +10,8 @@ import {
   useActions,
   useAppSelector,
   useModal,
+  usePaginationWSearchParams,
 } from '../../../../common'
-import { usePaginationWSearchParams } from '../../../../common/hooks/use-pagination-w-search-params'
 import { AddAlbumButtonWithModal, AlbumItem } from '../../components'
 import { getSelectedAlbums, getSortedAlbums, photosThunks } from '../../slice'
 import { PhotosPagesContentContainer } from '../../styles'
@@ -37,7 +37,9 @@ const AlbumsPage = () => {
     usePaginationWSearchParams(albums)
 
   useEffect(() => {
-    fetchAlbums()
+    if (!albums.length) {
+      fetchAlbums()
+    }
   }, [fetchAlbums])
 
   if (isDataLoading) {

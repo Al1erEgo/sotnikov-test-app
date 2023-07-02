@@ -36,7 +36,9 @@ const PostsPage = () => {
     usePaginationWSearchParams(posts)
 
   useEffect(() => {
-    fetchPosts()
+    if (!posts.length) {
+      fetchPosts()
+    }
   }, [fetchPosts])
 
   if (isDataLoading) {
