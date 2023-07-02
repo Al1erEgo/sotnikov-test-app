@@ -43,7 +43,7 @@ const filtersSortSlice = createSlice({
       }
     },
     setFilteringByCompleted: (state, action: PayloadAction<boolean | undefined>) => {
-      if (action.payload !== state.filter.favourite) {
+      if (action.payload !== state.filter.completed) {
         state.filter.completed = action.payload
       }
     },
