@@ -16,15 +16,15 @@ const selectSortOptions = [
   {
     label: 'По возрастанию:',
     options: [
-      { value: TODOS_SORTING_DIRECTIONS.asc.complete, label: 'Статусу (вверх)' },
-      { value: TODOS_SORTING_DIRECTIONS.asc.title, label: 'Названию (вверх)' },
+      { value: TODOS_SORTING_DIRECTIONS.asc.complete, label: 'Статусу \u2191' },
+      { value: TODOS_SORTING_DIRECTIONS.asc.title, label: 'Названию \u2191' },
     ],
   },
   {
     label: 'По убыванию:',
     options: [
-      { value: TODOS_SORTING_DIRECTIONS.desc.complete, label: 'Статусу (вниз)' },
-      { value: TODOS_SORTING_DIRECTIONS.desc.title, label: 'Названию (вниз)' },
+      { value: TODOS_SORTING_DIRECTIONS.desc.complete, label: 'Статусу \u2193' },
+      { value: TODOS_SORTING_DIRECTIONS.desc.title, label: 'Названию \u2193' },
     ],
   },
 ]
