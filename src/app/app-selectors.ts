@@ -1,5 +1,5 @@
 import { RootState } from './store'
 
-export const getAppErrorMessage = (state: RootState) => state.app.error
+export const selectAppErrorMessage = (state: RootState) => state.app.error
 
-export const getIsDataLoading = (state: RootState) => state.app.dataLoading
+export const selectIsDataLoading = (state: RootState) => state.app.dataLoading

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Select } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
-import { filtersSortActions, getFilterByFavourite } from '../../slices'
+import { filtersSortActions, selectFilterByFavourite } from '../../slices'
 import { FlexContainer } from '../../styles'
 
 type FilterByFavouriteProps = {
@@ -11,7 +11,7 @@ type FilterByFavouriteProps = {
 }
 
 export const FilterByFavourite: FC<FilterByFavouriteProps> = ({ options }) => {
-  const filterByFavourite = useAppSelector(getFilterByFavourite)
+  const filterByFavourite = useAppSelector(selectFilterByFavourite)
 
   const { setFilteringByFavourite } = useActions(filtersSortActions)
 

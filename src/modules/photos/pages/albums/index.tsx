@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { getIsDataLoading } from '../../../../app/app-selectors'
+import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   favouriteThunks,
@@ -14,13 +14,13 @@ import {
   usePaginationWSearchParams,
 } from '../../../../common'
 import { AddAlbumButtonWithModal, AlbumItem } from '../../components'
-import { getSelectedAlbums, getSortedAlbums, photosThunks } from '../../slice'
+import { photosThunks, selectSelectedAlbums, selectSortedAlbums } from '../../slice'
 import { PhotosPagesContentContainer } from '../../styles'
 
 const AlbumsPage = () => {
-  const albums = useAppSelector(getSortedAlbums)
-  const isDataLoading = useAppSelector(getIsDataLoading)
-  const selectedAlbums = useAppSelector(getSelectedAlbums)
+  const albums = useAppSelector(selectSortedAlbums)
+  const isDataLoading = useAppSelector(selectIsDataLoading)
+  const selectedAlbums = useAppSelector(selectSelectedAlbums)
 
   const { fetchAlbums, deleteAlbumsGroup } = useActions(photosThunks)
   const { addAlbumsGroupToFav } = useActions(favouriteThunks)

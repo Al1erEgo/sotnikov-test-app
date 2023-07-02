@@ -1,7 +1,7 @@
 import { Select } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
-import { filtersSortActions, getFilterByUserId, getUsers } from '../../slices'
+import { filtersSortActions, selectFilterByUserId, selectUsers } from '../../slices'
 import { FlexContainer } from '../../styles'
 import { UserType } from '../../types'
 
@@ -13,8 +13,8 @@ const getSelectUserNameOptions = (users: { [p: string]: UserType }) => {
 }
 
 export const FilterByUser = () => {
-  const filterByUserId = useAppSelector(getFilterByUserId)
-  const users = useAppSelector(getUsers)
+  const filterByUserId = useAppSelector(selectFilterByUserId)
+  const users = useAppSelector(selectUsers)
 
   const { setFilteringByUserId } = useActions(filtersSortActions)
 

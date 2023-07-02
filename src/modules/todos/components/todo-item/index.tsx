@@ -3,7 +3,7 @@ import { FC, memo, useState } from 'react'
 import { Skeleton, Switch, Tooltip } from 'antd'
 
 import { ActionsBar, FlexContainer, useActions, useAppSelector } from '../../../../common'
-import { getIsTodoSelected, todosActions, todosThunks } from '../../slice'
+import { selectIsTodoSelected, todosActions, todosThunks } from '../../slice'
 import { TodoEntityType } from '../../types'
 import { TodoForm } from '../todo-form'
 
@@ -15,7 +15,7 @@ type TodoItemProps = {
 
 export const TodoItem: FC<TodoItemProps> = memo(({ todo }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const isSelected = useAppSelector(state => getIsTodoSelected(state, todo.id))
+  const isSelected = useAppSelector(state => selectIsTodoSelected(state, todo.id))
 
   const { changeTodoStatus, updateTodo } = useActions(todosThunks)
   const { changeTodoSelection } = useActions(todosActions)

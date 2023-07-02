@@ -4,7 +4,7 @@ import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 
 import { SecondaryText, StyledLoader, useActions, useAppSelector } from '../../../../common'
-import { getIsPhotosLoading, getPhotos, photosThunks } from '../../slice'
+import { photosThunks, selectIsPhotosLoading, selectPhotos } from '../../slice'
 import { PhotosPagesContentContainer } from '../../styles'
 
 import { PhotoCard } from './styles'
@@ -12,8 +12,8 @@ import { PhotoCard } from './styles'
 const AlbumPage = () => {
   const { id: albumId } = useParams()
 
-  const isPhotosLoading = useAppSelector(getIsPhotosLoading)
-  const photos = useAppSelector(getPhotos)
+  const isPhotosLoading = useAppSelector(selectIsPhotosLoading)
+  const photos = useAppSelector(selectPhotos)
 
   const { fetchPhotos } = useActions(photosThunks)
 

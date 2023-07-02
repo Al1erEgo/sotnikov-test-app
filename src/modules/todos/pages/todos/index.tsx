@@ -10,13 +10,13 @@ import {
   usePaginationWSearchParams,
 } from '../../../../common'
 import { AddTodoButtonWithModal, TodoItem, TodosFiltersPanel } from '../../components'
-import { getSelectedTodos, getSortedTodos, todosThunks } from '../../slice'
+import { selectSelectedTodos, selectSortedTodos, todosThunks } from '../../slice'
 
 import { TodosContentContainer } from './styles'
 
 const TodosPage = () => {
-  const todos = useAppSelector(getSortedTodos)
-  const selectedTodos = useAppSelector(getSelectedTodos)
+  const todos = useAppSelector(selectSortedTodos)
+  const selectedTodos = useAppSelector(selectSelectedTodos)
 
   const { fetchTodos, deleteTodosGroup } = useActions(todosThunks)
   const { clearFiltersAndSort } = useActions(filtersSortActions)

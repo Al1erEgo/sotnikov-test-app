@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { getIsDataLoading } from '../../../../app/app-selectors'
+import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   favouriteThunks,
@@ -15,12 +15,12 @@ import {
   usePaginationWSearchParams,
 } from '../../../../common'
 import { AddPostButtonWithModal, PostItem } from '../../components'
-import { getSelectedPosts, getSortedPosts, postsThunks } from '../../slice'
+import { postsThunks, selectSelectedPosts, selectSortedPosts } from '../../slice'
 
 const PostsPage = () => {
-  const posts = useAppSelector(getSortedPosts)
-  const isDataLoading = useAppSelector(getIsDataLoading)
-  const selectedPosts = useAppSelector(getSelectedPosts)
+  const posts = useAppSelector(selectSortedPosts)
+  const isDataLoading = useAppSelector(selectIsDataLoading)
+  const selectedPosts = useAppSelector(selectSelectedPosts)
 
   const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
   const { addPostsGroupToFav } = useActions(favouriteThunks)

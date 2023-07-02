@@ -1,32 +1,56 @@
+import { createSelector } from '@reduxjs/toolkit'
+
 import { RootState } from '../../../app/store'
 import {
-  getFavouriteAlbums,
-  getFilterByFavourite,
-  getFilterByTitle,
-  getFilterByUserId,
   getFilteredByFavourite,
   getFilteredByTitle,
   getFilteredByUserId,
   getSortedItems,
-  getSorting,
-  getUsers,
+  selectFavouriteAlbumsIds,
+  selectFilterByFavourite,
+  selectFilterByTitle,
+  selectFilterByUserId,
+  selectSorting,
+  selectUsers,
 } from '../../../common'
 import { AlbumEntityType } from '../types'
 
-const getAlbums = (state: RootState) => state.photos.albums
+const selectId = (state: RootState, id: number) => id
 
-export const getSelectedAlbums = (state: RootState) => state.photos.selectedAlbums
+const selectAlbums = (state: RootState) => state.photos.albums
 
-export const getIsPhotosLoading = (state: RootState) => state.photos.isPhotosLoading
+export const selectSelectedAlbums = (state: RootState) => state.photos.selectedAlbums
 
-export const getPhotos = (state: RootState) => state.photos.photos
+export const selectIsPhotosLoading = (state: RootState) => state.photos.isPhotosLoading
 
-const getFilteredAlbums = (state: RootState) => {
-  const albums = getAlbums(state)
-  const titleFilter = getFilterByTitle(state)
-  const userIdFilter = getFilterByUserId(state)
-  const favouriteFilter = getFilterByFavourite(state)
-  const favouriteAlbumsIds = getFavouriteAlbums(state)
+export const selectPhotos = (state: RootState) => state.photos.photos
+
+export const selectIsAlbumFavourite = createSelector(
+  [selectFavouriteAlbumsIds, selectId],
+  (favouritePosts, postId) => favouritePosts[postId]
+)
+
+export const selectIsAlbumSelected = createSelector(
+  [selectSelectedAlbums, selectId],
+  (selectedPosts, postId) => selectedPosts[postId]
+)
+
+// export const selectUserByAlbum = createSelector(
+//   [selectUsers, selectId],
+//   (users, userId) => users[userId]
+// )
+export const selectUserByAlbum = (state: RootState, userId: number) => {
+  const users = selectUsers(state)
+
+  return users[userId]
+}
+
+const selectFilteredAlbums = (state: RootState) => {
+  const albums = selectAlbums(state)
+  const titleFilter = selectFilterByTitle(state)
+  const userIdFilter = selectFilterByUserId(state)
+  const favouriteFilter = selectFilterByFavourite(state)
+  const favouriteAlbumsIds = selectFavouriteAlbumsIds(state)
 
   let filteredAlbums: AlbumEntityType[] | undefined = albums
 
@@ -55,11 +79,11 @@ const getFilteredAlbums = (state: RootState) => {
   return filteredAlbums
 }
 
-export const getSortedAlbums = (state: RootState) => {
-  const albums = getFilteredAlbums(state)
-  const sorting = getSorting(state)
-  const favouriteAlbumsIds = getFavouriteAlbums(state)
-  const users = getUsers(state)
+export const selectSortedAlbums = (state: RootState) => {
+  const albums = selectFilteredAlbums(state)
+  const sorting = selectSorting(state)
+  const favouriteAlbumsIds = selectFavouriteAlbumsIds(state)
+  const users = selectUsers(state)
 
   return getSortedItems(albums, sorting, favouriteAlbumsIds, users)
 }

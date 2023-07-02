@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Select } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
-import { filtersSortActions, getFilterByCompleted } from '../../slices'
+import { filtersSortActions, selectFilterByCompleted } from '../../slices'
 import { FlexContainer } from '../../styles'
 
 type FilterByCompletedProps = {
@@ -11,7 +11,7 @@ type FilterByCompletedProps = {
 }
 
 export const FilterByCompleted: FC<FilterByCompletedProps> = ({ options }) => {
-  const filterByCompleted = useAppSelector(getFilterByCompleted)
+  const filterByCompleted = useAppSelector(selectFilterByCompleted)
 
   const { setFilteringByCompleted } = useActions(filtersSortActions)
 

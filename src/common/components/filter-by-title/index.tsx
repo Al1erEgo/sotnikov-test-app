@@ -2,11 +2,11 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
 
 import { useActions, useAppSelector, useDebouncedFilter } from '../../hooks'
-import { filtersSortActions, getFilterByTitle } from '../../slices'
+import { filtersSortActions, selectFilterByTitle } from '../../slices'
 import { FlexContainer } from '../../styles'
 
 export const FilterByTitle = () => {
-  const postsFilterByTitle = useAppSelector(getFilterByTitle)
+  const postsFilterByTitle = useAppSelector(selectFilterByTitle)
 
   const { setFilteringByTitleValue } = useActions(filtersSortActions)
 

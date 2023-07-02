@@ -2,30 +2,30 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { RootState } from '../../../app/store'
 import {
-  getFilterByCompleted,
-  getFilterByTitle,
   getFilteredByCompleted,
   getFilteredByTitle,
-  getSorting,
+  selectFilterByCompleted,
+  selectFilterByTitle,
+  selectSorting,
 } from '../../../common'
 import { TODOS_SORTING_DIRECTIONS } from '../constants'
 import { TodoEntityType } from '../types'
 
-export const getTodos = (state: RootState) => state.todos.todos
+const selectId = (state: RootState, id: number) => id
 
-export const getSelectedTodos = (state: RootState) => state.todos.selectedTodos
+export const selectTodos = (state: RootState) => state.todos.todos
 
-const selectedTodoId = (state: RootState, todoId: number) => todoId
+export const selectSelectedTodos = (state: RootState) => state.todos.selectedTodos
 
-export const getIsTodoSelected = createSelector(
-  [getSelectedTodos, selectedTodoId],
+export const selectIsTodoSelected = createSelector(
+  [selectSelectedTodos, selectId],
   (selectedTodos, todoId) => selectedTodos[todoId]
 )
 
-export const getFilteredTodos = (state: RootState) => {
-  const todos = getTodos(state)
-  const titleFilter = getFilterByTitle(state)
-  const completedFilter = getFilterByCompleted(state)
+const selectFilteredTodos = (state: RootState) => {
+  const todos = selectTodos(state)
+  const titleFilter = selectFilterByTitle(state)
+  const completedFilter = selectFilterByCompleted(state)
 
   let filteredTodos: TodoEntityType[] | undefined = todos
 
@@ -40,9 +40,9 @@ export const getFilteredTodos = (state: RootState) => {
   return filteredTodos
 }
 
-export const getSortedTodos = (state: RootState) => {
-  const todos = getFilteredTodos(state)
-  const sorting = getSorting(state)
+export const selectSortedTodos = (state: RootState) => {
+  const todos = selectFilteredTodos(state)
+  const sorting = selectSorting(state)
 
   if (!todos) {
     return []

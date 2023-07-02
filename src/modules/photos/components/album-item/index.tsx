@@ -10,7 +10,13 @@ import {
   useAppSelector,
   useModal,
 } from '../../../../common'
-import { photosActions, photosThunks } from '../../slice'
+import {
+  photosActions,
+  photosThunks,
+  selectIsAlbumFavourite,
+  selectIsAlbumSelected,
+  selectUserByAlbum,
+} from '../../slice'
 import { AlbumEntityType, AlbumPayloadType } from '../../types'
 import { AlbumForm } from '../album-form'
 
@@ -22,9 +28,9 @@ type AlbumItemProps = {
 export const AlbumItem: FC<AlbumItemProps> = memo(({ album }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const isFavourite = useAppSelector(state => state.favourite.albums[album.id])
-  const isSelected = useAppSelector(state => state.photos.selectedAlbums[album.id])
-  const user = useAppSelector(state => state.users[album.userId])
+  const isFavourite = useAppSelector(state => selectIsAlbumFavourite(state, album.id))
+  const isSelected = useAppSelector(state => selectIsAlbumSelected(state, album.id))
+  const user = useAppSelector(state => selectUserByAlbum(state, album.userId))
 
   const { deleteAlbum, updateAlbum } = useActions(photosThunks)
   const { changeAlbumSelection } = useActions(photosActions)

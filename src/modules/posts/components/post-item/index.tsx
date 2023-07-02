@@ -13,11 +13,11 @@ import {
   useModal,
 } from '../../../../common'
 import {
-  getIsPostFavourite,
-  getIsPostSelected,
-  getUserByPost,
   postsActions,
   postsThunks,
+  selectIsPostFavourite,
+  selectIsPostSelected,
+  selectUserByPost,
 } from '../../slice'
 import { AddPostPayloadType, PostEntityType } from '../../types'
 import { CommentsBlock } from '../comments-block'
@@ -32,9 +32,9 @@ export const PostItem: FC<PostItemProps> = memo(({ post }) => {
   const [showComments, setShowComments] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const isFavourite = useAppSelector(state => getIsPostFavourite(state, post.id))
-  const isSelected = useAppSelector(state => getIsPostSelected(state, post.id))
-  const user = useAppSelector(state => getUserByPost(state, post.userId))
+  const isFavourite = useAppSelector(state => selectIsPostFavourite(state, post.id))
+  const isSelected = useAppSelector(state => selectIsPostSelected(state, post.id))
+  const user = useAppSelector(state => selectUserByPost(state, post.userId))
 
   const { deletePost, updatePost } = useActions(postsThunks)
   const { changePostSelection } = useActions(postsActions)

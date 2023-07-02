@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Select } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
-import { filtersSortActions, getSorting } from '../../slices'
+import { filtersSortActions, selectSorting } from '../../slices'
 import { FlexContainer } from '../../styles'
 
 type SorterProps = {
@@ -11,7 +11,7 @@ type SorterProps = {
 }
 
 export const Sorter: FC<SorterProps> = ({ options }) => {
-  const sorting = useAppSelector(getSorting)
+  const sorting = useAppSelector(selectSorting)
 
   const { setSorting } = useActions(filtersSortActions)
 

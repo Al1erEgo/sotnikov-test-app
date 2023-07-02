@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 
 import { Button, Form, Input, Select } from 'antd'
 
-import { FlexContainer, useAppSelector } from '../../../../common'
+import { FlexContainer, selectUsers, useAppSelector } from '../../../../common'
 import { AlbumPayloadType } from '../../types'
 
 type AlbumFormProps = {
@@ -17,7 +17,8 @@ export const AlbumForm: FC<AlbumFormProps> = ({ userId, title, onCancel, onSubmi
   const [form] = Form.useForm()
   const values = Form.useWatch([], form)
 
-  const users = useAppSelector(state => state.users)
+  const users = useAppSelector(selectUsers)
+  //TODO usersNames везде - или в общем хуке
   const userNames = Object.values(users).map(user => ({
     value: user.id,
     label: user.name,

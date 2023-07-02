@@ -2,49 +2,49 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { RootState } from '../../../app/store'
 import {
-  getFavouritePosts,
-  getFilterByFavourite,
-  getFilterByTitle,
-  getFilterByUserId,
   getFilteredByFavourite,
   getFilteredByTitle,
   getFilteredByUserId,
   getSortedItems,
-  getSorting,
-  getUsers,
+  selectFavouritePostsIds,
+  selectFilterByFavourite,
+  selectFilterByTitle,
+  selectFilterByUserId,
+  selectSorting,
+  selectUsers,
 } from '../../../common'
 import { PostEntityType } from '../types'
 
-export const getPosts = (state: RootState) => state.posts.posts
+const selectId = (state: RootState, id: number) => id
 
-export const getSelectedPosts = (state: RootState) => state.posts.selectedPosts
+export const selectPosts = (state: RootState) => state.posts.posts
 
-const getId = (state: RootState, id: number) => id
+export const selectSelectedPosts = (state: RootState) => state.posts.selectedPosts
 
-export const getIsPostFavourite = createSelector(
-  [getFavouritePosts, getId],
+export const selectIsPostFavourite = createSelector(
+  [selectFavouritePostsIds, selectId],
   (favouritePosts, postId) => favouritePosts[postId]
 )
 
-export const getIsPostSelected = createSelector(
-  [getSelectedPosts, getId],
+export const selectIsPostSelected = createSelector(
+  [selectSelectedPosts, selectId],
   (selectedPosts, postId) => selectedPosts[postId]
 )
 
-//проблема с досупом к getUsers селектору
-//export const getUserByPost = createSelector([getUsers, getId], (users, userId) => users[postId])
-export const getUserByPost = (state: RootState, userId: number) => {
-  const users = getUsers(state)
+//проблема с доступом к selectUsers селектору
+//export const selectUserByPost = createSelector([selectUsers, selectId], (users, userId) => users[userId])
+export const selectUserByPost = (state: RootState, userId: number) => {
+  const users = selectUsers(state)
 
   return users[userId]
 }
 
-const getFilteredPosts = (state: RootState) => {
-  const posts = getPosts(state)
-  const titleFilter = getFilterByTitle(state)
-  const userIdFilter = getFilterByUserId(state)
-  const favouriteFilter = getFilterByFavourite(state)
-  const favouritePostIds = getFavouritePosts(state)
+const selectFilteredPosts = (state: RootState) => {
+  const posts = selectPosts(state)
+  const titleFilter = selectFilterByTitle(state)
+  const userIdFilter = selectFilterByUserId(state)
+  const favouriteFilter = selectFilterByFavourite(state)
+  const favouritePostIds = selectFavouritePostsIds(state)
 
   let filteredPosts: PostEntityType[] | undefined = posts
 
@@ -67,11 +67,11 @@ const getFilteredPosts = (state: RootState) => {
   return filteredPosts
 }
 
-export const getSortedPosts = (state: RootState) => {
-  const posts = getFilteredPosts(state)
-  const sorting = getSorting(state)
-  const favouritePostsIds = getFavouritePosts(state)
-  const users = getUsers(state)
+export const selectSortedPosts = (state: RootState) => {
+  const posts = selectFilteredPosts(state)
+  const sorting = selectSorting(state)
+  const favouritePostsIds = selectFavouritePostsIds(state)
+  const users = selectUsers(state)
 
   return getSortedItems(posts, sorting, favouritePostsIds, users)
 }
