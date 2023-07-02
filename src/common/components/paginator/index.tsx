@@ -21,7 +21,11 @@ export const Paginator: FC<PaginatorProps> = ({ totalCount, config, handleChange
         total={totalCount}
         responsive
       />
-      <Link onClick={() => handleChange(1, totalCount)}>Показать все</Link>
+      {config[1] !== totalCount ? (
+        <Link onClick={() => handleChange(1, totalCount)}>Показать все</Link>
+      ) : (
+        <Link onClick={() => handleChange(1, 10)}>Постранично</Link>
+      )}
     </FlexContainer>
   )
 }
