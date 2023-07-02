@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 import {
   CommonFiltersPanel,
-  favouriteThunks,
   filtersSortActions,
   GroupActionsButtons,
   PageContentContainer,
@@ -13,14 +12,14 @@ import {
   usePaginationWSearchParams,
 } from '../../../../common'
 import { AddPostButtonWithModal, PostItem } from '../../components'
-import { postsThunks, selectSelectedPosts, selectSortedPosts } from '../../slice'
+import { postsActions, postsThunks, selectSelectedPosts, selectSortedPosts } from '../../slice'
 
 const PostsPage = () => {
   const posts = useAppSelector(selectSortedPosts)
   const selectedPosts = useAppSelector(selectSelectedPosts)
 
-  const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
-  const { addPostsGroupToFav } = useActions(favouriteThunks)
+  const { fetchPosts, deletePostsGroup, addPostsGroupToFav } = useActions(postsThunks)
+  const { clearSelectedPosts } = useActions(postsActions)
   const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deletePostsModal, handleOpenModal: openDeleteModal } = useModal(
@@ -40,7 +39,10 @@ const PostsPage = () => {
     }
 
     return () => {
-      const clear = () => clearFiltersAndSort()
+      const clear = () => {
+        clearFiltersAndSort()
+        clearSelectedPosts()
+      }
 
       clear()
     }

@@ -95,6 +95,8 @@ const deleteAlbumsGroup = createAsyncThunk<void, string[]>(
       handleServerNetworkError(error, dispatch)
 
       return rejectWithValue(null)
+    } finally {
+      photosActions.clearSelectedAlbums()
     }
   }
 )
@@ -118,6 +120,21 @@ const fetchPhotos = createAsyncThunk<PhotoType[], number | undefined>(
   }
 )
 
+const addAlbumsGroupToFav = createAsyncThunk<void, string[]>(
+  'favourite/addAlbumsGroupToFav',
+  async (posts, { dispatch, rejectWithValue }) => {
+    try {
+      posts.forEach(id => dispatch(favouriteActions.addAlbumToFav(+id)))
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+
+      return rejectWithValue(null)
+    } finally {
+      dispatch(photosActions.clearSelectedAlbums())
+    }
+  }
+)
+
 export const photosThunks = {
   fetchAlbums,
   fetchPhotos,
@@ -125,4 +142,5 @@ export const photosThunks = {
   deleteAlbum,
   deleteAlbumsGroup,
   addAlbum,
+  addAlbumsGroupToFav,
 }

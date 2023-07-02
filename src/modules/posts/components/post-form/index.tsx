@@ -15,7 +15,6 @@ type PostFormProps = {
 }
 
 //TODO сделать сообщения валидации если превышено количество символов
-//TODO посмотреть можно ли вынести отдельные инпуты формы в компоненты
 export const PostForm: FC<PostFormProps> = ({ userId, title, body, onCancel, onSubmit }) => {
   const { form, submittable } = useCustomForm()
 

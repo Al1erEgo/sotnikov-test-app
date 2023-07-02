@@ -34,6 +34,9 @@ const todosSlice = createSlice({
         delete state.selectedTodos[action.payload]
       }
     },
+    clearSelectedTodos: state => {
+      state.selectedTodos = {}
+    },
   },
 
   extraReducers: builder => {

@@ -122,6 +122,8 @@ const deleteTodosGroup = createAsyncThunk<void, string[]>(
       handleServerNetworkError(error, dispatch)
 
       return rejectWithValue(null)
+    } finally {
+      todosActions.clearSelectedTodos()
     }
   }
 )

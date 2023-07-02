@@ -40,32 +40,32 @@ const selectFilteredTodos = (state: RootState) => {
   return filteredTodos
 }
 
-export const selectSortedTodos = (state: RootState) => {
-  const todos = selectFilteredTodos(state)
-  const sorting = selectSorting(state)
+export const selectSortedTodos = createSelector(
+  [selectFilteredTodos, selectSorting],
+  (todos, sorting) => {
+    if (!todos) {
+      return []
+    }
 
-  if (!todos) {
-    return []
-  }
+    if (!sorting) {
+      return todos
+    }
 
-  if (!sorting) {
+    if (sorting === TODOS_SORTING_DIRECTIONS.asc.complete) {
+      return [...todos].sort(a => (a.completed ? -1 : 1))
+    }
+
+    if (sorting === TODOS_SORTING_DIRECTIONS.desc.complete) {
+      return [...todos].sort(a => (a.completed ? 1 : -1))
+    }
+
+    if (sorting === TODOS_SORTING_DIRECTIONS.asc.title) {
+      return [...todos].sort((a, b) => (a.title > b.title ? 1 : -1))
+    }
+    if (sorting === TODOS_SORTING_DIRECTIONS.desc.title) {
+      return [...todos].sort((a, b) => (a.title > b.title ? -1 : 1))
+    }
+
     return todos
   }
-
-  if (sorting === TODOS_SORTING_DIRECTIONS.asc.complete) {
-    return [...todos].sort(a => (a.completed ? -1 : 1))
-  }
-
-  if (sorting === TODOS_SORTING_DIRECTIONS.desc.complete) {
-    return [...todos].sort(a => (a.completed ? 1 : -1))
-  }
-
-  if (sorting === TODOS_SORTING_DIRECTIONS.asc.title) {
-    return [...todos].sort((a, b) => (a.title > b.title ? 1 : -1))
-  }
-  if (sorting === TODOS_SORTING_DIRECTIONS.desc.title) {
-    return [...todos].sort((a, b) => (a.title > b.title ? -1 : 1))
-  }
-
-  return todos
-}
+)

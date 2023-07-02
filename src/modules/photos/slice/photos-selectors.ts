@@ -79,11 +79,8 @@ const selectFilteredAlbums = (state: RootState) => {
   return filteredAlbums
 }
 
-export const selectSortedAlbums = (state: RootState) => {
-  const albums = selectFilteredAlbums(state)
-  const sorting = selectSorting(state)
-  const favouriteAlbumsIds = selectFavouriteAlbumsIds(state)
-  const users = selectUsers(state)
-
-  return getSortedItems(albums, sorting, favouriteAlbumsIds, users)
-}
+export const selectSortedAlbums = createSelector(
+  [selectFilteredAlbums, selectSorting, selectFavouriteAlbumsIds, selectUsers],
+  (albums, sorting, favouriteAlbumsIds, users) =>
+    getSortedItems(albums, sorting, favouriteAlbumsIds, users)
+)

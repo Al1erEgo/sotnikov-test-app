@@ -67,11 +67,8 @@ const selectFilteredPosts = (state: RootState) => {
   return filteredPosts
 }
 
-export const selectSortedPosts = (state: RootState) => {
-  const posts = selectFilteredPosts(state)
-  const sorting = selectSorting(state)
-  const favouritePostsIds = selectFavouritePostsIds(state)
-  const users = selectUsers(state)
-
-  return getSortedItems(posts, sorting, favouritePostsIds, users)
-}
+export const selectSortedPosts = createSelector(
+  [selectFilteredPosts, selectSorting, selectFavouritePostsIds, selectUsers],
+  (posts, sorting, favouritePostsIds, users) =>
+    getSortedItems(posts, sorting, favouritePostsIds, users)
+)

@@ -98,6 +98,8 @@ const deletePostsGroup = createAsyncThunk<void, string[]>(
       handleServerNetworkError(error, dispatch)
 
       return rejectWithValue(null)
+    } finally {
+      postsActions.clearSelectedPosts()
     }
   }
 )
@@ -130,6 +132,21 @@ const updatePost = createAsyncThunk<
   }
 })
 
+const addPostsGroupToFav = createAsyncThunk<void, string[]>(
+  'favourite/addPostsGroupToFav',
+  async (posts, { dispatch, rejectWithValue }) => {
+    try {
+      posts.forEach(id => dispatch(favouriteActions.addPostToFav(+id)))
+    } catch (error) {
+      handleServerNetworkError(error, dispatch)
+
+      return rejectWithValue(null)
+    } finally {
+      dispatch(postsActions.clearSelectedPosts())
+    }
+  }
+)
+
 export const postsThunks = {
   fetchPosts,
   fetchComments,
@@ -137,4 +154,5 @@ export const postsThunks = {
   deletePost,
   updatePost,
   deletePostsGroup,
+  addPostsGroupToFav,
 }

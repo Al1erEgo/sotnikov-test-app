@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 import {
   CommonFiltersPanel,
-  favouriteThunks,
   filtersSortActions,
   GroupActionsButtons,
   PageContentContainer,
@@ -20,8 +19,7 @@ const AlbumsPage = () => {
   const albums = useAppSelector(selectSortedAlbums)
   const selectedAlbums = useAppSelector(selectSelectedAlbums)
 
-  const { fetchAlbums, deleteAlbumsGroup } = useActions(photosThunks)
-  const { addAlbumsGroupToFav } = useActions(favouriteThunks)
+  const { fetchAlbums, deleteAlbumsGroup, addAlbumsGroupToFav } = useActions(photosThunks)
   const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deleteAlbumsModal, handleOpenModal: openDeleteModal } = useModal(

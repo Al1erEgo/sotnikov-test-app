@@ -10,7 +10,7 @@ import {
   usePaginationWSearchParams,
 } from '../../../../common'
 import { AddTodoButtonWithModal, TodoItem, TodosFiltersPanel } from '../../components'
-import { selectSelectedTodos, selectSortedTodos, todosThunks } from '../../slice'
+import { selectSelectedTodos, selectSortedTodos, todosActions, todosThunks } from '../../slice'
 
 import { TodosContentContainer } from './styles'
 
@@ -20,6 +20,7 @@ const TodosPage = () => {
 
   const { fetchTodos, deleteTodosGroup } = useActions(todosThunks)
   const { clearFiltersAndSort } = useActions(filtersSortActions)
+  const { clearSelectedTodos } = useActions(todosActions)
 
   const { modal: deletePostsModal, handleOpenModal: openDeleteModal } = useModal(
     'Удалить выбранные задачи?',
@@ -35,7 +36,10 @@ const TodosPage = () => {
     }
 
     return () => {
-      const clear = () => clearFiltersAndSort()
+      const clear = () => {
+        clearFiltersAndSort()
+        clearSelectedTodos()
+      }
 
       clear()
     }
