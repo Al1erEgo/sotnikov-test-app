@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Select } from 'antd'
+import { Select, Typography } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
 import { filtersSortActions, selectSorting } from '../../slices'
@@ -17,7 +17,7 @@ export const Sorter: FC<SorterProps> = ({ options }) => {
 
   return (
     <FlexContainer gap={'5px'} flexdirection={'column'}>
-      Сортировать по:
+      <Typography.Text>Сортировать по:</Typography.Text>
       <Select
         allowClear
         size={'small'}

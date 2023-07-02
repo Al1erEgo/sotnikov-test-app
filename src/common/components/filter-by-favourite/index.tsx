@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Select } from 'antd'
+import { Select, Typography } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
 import { filtersSortActions, selectFilterByFavourite } from '../../slices'
@@ -17,7 +17,7 @@ export const FilterByFavourite: FC<FilterByFavouriteProps> = ({ options }) => {
 
   return (
     <FlexContainer gap={'5px'} flexdirection={'column'}>
-      Фильтровать по избранному:
+      <Typography.Text>Фильтровать по избранному:</Typography.Text>
       <Select
         placeholder={'Избранному'}
         allowClear

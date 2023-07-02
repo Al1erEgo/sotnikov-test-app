@@ -9,7 +9,7 @@ export const FiltersCleanupButton = () => {
 
   return (
     <Tooltip title={'Очистить фильтры'}>
-      <Button shape="circle" size={'small'} onClick={() => clearFiltersAndSort()}>
+      <Button shape="circle" size={'large'} onClick={() => clearFiltersAndSort()}>
         <ClearOutlined />
       </Button>
     </Tooltip>

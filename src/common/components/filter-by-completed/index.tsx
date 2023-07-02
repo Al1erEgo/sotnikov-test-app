@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Select } from 'antd'
+import { Select, Typography } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
 import { filtersSortActions, selectFilterByCompleted } from '../../slices'
@@ -17,7 +17,7 @@ export const FilterByCompleted: FC<FilterByCompletedProps> = ({ options }) => {
 
   return (
     <FlexContainer gap={'5px'} flexdirection={'column'}>
-      Фильтровать по статусу:
+      <Typography.Text>Фильтровать по статусу:</Typography.Text>
       <Select
         placeholder={'Статус'}
         allowClear

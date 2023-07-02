@@ -1,5 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons'
-import { Input } from 'antd'
+import { Input, Typography } from 'antd'
 
 import { useActions, useAppSelector, useDebouncedFilter } from '../../hooks'
 import { filtersSortActions, selectFilterByTitle } from '../../slices'
@@ -17,7 +17,7 @@ export const FilterByTitle = () => {
 
   return (
     <FlexContainer gap={'5px'} flexdirection={'column'}>
-      Фильтровать по заголовку:
+      <Typography.Text>Фильтровать по заголовку:</Typography.Text>
       <Input.Search
         size={'small'}
         style={{ width: '90%' }}

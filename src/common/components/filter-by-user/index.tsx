@@ -1,4 +1,4 @@
-import { Select } from 'antd'
+import { Select, Typography } from 'antd'
 
 import { useActions, useAppSelector } from '../../hooks'
 import { filtersSortActions, selectFilterByUserId, selectUsers } from '../../slices'
@@ -20,7 +20,7 @@ export const FilterByUser = () => {
 
   return (
     <FlexContainer gap={'5px'} flexdirection={'column'}>
-      Фильтровать по автору:
+      <Typography.Text>Фильтровать по автору:</Typography.Text>
       <Select
         mode="multiple"
         placeholder={'Автору'}
