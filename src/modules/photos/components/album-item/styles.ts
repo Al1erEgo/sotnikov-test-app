@@ -5,7 +5,8 @@ import { styled } from 'styled-components'
 export const AlbumCard = styled(Card)<{ favourite: string }>`
   max-width: 300px;
   width: 300px;
-  min-height: 130px;
+  min-height: 140px;
+  height: 140px;
   border-color: ${props => (props.favourite ? '#1677ff' : '#e7e7e7')};
 `
 

@@ -46,6 +46,7 @@ export const StyledLoader = styled(() => (
 
 export const PageContentContainer = styled.div`
   max-height: calc(100% - 50px);
+  height: calc(100% - 50px);
   min-height: 200px;
   overflow: auto;
   position: relative;
