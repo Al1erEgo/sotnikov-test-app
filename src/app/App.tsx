@@ -6,8 +6,6 @@ import { AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu } from '../c
 
 import { persistor, store } from './store'
 
-//TODO убрать фильтры и сортировку из сохранения в персисте
-//TODO пересмотреть логику очистки фильтров и сортировки при переходе между страницами
 //TODO вынести комментарии в отдельный слайс в posts
 
 export const App = () => {
