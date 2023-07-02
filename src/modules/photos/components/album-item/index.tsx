@@ -59,7 +59,7 @@ export const AlbumItem: FC<AlbumItemProps> = memo(({ album }) => {
   }
 
   return (
-    <AlbumCard favourite={isFavourite ? 'favourite' : ''}>
+    <AlbumCard isEdit={isEdit ? 'isEdit' : ''} favourite={isFavourite ? 'favourite' : ''}>
       <ActionsBar
         scale={0.8}
         selected={isSelected}
