@@ -10,6 +10,7 @@ import {
   usePaginationWSearchParams,
 } from '../../../../common'
 import { AddTodoButtonWithModal, TodoItem, TodosFiltersPanel } from '../../components'
+import { TODOS_SORTING_DIRECTIONS } from '../../constants'
 import { selectSelectedTodos, selectSortedTodos, todosActions, todosThunks } from '../../slice'
 
 import { TodosContentContainer } from './styles'
@@ -19,7 +20,7 @@ const TodosPage = () => {
   const selectedTodos = useAppSelector(selectSelectedTodos)
 
   const { fetchTodos, deleteTodosGroup } = useActions(todosThunks)
-  const { clearFiltersAndSort } = useActions(filtersSortActions)
+  const { clearFiltersAndSort, setSorting } = useActions(filtersSortActions)
   const { clearSelectedTodos } = useActions(todosActions)
 
   const { modal: deletePostsModal, handleOpenModal: openDeleteModal } = useModal(
@@ -31,6 +32,7 @@ const TodosPage = () => {
     usePaginationWSearchParams(todos)
 
   useEffect(() => {
+    setSorting(TODOS_SORTING_DIRECTIONS.desc.complete)
     if (!todos.length) {
       fetchTodos()
     }

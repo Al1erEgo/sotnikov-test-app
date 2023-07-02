@@ -12,7 +12,7 @@ import {
   usePaginationWSearchParams,
 } from '../../../../common'
 import { AddAlbumButtonWithModal, AlbumItem } from '../../components'
-import { photosThunks, selectSelectedAlbums, selectSortedAlbums } from '../../slice'
+import { photosActions, photosThunks, selectSelectedAlbums, selectSortedAlbums } from '../../slice'
 import { AlbumsContentContainer } from '../../styles'
 
 const AlbumsPage = () => {
@@ -21,6 +21,7 @@ const AlbumsPage = () => {
 
   const { fetchAlbums, deleteAlbumsGroup, addAlbumsGroupToFav } = useActions(photosThunks)
   const { clearFiltersAndSort } = useActions(filtersSortActions)
+  const { clearSelectedAlbums } = useActions(photosActions)
 
   const { modal: deleteAlbumsModal, handleOpenModal: openDeleteModal } = useModal(
     'Удалить выбранные альбомы?',
@@ -40,7 +41,10 @@ const AlbumsPage = () => {
     }
 
     return () => {
-      const clear = () => clearFiltersAndSort()
+      const clear = () => {
+        clearFiltersAndSort()
+        clearSelectedAlbums()
+      }
 
       clear()
     }
