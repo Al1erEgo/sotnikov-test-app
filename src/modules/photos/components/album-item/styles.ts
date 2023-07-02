@@ -2,11 +2,11 @@ import { Card } from 'antd'
 import { NavLink } from 'react-router-dom'
 import { styled } from 'styled-components'
 
-export const AlbumCard = styled(Card)<{ favourite: string; isEdit?: string }>`
+export const AlbumCard = styled(Card)<{ favourite: string; edit?: string }>`
   max-width: 300px;
   width: 300px;
   min-height: 140px;
-  height: ${props => (props.isEdit ? '250px' : '140px')};
+  height: ${props => (props.edit ? '250px' : '140px')};
   border-color: ${props => (props.favourite ? '#1677ff' : '#e7e7e7')};
 `
 
