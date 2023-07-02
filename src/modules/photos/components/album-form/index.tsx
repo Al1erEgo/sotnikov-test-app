@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import { Button, Form, Input, Select } from 'antd'
 
-import { FlexContainer, selectUsers, useAppSelector } from '../../../../common'
+import { FlexContainer, selectUsersNames, useAppSelector, useCustomForm } from '../../../../common'
 import { AlbumPayloadType } from '../../types'
 
 type AlbumFormProps = {
@@ -13,23 +13,13 @@ type AlbumFormProps = {
 }
 
 export const AlbumForm: FC<AlbumFormProps> = ({ userId, title, onCancel, onSubmit }) => {
-  const [submittable, setSubmittable] = useState<boolean>(false)
-  const [form] = Form.useForm()
-  const values = Form.useWatch([], form)
+  const { form, submittable } = useCustomForm()
 
-  const users = useAppSelector(selectUsers)
-  //TODO usersNames везде - или в общем хуке
-  const userNames = Object.values(users).map(user => ({
+  const usersNames = useAppSelector(selectUsersNames)
+  const usersNamesSelectOptions = usersNames.map(user => ({
     value: user.id,
     label: user.name,
   }))
-
-  useEffect(() => {
-    form.validateFields({ validateOnly: true }).then(
-      () => setSubmittable(true),
-      () => setSubmittable(false)
-    )
-  }, [values, form])
 
   return (
     <Form
@@ -61,7 +51,7 @@ export const AlbumForm: FC<AlbumFormProps> = ({ userId, title, onCancel, onSubmi
           },
         ]}
       >
-        <Select options={userNames} />
+        <Select options={usersNamesSelectOptions} />
       </Form.Item>
       <Form.Item>
         <FlexContainer gap={'10px'} flexdirection={'row'} justifycontent={'start'}>

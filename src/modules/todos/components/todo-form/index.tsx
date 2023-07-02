@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import { Button, Form, Switch } from 'antd'
 
-import { FlexContainer } from '../../../../common'
+import { FlexContainer, useCustomForm } from '../../../../common'
 import { AddTodoPayloadType } from '../../types'
 
 import { TodoFormInput } from './styles'
@@ -14,20 +14,7 @@ type TodoFormProps = {
   onSubmit: ({ title, completed }: AddTodoPayloadType) => void
 }
 export const TodoForm: FC<TodoFormProps> = ({ title, completed, onCancel, onSubmit }) => {
-  const [submittable, setSubmittable] = useState<boolean>(false)
-  const [form] = Form.useForm()
-  const values = Form.useWatch([], form)
-
-  useEffect(() => {
-    form.validateFields({ validateOnly: true }).then(
-      () => {
-        setSubmittable(true)
-      },
-      () => {
-        setSubmittable(false)
-      }
-    )
-  }, [values, form])
+  const { form, submittable } = useCustomForm()
 
   return (
     <Form

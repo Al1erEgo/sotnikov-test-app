@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import { Button, Form, Input, Select } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 
-import { FlexContainer, useAppSelector } from '../../../../common'
+import { FlexContainer, selectUsersNames, useAppSelector, useCustomForm } from '../../../../common'
 import { AddPostPayloadType } from '../../types'
 
 type PostFormProps = {
@@ -17,28 +17,13 @@ type PostFormProps = {
 //TODO сделать сообщения валидации если превышено количество символов
 //TODO посмотреть можно ли вынести отдельные инпуты формы в компоненты
 export const PostForm: FC<PostFormProps> = ({ userId, title, body, onCancel, onSubmit }) => {
-  //TODO вынести в отдельный хук useForm
+  const { form, submittable } = useCustomForm()
 
-  const [submittable, setSubmittable] = useState<boolean>(false)
-  const [form] = Form.useForm()
-  const values = Form.useWatch([], form)
-
-  const users = useAppSelector(state => state.users)
-  const userNames = Object.values(users).map(user => ({
+  const usersNames = useAppSelector(selectUsersNames)
+  const usersNamesSelectOptions = usersNames.map(user => ({
     value: user.id,
     label: user.name,
   }))
-
-  useEffect(() => {
-    form.validateFields({ validateOnly: true }).then(
-      () => {
-        setSubmittable(true)
-      },
-      () => {
-        setSubmittable(false)
-      }
-    )
-  }, [values, form])
 
   return (
     <Form
@@ -74,7 +59,7 @@ export const PostForm: FC<PostFormProps> = ({ userId, title, body, onCancel, onS
           },
         ]}
       >
-        <Select options={userNames} />
+        <Select options={usersNamesSelectOptions} />
       </Form.Item>
       <Form.Item
         label="Пост"

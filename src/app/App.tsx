@@ -6,7 +6,6 @@ import { AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu } from '../c
 
 import { persistor, store } from './store'
 
-//TODO обработка ошибок
 //TODO отрефакторить формы
 //TODO пересмотреть логику очистки фильтров и сортировки при переходе между страницами
 //TODO вынести комментарии в отдельный слайс в posts
