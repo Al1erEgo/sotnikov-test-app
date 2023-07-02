@@ -1,9 +1,15 @@
 import { useEffect } from 'react'
 
-import { Image } from 'antd'
+import { Image, Typography } from 'antd'
 import { useParams } from 'react-router-dom'
 
-import { SecondaryText, StyledLoader, useActions, useAppSelector } from '../../../../common'
+import {
+  FlexContainer,
+  SecondaryText,
+  StyledLoader,
+  useActions,
+  useAppSelector,
+} from '../../../../common'
 import { photosThunks, selectIsPhotosLoading, selectPhotos } from '../../slice'
 import { AlbumsContentContainer } from '../../styles'
 
@@ -25,6 +31,14 @@ const AlbumPage = () => {
 
   if (isPhotosLoading) {
     return <StyledLoader />
+  }
+
+  if (!photos?.length) {
+    return (
+      <FlexContainer>
+        <Typography.Text>Альбом пуст :(</Typography.Text>
+      </FlexContainer>
+    )
   }
 
   return (
