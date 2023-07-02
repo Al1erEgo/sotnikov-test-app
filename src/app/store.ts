@@ -22,7 +22,7 @@ import { appReducer } from './app-slice'
 const rootPersistConfig = {
   key: 'root',
   storage: storageSession,
-  blacklist: ['favourite'],
+  blacklist: ['favourite', 'filtersSort'],
 }
 
 const favouritePersistConfig = {
