@@ -6,6 +6,7 @@ import {
   favouriteThunks,
   filtersSortActions,
   GroupActionsButtons,
+  PageContentContainer,
   Paginator,
   StyledLoader,
   useActions,
@@ -15,7 +16,7 @@ import {
 } from '../../../../common'
 import { AddAlbumButtonWithModal, AlbumItem } from '../../components'
 import { photosThunks, selectSelectedAlbums, selectSortedAlbums } from '../../slice'
-import { PhotosPagesContentContainer } from '../../styles'
+import { AlbumsContentContainer } from '../../styles'
 
 const AlbumsPage = () => {
   const albums = useAppSelector(selectSortedAlbums)
@@ -53,11 +54,13 @@ const AlbumsPage = () => {
     <>
       <AddAlbumButtonWithModal />
       <CommonFiltersPanel />
-      <PhotosPagesContentContainer>
-        {currentPageContent.map(album => (
-          <AlbumItem key={album.id} album={album} />
-        ))}
-      </PhotosPagesContentContainer>
+      <PageContentContainer>
+        <AlbumsContentContainer>
+          {currentPageContent.map(album => (
+            <AlbumItem key={album.id} album={album} />
+          ))}
+        </AlbumsContentContainer>
+      </PageContentContainer>
       <Paginator
         config={paginationConfig}
         handleChange={handlePaginationChange}

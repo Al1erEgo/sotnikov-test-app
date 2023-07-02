@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { SecondaryText, StyledLoader, useActions, useAppSelector } from '../../../../common'
 import { photosThunks, selectIsPhotosLoading, selectPhotos } from '../../slice'
-import { PhotosPagesContentContainer } from '../../styles'
+import { AlbumsContentContainer } from '../../styles'
 
 import { PhotoCard } from './styles'
 
@@ -28,7 +28,7 @@ const AlbumPage = () => {
   }
 
   return (
-    <PhotosPagesContentContainer>
+    <AlbumsContentContainer>
       {photos?.map(photo => (
         <PhotoCard key={photo.id}>
           <Image
@@ -39,7 +39,7 @@ const AlbumPage = () => {
           <SecondaryText>{photo.title}</SecondaryText>
         </PhotoCard>
       ))}
-    </PhotosPagesContentContainer>
+    </AlbumsContentContainer>
   )
 }
 
