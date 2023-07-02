@@ -6,11 +6,11 @@ import { AppRouter, ErrorPopup, GlobalStyle, StyledLoader, TabsMenu } from '../c
 
 import { persistor, store } from './store'
 
-//TODO убрать селекторы в отдельные файлы
 //TODO починить иконку
+//TODO обработка ошибок
 //TODO отрефакторить формы
 //TODO пересмотреть логику очистки фильтров и сортировки при переходе между страницами
-//TODO вынести омментарии в отдельный слайс в posts
+//TODO вынести комментарии в отдельный слайс в posts
 
 export const App = () => {
   return (
