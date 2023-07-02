@@ -1,12 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appActions } from '../../../app/app-slice'
-import {
-  favouriteActions,
-  filtersSortActions,
-  handleServerNetworkError,
-  usersThunks,
-} from '../../../common'
+import { favouriteActions, handleServerNetworkError, usersThunks } from '../../../common'
 import { photosApi } from '../api'
 import { AlbumPayloadType, AlbumType, PhotoType } from '../types'
 
@@ -19,7 +14,6 @@ const fetchAlbums = createAsyncThunk<AlbumType[], void>(
     try {
       dispatch(usersThunks.fetchUsers())
       dispatch(appActions.setDataLoading(true))
-      dispatch(filtersSortActions.clearFiltersAndSort())
       const albums = await photosApi.getAlbums()
 
       return albums.data

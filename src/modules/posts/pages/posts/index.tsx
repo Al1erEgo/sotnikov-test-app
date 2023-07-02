@@ -4,6 +4,7 @@ import { getIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   favouriteThunks,
+  filtersSortActions,
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
@@ -23,6 +24,7 @@ const PostsPage = () => {
 
   const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
   const { addPostsGroupToFav } = useActions(favouriteThunks)
+  const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deletePostsModal, handleOpenModal: openDeleteModal } = useModal(
     'Удалить выбранные посты?',
@@ -36,6 +38,7 @@ const PostsPage = () => {
     usePaginationWSearchParams(posts)
 
   useEffect(() => {
+    clearFiltersAndSort()
     if (!posts.length) {
       fetchPosts()
     }

@@ -4,6 +4,7 @@ import { getIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   favouriteThunks,
+  filtersSortActions,
   GroupActionsButtons,
   Paginator,
   StyledLoader,
@@ -23,6 +24,7 @@ const AlbumsPage = () => {
 
   const { fetchAlbums, deleteAlbumsGroup } = useActions(photosThunks)
   const { addAlbumsGroupToFav } = useActions(favouriteThunks)
+  const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deleteAlbumsModal, handleOpenModal: openDeleteModal } = useModal(
     'Удалить выбранные альбомы?',
@@ -37,6 +39,7 @@ const AlbumsPage = () => {
     usePaginationWSearchParams(albums)
 
   useEffect(() => {
+    clearFiltersAndSort()
     if (!albums.length) {
       fetchAlbums()
     }

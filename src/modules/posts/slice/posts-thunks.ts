@@ -1,12 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appActions } from '../../../app/app-slice'
-import {
-  favouriteActions,
-  filtersSortActions,
-  handleServerNetworkError,
-  usersThunks,
-} from '../../../common'
+import { favouriteActions, handleServerNetworkError, usersThunks } from '../../../common'
 import { postsApi } from '../api'
 import { AddPostPayloadType, CommentType, PostType } from '../types'
 
@@ -18,7 +13,6 @@ const fetchPosts = createAsyncThunk<PostType[], void>(
     try {
       dispatch(usersThunks.fetchUsers())
       dispatch(appActions.setDataLoading(true))
-      dispatch(filtersSortActions.clearFiltersAndSort())
       const posts = await postsApi.getPosts()
 
       return posts.data

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import {
+  filtersSortActions,
   GroupActionsButtons,
   Paginator,
   useActions,
@@ -18,6 +19,7 @@ const TodosPage = () => {
   const selectedTodos = useAppSelector(getSelectedTodos)
 
   const { fetchTodos, deleteTodosGroup } = useActions(todosThunks)
+  const { clearFiltersAndSort } = useActions(filtersSortActions)
 
   const { modal: deletePostsModal, handleOpenModal: openDeleteModal } = useModal(
     'Удалить выбранные задачи?',
@@ -28,6 +30,7 @@ const TodosPage = () => {
     usePaginationWSearchParams(todos)
 
   useEffect(() => {
+    clearFiltersAndSort()
     if (!todos.length) {
       fetchTodos()
     }
