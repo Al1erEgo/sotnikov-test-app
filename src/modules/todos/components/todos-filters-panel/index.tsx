@@ -53,7 +53,7 @@ export const TodosFiltersPanel = () => {
   }
 
   return (
-    <>
+    <FlexContainer flexdirection={'column'}>
       <FlexContainer gap={'5px'}>
         <FlexContainer
           gap={'10px'}
@@ -79,6 +79,6 @@ export const TodosFiltersPanel = () => {
           </Button>
         </Tooltip>
       </FlexContainer>
-    </>
+    </FlexContainer>
   )
 }
