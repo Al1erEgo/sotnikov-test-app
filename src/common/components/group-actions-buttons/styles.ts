@@ -14,4 +14,8 @@ export const PostsGroupActionsContainer = styled.div`
   &:hover {
     opacity: 1;
   }
+
+  @media screen and (max-width: 400px) {
+    bottom: 80px;
+  }
 `
