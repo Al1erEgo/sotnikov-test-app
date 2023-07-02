@@ -4,7 +4,6 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  //position: relative;
   width: 100%;
   height: calc(100% - 50px);
   max-height: calc(100% - 50px);

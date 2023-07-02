@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 
-import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   favouriteThunks,
@@ -8,7 +7,6 @@ import {
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
-  StyledLoader,
   useActions,
   useAppSelector,
   useModal,
@@ -19,7 +17,6 @@ import { postsThunks, selectSelectedPosts, selectSortedPosts } from '../../slice
 
 const PostsPage = () => {
   const posts = useAppSelector(selectSortedPosts)
-  const isDataLoading = useAppSelector(selectIsDataLoading)
   const selectedPosts = useAppSelector(selectSelectedPosts)
 
   const { fetchPosts, deletePostsGroup } = useActions(postsThunks)
@@ -43,10 +40,6 @@ const PostsPage = () => {
       fetchPosts()
     }
   }, [fetchPosts])
-
-  if (isDataLoading) {
-    return <StyledLoader />
-  }
 
   return (
     <>

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 
-import { selectIsDataLoading } from '../../../../app/app-selectors'
 import {
   CommonFiltersPanel,
   favouriteThunks,
@@ -8,7 +7,6 @@ import {
   GroupActionsButtons,
   PageContentContainer,
   Paginator,
-  StyledLoader,
   useActions,
   useAppSelector,
   useModal,
@@ -20,7 +18,6 @@ import { AlbumsContentContainer } from '../../styles'
 
 const AlbumsPage = () => {
   const albums = useAppSelector(selectSortedAlbums)
-  const isDataLoading = useAppSelector(selectIsDataLoading)
   const selectedAlbums = useAppSelector(selectSelectedAlbums)
 
   const { fetchAlbums, deleteAlbumsGroup } = useActions(photosThunks)
@@ -45,10 +42,6 @@ const AlbumsPage = () => {
       fetchAlbums()
     }
   }, [fetchAlbums])
-
-  if (isDataLoading) {
-    return <StyledLoader />
-  }
 
   return (
     <>
