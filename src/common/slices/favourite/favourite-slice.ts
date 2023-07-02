@@ -30,6 +30,11 @@ export const favouriteSlice = createSlice({
         delete state.posts[action.payload]
       }
     },
+    deletePostFromFav: (state, action: PayloadAction<number>) => {
+      if (state.posts[action.payload]) {
+        delete state.posts[action.payload]
+      }
+    },
     addAlbumToFav: (state, action: PayloadAction<number>) => {
       if (!state.albums[action.payload]) {
         state.albums[action.payload] = true
@@ -39,6 +44,11 @@ export const favouriteSlice = createSlice({
       if (!state.albums[action.payload]) {
         state.albums[action.payload] = true
       } else {
+        delete state.albums[action.payload]
+      }
+    },
+    deleteAlbumFromFav: (state, action: PayloadAction<number>) => {
+      if (state.albums[action.payload]) {
         delete state.albums[action.payload]
       }
     },

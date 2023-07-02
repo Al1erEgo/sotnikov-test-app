@@ -1,7 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appActions } from '../../../app/app-slice'
-import { filtersSortActions, handleServerNetworkError, usersThunks } from '../../../common'
+import {
+  favouriteActions,
+  filtersSortActions,
+  handleServerNetworkError,
+  usersThunks,
+} from '../../../common'
 import { postsApi } from '../api'
 import { AddPostPayloadType, CommentType, PostType } from '../types'
 
@@ -79,6 +84,7 @@ const deletePost = createAsyncThunk<number, number>(
     try {
       dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
       await postsApi.deletePost(postId)
+      dispatch(favouriteActions.deletePostFromFav(postId))
 
       return postId
     } catch (error) {

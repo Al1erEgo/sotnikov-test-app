@@ -1,7 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appActions } from '../../../app/app-slice'
-import { filtersSortActions, handleServerNetworkError, usersThunks } from '../../../common'
+import {
+  favouriteActions,
+  filtersSortActions,
+  handleServerNetworkError,
+  usersThunks,
+} from '../../../common'
 import { photosApi } from '../api'
 import { AlbumPayloadType, AlbumType, PhotoType } from '../types'
 
@@ -76,6 +81,7 @@ const deleteAlbum = createAsyncThunk<number, number>(
     try {
       dispatch(photosActions.setAlbumLoadingStatus({ albumId, status: true }))
       await photosApi.deleteAlbum(albumId)
+      dispatch(favouriteActions.deleteAlbumFromFav(albumId))
 
       return albumId
     } catch (error) {
