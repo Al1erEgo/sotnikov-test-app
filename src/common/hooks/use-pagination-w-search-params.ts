@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { useSearchParams } from 'react-router-dom'
 
+//TODO подумать над тем стоит ли сбрасывать пагинацию на 1 и 10 при выставлении фильтров?
+
 export const usePaginationWSearchParams = <T>(data: T[]) => {
   const [searchParams, setSearchParams] = useSearchParams()
 

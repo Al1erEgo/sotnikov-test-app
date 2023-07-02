@@ -1,3 +1,5 @@
+import { createSelector } from '@reduxjs/toolkit'
+
 import { RootState } from '../../../app/store'
 import {
   getFavouritePosts,
@@ -16,6 +18,26 @@ import { PostEntityType } from '../types'
 export const getPosts = (state: RootState) => state.posts.posts
 
 export const getSelectedPosts = (state: RootState) => state.posts.selectedPosts
+
+const getId = (state: RootState, id: number) => id
+
+export const getIsPostFavourite = createSelector(
+  [getFavouritePosts, getId],
+  (favouritePosts, postId) => favouritePosts[postId]
+)
+
+export const getIsPostSelected = createSelector(
+  [getSelectedPosts, getId],
+  (selectedPosts, postId) => selectedPosts[postId]
+)
+
+//проблема с досупом к getUsers селектору
+//export const getUserByPost = createSelector([getUsers, getId], (users, userId) => users[postId])
+export const getUserByPost = (state: RootState, userId: number) => {
+  const users = getUsers(state)
+
+  return users[userId]
+}
 
 const getFilteredPosts = (state: RootState) => {
   const posts = getPosts(state)

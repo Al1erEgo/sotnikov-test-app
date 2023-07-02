@@ -25,7 +25,7 @@ $ yarn dev
 Ввиду использования библиотеки redux-persist может потребоваться очистка localStorage и sessionStorage через DevTools
 Вашего браузера.
 
-## Techs
+## Стэк технологий
 
 - React JS
 - Typescript
