@@ -16,7 +16,7 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(usersThunks.fetchUsers.fulfilled, (state, action) => {
-      action.payload.forEach(user => (state[user.id] = user))
+      action.payload?.forEach(user => (state[user.id] = user))
     })
   },
 })
