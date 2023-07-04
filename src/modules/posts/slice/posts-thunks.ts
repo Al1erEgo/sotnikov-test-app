@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appActions } from '../../../app/app-slice'
-import { favouriteActions, handleServerNetworkError, usersThunks } from '../../../common'
+import { favouriteActions, usersThunks } from '../../../common'
 import { postsApi } from '../api'
 import { AddPostPayloadType, CommentType, PostType } from '../types'
 
@@ -9,17 +9,13 @@ import { postsActions } from './posts-slice'
 
 const fetchPosts = createAsyncThunk<PostType[], void>(
   'posts/fetchPosts',
-  async (_, { dispatch, rejectWithValue }) => {
+  async (_, { dispatch }) => {
     try {
       dispatch(usersThunks.fetchUsers())
       dispatch(appActions.setDataLoading(true))
       const posts = await postsApi.getPosts()
 
       return posts.data
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-
-      return rejectWithValue(null)
     } finally {
       dispatch(appActions.setDataLoading(false))
     }
@@ -31,7 +27,7 @@ const fetchPosts = createAsyncThunk<PostType[], void>(
 //Либо можно TODO сделать проверку на наличие комментариев со сроком жизни в стейте
 const fetchComments = createAsyncThunk<{ comments: CommentType[]; postId: number }, number>(
   'posts/fetchComments',
-  async (postId, { dispatch, rejectWithValue }) => {
+  async (postId, { dispatch }) => {
     try {
       dispatch(
         postsActions.setCommentsLoadingStatus({
@@ -42,10 +38,6 @@ const fetchComments = createAsyncThunk<{ comments: CommentType[]; postId: number
       const comments = await postsApi.getCommentsForPost(postId)
 
       return { comments: comments.data, postId }
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-
-      return rejectWithValue(null)
     } finally {
       dispatch(
         postsActions.setCommentsLoadingStatus({
@@ -59,45 +51,29 @@ const fetchComments = createAsyncThunk<{ comments: CommentType[]; postId: number
 
 const addPost = createAsyncThunk<PostType, AddPostPayloadType>(
   'posts/addPost',
-  async ({ title, body, userId }, { dispatch, rejectWithValue }) => {
-    try {
-      const newPost = await postsApi.addPost({ title, body, userId })
+  async ({ title, body, userId }) => {
+    const newPost = await postsApi.addPost({ title, body, userId })
 
-      return newPost.data
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-
-      return rejectWithValue(null)
-    }
+    return newPost.data
   }
 )
 
 const deletePost = createAsyncThunk<number, number>(
   'posts/deletePost',
-  async (postId, { dispatch, rejectWithValue }) => {
-    try {
-      dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
-      await postsApi.deletePost(postId)
-      dispatch(favouriteActions.deletePostFromFav(postId))
+  async (postId, { dispatch }) => {
+    dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
+    await postsApi.deletePost(postId)
+    dispatch(favouriteActions.deletePostFromFav(postId))
 
-      return postId
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-
-      return rejectWithValue(null)
-    }
+    return postId
   }
 )
 
 const deletePostsGroup = createAsyncThunk<void, string[]>(
   'posts/deletePostsGroup',
-  async (posts, { dispatch, rejectWithValue }) => {
+  async (posts, { dispatch }) => {
     try {
       posts.forEach(id => dispatch(postsThunks.deletePost(+id)))
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-
-      return rejectWithValue(null)
     } finally {
       postsActions.clearSelectedPosts()
     }
@@ -112,16 +88,12 @@ const updatePost = createAsyncThunk<
     title: string
     body: string
   }
->('posts/updatePost', async ({ postId, userId, title, body }, { dispatch, rejectWithValue }) => {
+>('posts/updatePost', async ({ postId, userId, title, body }, { dispatch }) => {
   try {
     dispatch(postsActions.setPostLoadingStatus({ postId, status: true }))
     const post = await postsApi.updatePost(postId, userId, title, body)
 
     return { post: post.data, postId }
-  } catch (error) {
-    handleServerNetworkError(error, dispatch)
-
-    return rejectWithValue(null)
   } finally {
     dispatch(
       postsActions.setPostLoadingStatus({
@@ -134,13 +106,9 @@ const updatePost = createAsyncThunk<
 
 const addPostsGroupToFav = createAsyncThunk<void, string[]>(
   'favourite/addPostsGroupToFav',
-  async (posts, { dispatch, rejectWithValue }) => {
+  async (posts, { dispatch }) => {
     try {
       posts.forEach(id => dispatch(favouriteActions.addPostToFav(+id)))
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-
-      return rejectWithValue(null)
     } finally {
       dispatch(postsActions.clearSelectedPosts())
     }

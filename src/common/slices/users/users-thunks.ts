@@ -2,21 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { usersApi } from '../../api'
 import { UserType } from '../../types'
-import { handleServerNetworkError } from '../../utils'
 
-const fetchUsers = createAsyncThunk<UserType[], void>(
-  'users/fetchUsers',
-  async (arg, { dispatch, rejectWithValue }) => {
-    try {
-      const users = await usersApi.getUsers()
+const fetchUsers = createAsyncThunk<UserType[], void>('users/fetchUsers', async () => {
+  const users = await usersApi.getUsers()
 
-      return users.data
-    } catch (error) {
-      handleServerNetworkError(error, dispatch)
-
-      return rejectWithValue(null)
-    }
-  }
-)
+  return users.data
+})
 
 export const usersThunks = { fetchUsers }
