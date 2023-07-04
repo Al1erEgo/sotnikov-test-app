@@ -11,9 +11,7 @@ import {
   FiltersCleanupButton,
   FlexContainer,
   Sorter,
-} from '@/common' //TODO реализовать дизейбл невозможных опций в сортировке(если нет ничего в избранном - дизейблить пункт)
-
-//TODO реализовать дизейбл невозможных опций в сортировке(если нет ничего в избранном - дизейблить пункт)
+} from '@/common'
 
 const selectSortOptions = [
   {

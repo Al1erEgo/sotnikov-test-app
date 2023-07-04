@@ -11,7 +11,6 @@ import { favouriteActions, usersThunks } from '@/common'
 const fetchAlbums = createAsyncThunk<AlbumType[], void>(
   'photos/fetchAlbums',
   async (_, { dispatch }) => {
-    //TODO убрать дублирующийся фетч пользователей
     try {
       dispatch(usersThunks.fetchUsers())
       dispatch(appActions.setDataLoading(true))
