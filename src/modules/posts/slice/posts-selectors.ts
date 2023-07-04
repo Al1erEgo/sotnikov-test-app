@@ -1,6 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { RootState } from '../../../app/store'
+import { PostEntityType } from '../types'
+
+import { RootState } from '@/app/store'
 import {
   getFilteredByFavourite,
   getFilteredByTitle,
@@ -12,8 +14,7 @@ import {
   selectFilterByUserId,
   selectSorting,
   selectUsers,
-} from '../../../common'
-import { PostEntityType } from '../types'
+} from '@/common'
 
 const selectId = (state: RootState, id: number) => id
 

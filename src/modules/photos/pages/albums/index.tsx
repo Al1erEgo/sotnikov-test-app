@@ -1,6 +1,10 @@
 import { useEffect } from 'react'
 
-import { selectIsDataLoading } from '../../../../app/app-selectors'
+import { AddAlbumButtonWithModal, AlbumItem } from '../../components'
+import { photosActions, photosThunks, selectSelectedAlbums, selectSortedAlbums } from '../../slice'
+import { AlbumsContentContainer } from '../../styles'
+
+import { selectIsDataLoading } from '@/app/app-selectors'
 import {
   CommonFiltersPanel,
   filtersSortActions,
@@ -13,10 +17,7 @@ import {
   useAppSelector,
   useModal,
   usePaginationWSearchParams,
-} from '../../../../common'
-import { AddAlbumButtonWithModal, AlbumItem } from '../../components'
-import { photosActions, photosThunks, selectSelectedAlbums, selectSortedAlbums } from '../../slice'
-import { AlbumsContentContainer } from '../../styles'
+} from '@/common'
 
 const AlbumsPage = () => {
   const albums = useAppSelector(selectSortedAlbums)

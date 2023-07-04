@@ -3,17 +3,18 @@ import { useEffect } from 'react'
 import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 
+import { photosThunks, selectIsPhotosLoading, selectPhotos } from '../../slice'
+import { AlbumsContentContainer } from '../../styles'
+
+import { PhotoCard } from './styles'
+
 import {
   NoContentMessageProvider,
   SecondaryText,
   StyledLoader,
   useActions,
   useAppSelector,
-} from '../../../../common'
-import { photosThunks, selectIsPhotosLoading, selectPhotos } from '../../slice'
-import { AlbumsContentContainer } from '../../styles'
-
-import { PhotoCard } from './styles'
+} from '@/common'
 
 const AlbumPage = () => {
   const { id: albumId } = useParams()

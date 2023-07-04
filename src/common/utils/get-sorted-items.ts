@@ -1,5 +1,6 @@
-import { COMMON_SORTING_DIRECTIONS } from '../constants/common-sorting-directions'
 import { EntitiesType, UserType } from '../types'
+
+import { COMMON_SORTING_DIRECTIONS } from '@/common'
 
 export const getSortedItems = <T extends EntitiesType>(
   items: T,

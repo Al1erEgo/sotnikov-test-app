@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 
-import { selectIsDataLoading } from '../../../../app/app-selectors'
+import { AddPostButtonWithModal, PostItem } from '../../components'
+import { postsActions, postsThunks, selectSelectedPosts, selectSortedPosts } from '../../slice'
+
+import { selectIsDataLoading } from '@/app/app-selectors'
 import {
   CommonFiltersPanel,
   filtersSortActions,
@@ -13,9 +16,7 @@ import {
   useAppSelector,
   useModal,
   usePaginationWSearchParams,
-} from '../../../../common'
-import { AddPostButtonWithModal, PostItem } from '../../components'
-import { postsActions, postsThunks, selectSelectedPosts, selectSortedPosts } from '../../slice'
+} from '@/common'
 
 const PostsPage = () => {
   const posts = useAppSelector(selectSortedPosts)

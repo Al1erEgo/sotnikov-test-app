@@ -1,5 +1,6 @@
-import { TodoEntityType } from '../../modules/todos/types'
 import { EntitiesType } from '../types'
+
+import { TodoEntityType } from '@/modules/todos/types'
 
 export const getFilteredByTitle = <T extends EntitiesType>(entities: T, titleFilter: string) => {
   return entities?.filter(entity => entity.title.includes(titleFilter))

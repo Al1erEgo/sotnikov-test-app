@@ -1,5 +1,6 @@
-import { commonInstance } from '../../../common'
 import { AddTodoPayloadType, TodoType } from '../types'
+
+import { commonInstance } from '@/common'
 
 export const todosApi = {
   getTodos() {

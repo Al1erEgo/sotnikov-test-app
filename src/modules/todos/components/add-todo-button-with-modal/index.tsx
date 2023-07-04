@@ -2,10 +2,11 @@ import { useState } from 'react'
 
 import { Modal } from 'antd'
 
-import { AddEntityButton, useActions } from '../../../../common'
 import { todosThunks } from '../../slice'
 import { AddTodoPayloadType } from '../../types'
 import { TodoForm } from '../todo-form'
+
+import { AddEntityButton, useActions } from '@/common'
 
 export const AddTodoButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)

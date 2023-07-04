@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { UserType } from '../../types'
-
-import { usersThunks } from './users-thunks'
+import { usersThunks, UserType } from '@/common'
 
 type UsersState = {
   [key: string]: UserType

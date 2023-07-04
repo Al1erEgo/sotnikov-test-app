@@ -3,14 +3,6 @@ import { FC, memo, useState } from 'react'
 import { Skeleton } from 'antd'
 
 import {
-  ActionsBar,
-  favouriteActions,
-  SecondaryText,
-  useActions,
-  useAppSelector,
-  useModal,
-} from '../../../../common'
-import {
   photosActions,
   photosThunks,
   selectIsAlbumFavourite,
@@ -21,6 +13,15 @@ import { AlbumEntityType, AlbumPayloadType } from '../../types'
 import { AlbumForm } from '../album-form'
 
 import { AlbumCard, AlbumCardHeaderLink } from './styles'
+
+import {
+  ActionsBar,
+  favouriteActions,
+  SecondaryText,
+  useActions,
+  useAppSelector,
+  useModal,
+} from '@/common'
 
 type AlbumItemProps = {
   album: AlbumEntityType

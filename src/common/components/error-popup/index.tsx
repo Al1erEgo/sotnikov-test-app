@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 
 import { message } from 'antd'
 
-import { selectAppErrorMessage } from '../../../app/app-selectors'
-import { appActions } from '../../../app/app-slice'
-import { useActions, useAppSelector } from '../../hooks'
+import { selectAppErrorMessage } from '@/app/app-selectors'
+import { appActions } from '@/app/app-slice'
+import { useActions, useAppSelector } from '@/common'
 
 export const ErrorPopup = () => {
   const appErrorMessage = useAppSelector(selectAppErrorMessage)

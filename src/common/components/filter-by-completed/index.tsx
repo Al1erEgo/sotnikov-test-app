@@ -2,9 +2,13 @@ import { FC } from 'react'
 
 import { Select, Typography } from 'antd'
 
-import { useActions, useAppSelector } from '../../hooks'
-import { filtersSortActions, selectFilterByCompleted } from '../../slices'
-import { FlexContainer } from '../../styles'
+import {
+  filtersSortActions,
+  FlexContainer,
+  selectFilterByCompleted,
+  useActions,
+  useAppSelector,
+} from '@/common'
 
 type FilterByCompletedProps = {
   options: { value: boolean; label: string }[]

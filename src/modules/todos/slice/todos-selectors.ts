@@ -1,15 +1,16 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { RootState } from '../../../app/store'
+import { TODOS_SORTING_DIRECTIONS } from '../constants'
+import { TodoEntityType } from '../types'
+
+import { RootState } from '@/app/store'
 import {
   getFilteredByCompleted,
   getFilteredByTitle,
   selectFilterByCompleted,
   selectFilterByTitle,
   selectSorting,
-} from '../../../common'
-import { TODOS_SORTING_DIRECTIONS } from '../constants'
-import { TodoEntityType } from '../types'
+} from '@/common'
 
 const selectId = (state: RootState, id: number) => id
 

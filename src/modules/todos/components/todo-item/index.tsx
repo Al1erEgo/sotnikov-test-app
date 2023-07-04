@@ -2,12 +2,13 @@ import { FC, memo, useState } from 'react'
 
 import { Skeleton, Switch, Tooltip } from 'antd'
 
-import { ActionsBar, FlexContainer, useActions, useAppSelector } from '../../../../common'
 import { selectIsTodoSelected, todosActions, todosThunks } from '../../slice'
 import { TodoEntityType } from '../../types'
 import { TodoForm } from '../todo-form'
 
 import { TodoCard } from './styles'
+
+import { ActionsBar, FlexContainer, useActions, useAppSelector } from '@/common'
 
 type TodoItemProps = {
   todo: TodoEntityType

@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { appActions } from '../../../app/app-slice'
-import { favouriteActions, usersThunks } from '../../../common'
 import { postsApi } from '../api'
 import { AddPostPayloadType, CommentType, PostType } from '../types'
 
 import { postsActions } from './posts-slice'
+
+import { appActions } from '@/app/app-slice'
+import { favouriteActions, usersThunks } from '@/common'
 
 const fetchPosts = createAsyncThunk<PostType[], void>(
   'posts/fetchPosts',

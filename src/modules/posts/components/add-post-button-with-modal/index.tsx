@@ -2,10 +2,11 @@ import { useState } from 'react'
 
 import { Modal } from 'antd'
 
-import { AddEntityButton, useActions } from '../../../../common'
 import { postsThunks } from '../../slice'
 import { AddPostPayloadType } from '../../types'
 import { PostForm } from '../index'
+
+import { AddEntityButton, useActions } from '@/common'
 
 export const AddPostButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)

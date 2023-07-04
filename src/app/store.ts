@@ -12,12 +12,12 @@ import {
 import storage from 'redux-persist/lib/storage'
 import storageSession from 'redux-persist/lib/storage/session'
 
-import { favouriteReducer, filtersSortReducer, usersReducer } from '../common'
-import { photosReducer } from '../modules/photos'
-import { postsReducer } from '../modules/posts'
-import { todosReducer } from '../modules/todos'
-
 import { appReducer } from './app-slice'
+
+import { favouriteReducer, filtersSortReducer, usersReducer } from '@/common'
+import { photosReducer } from '@/modules/photos'
+import { postsReducer } from '@/modules/posts'
+import { todosReducer } from '@/modules/todos'
 
 const rootPersistConfig = {
   key: 'root',

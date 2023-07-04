@@ -2,10 +2,11 @@ import { FC, useEffect } from 'react'
 
 import { Skeleton } from 'antd'
 
-import { FlexContainer, NoContentMessageProvider, useActions } from '../../../../common'
 import { postsThunks } from '../../slice'
 import { CommentType } from '../../types'
 import { Comment } from '../comment-item'
+
+import { FlexContainer, NoContentMessageProvider, useActions } from '@/common'
 
 type CommentsBlockProps = {
   content?: CommentType[]

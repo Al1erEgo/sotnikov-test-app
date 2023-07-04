@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import { Typography } from 'antd'
 
-import { FlexContainer } from '../../styles'
+import { FlexContainer } from '@/common'
 
 type NoContentMessageProviderProps = {
   message?: string

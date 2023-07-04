@@ -3,14 +3,15 @@ import { useState } from 'react'
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons'
 import { Button, Tooltip } from 'antd'
 
+import { TODOS_SORTING_DIRECTIONS } from '../../constants'
+
 import {
   FilterByCompleted,
   FilterByTitle,
   FiltersCleanupButton,
   FlexContainer,
   Sorter,
-} from '../../../../common'
-import { TODOS_SORTING_DIRECTIONS } from '../../constants'
+} from '@/common'
 
 const selectSortOptions = [
   {

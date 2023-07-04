@@ -2,10 +2,11 @@ import { FC } from 'react'
 
 import { Button, Form, Switch } from 'antd'
 
-import { FlexContainer, useCustomForm } from '../../../../common'
 import { AddTodoPayloadType } from '../../types'
 
 import { TodoFormInput } from './styles'
+
+import { FlexContainer, useCustomForm } from '@/common'
 
 type TodoFormProps = {
   title?: string

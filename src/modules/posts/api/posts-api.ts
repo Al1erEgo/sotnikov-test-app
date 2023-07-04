@@ -1,5 +1,6 @@
-import { commonInstance } from '../../../common'
 import { AddPostArgType, CommentType, PostType } from '../types'
+
+import { commonInstance } from '@/common'
 
 //TODO поменять параметры на arg во всех api
 

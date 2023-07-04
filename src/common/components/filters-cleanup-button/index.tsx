@@ -1,8 +1,7 @@
 import { ClearOutlined } from '@ant-design/icons'
 import { Button, Tooltip } from 'antd'
 
-import { useActions } from '../../hooks'
-import { filtersSortActions } from '../../slices'
+import { filtersSortActions, useActions } from '@/common'
 
 export const FiltersCleanupButton = () => {
   const { clearFiltersAndSort } = useActions(filtersSortActions)

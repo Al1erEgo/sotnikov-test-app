@@ -1,6 +1,12 @@
 import { useEffect } from 'react'
 
-import { selectIsDataLoading } from '../../../../app/app-selectors'
+import { AddTodoButtonWithModal, TodoItem, TodosFiltersPanel } from '../../components'
+import { TODOS_SORTING_DIRECTIONS } from '../../constants'
+import { selectSelectedTodos, selectSortedTodos, todosActions, todosThunks } from '../../slice'
+
+import { TodosContentContainer } from './styles'
+
+import { selectIsDataLoading } from '@/app/app-selectors'
 import {
   filtersSortActions,
   GroupActionsButtons,
@@ -11,12 +17,7 @@ import {
   useAppSelector,
   useModal,
   usePaginationWSearchParams,
-} from '../../../../common'
-import { AddTodoButtonWithModal, TodoItem, TodosFiltersPanel } from '../../components'
-import { TODOS_SORTING_DIRECTIONS } from '../../constants'
-import { selectSelectedTodos, selectSortedTodos, todosActions, todosThunks } from '../../slice'
-
-import { TodosContentContainer } from './styles'
+} from '@/common'
 
 const TodosPage = () => {
   const todos = useAppSelector(selectSortedTodos)

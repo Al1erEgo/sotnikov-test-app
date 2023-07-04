@@ -2,14 +2,12 @@ import { Suspense } from 'react'
 
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { AlbumPage, AlbumsPage } from '../../../modules/photos'
-import { PostsPage } from '../../../modules/posts'
-import { TodosPage } from '../../../modules/todos'
-import { APP_PATHS } from '../../constants'
-import { Error404Page } from '../../pages'
-import { StyledLoader } from '../../styles'
-
 import { PageContainer } from './styles'
+
+import { APP_PATHS, Error404Page, StyledLoader } from '@/common'
+import { AlbumPage, AlbumsPage } from '@/modules/photos'
+import { PostsPage } from '@/modules/posts'
+import { TodosPage } from '@/modules/todos'
 
 export const AppRouter = () => {
   return (

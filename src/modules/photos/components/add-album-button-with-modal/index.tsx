@@ -2,10 +2,11 @@ import { useState } from 'react'
 
 import { Modal } from 'antd'
 
-import { AddEntityButton, useActions } from '../../../../common'
 import { photosThunks } from '../../slice'
 import { AlbumPayloadType } from '../../types'
 import { AlbumForm } from '../album-form'
+
+import { AddEntityButton, useActions } from '@/common'
 
 export const AddAlbumButtonWithModal = () => {
   const [modalOpen, setModalOpen] = useState(false)

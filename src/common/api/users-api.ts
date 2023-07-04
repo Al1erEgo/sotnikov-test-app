@@ -1,6 +1,6 @@
 import { UserType } from '../types'
 
-import { commonInstance } from './common-instance'
+import { commonInstance } from '@/common'
 
 export const usersApi = {
   getUsers() {

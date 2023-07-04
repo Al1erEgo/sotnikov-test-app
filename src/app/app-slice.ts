@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { isAxiosError } from '../common'
+import { isAxiosError } from '@/common'
 
 type AppState = {
   dataLoading: boolean

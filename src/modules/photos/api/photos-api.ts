@@ -1,5 +1,6 @@
-import { commonInstance } from '../../../common'
 import { AlbumPayloadType, AlbumType, PhotoType } from '../types'
+
+import { commonInstance } from '@/common'
 
 export const photosApi = {
   getAlbums() {

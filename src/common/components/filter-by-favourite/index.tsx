@@ -2,9 +2,13 @@ import { FC } from 'react'
 
 import { Select, Typography } from 'antd'
 
-import { useActions, useAppSelector } from '../../hooks'
-import { filtersSortActions, selectFilterByFavourite } from '../../slices'
-import { FlexContainer } from '../../styles'
+import {
+  filtersSortActions,
+  FlexContainer,
+  selectFilterByFavourite,
+  useActions,
+  useAppSelector,
+} from '@/common'
 
 type FilterByFavouriteProps = {
   options: { value: boolean; label: string }[]

@@ -3,10 +3,15 @@ import { useState } from 'react'
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons'
 import { Button, Tooltip } from 'antd'
 
-import { COMMON_SORTING_DIRECTIONS } from '../../constants/common-sorting-directions'
-import { FilterByFavourite, FilterByUser, FiltersCleanupButton, Sorter } from '../../index'
-import { FlexContainer } from '../../styles'
-import { FilterByTitle } from '../filter-by-title' //TODO реализовать дизейбл невозможных опций в сортировке(если нет ничего в избранном - дизейблить пункт)
+import {
+  COMMON_SORTING_DIRECTIONS,
+  FilterByFavourite,
+  FilterByTitle,
+  FilterByUser,
+  FiltersCleanupButton,
+  FlexContainer,
+  Sorter,
+} from '@/common' //TODO реализовать дизейбл невозможных опций в сортировке(если нет ничего в избранном - дизейблить пункт)
 
 //TODO реализовать дизейбл невозможных опций в сортировке(если нет ничего в избранном - дизейблить пункт)
 

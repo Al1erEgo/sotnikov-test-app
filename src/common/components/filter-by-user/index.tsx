@@ -1,9 +1,14 @@
 import { Select, Typography } from 'antd'
 
-import { useActions, useAppSelector } from '../../hooks'
-import { filtersSortActions, selectFilterByUserId, selectUsers } from '../../slices'
-import { FlexContainer } from '../../styles'
-import { UserType } from '../../types'
+import {
+  filtersSortActions,
+  FlexContainer,
+  selectFilterByUserId,
+  selectUsers,
+  useActions,
+  useAppSelector,
+  UserType,
+} from '@/common'
 
 const getSelectUserNameOptions = (users: { [p: string]: UserType }) => {
   return Object.values(users).map(user => ({

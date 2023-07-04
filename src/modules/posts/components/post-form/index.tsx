@@ -3,8 +3,9 @@ import { FC } from 'react'
 import { Button, Form, Input, Select } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 
-import { FlexContainer, selectUsersNames, useAppSelector, useCustomForm } from '../../../../common'
 import { AddPostPayloadType } from '../../types'
+
+import { FlexContainer, selectUsersNames, useAppSelector, useCustomForm } from '@/common'
 
 type PostFormProps = {
   userId?: number

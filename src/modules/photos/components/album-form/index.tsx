@@ -2,8 +2,9 @@ import { FC } from 'react'
 
 import { Button, Form, Input, Select } from 'antd'
 
-import { FlexContainer, selectUsersNames, useAppSelector, useCustomForm } from '../../../../common'
 import { AlbumPayloadType } from '../../types'
+
+import { FlexContainer, selectUsersNames, useAppSelector, useCustomForm } from '@/common'
 
 type AlbumFormProps = {
   userId?: number

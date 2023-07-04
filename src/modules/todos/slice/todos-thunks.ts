@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { appActions } from '../../../app/app-slice'
-import { usersThunks } from '../../../common'
 import { todosApi } from '../api'
 import { AddTodoPayloadType, TodoType } from '../types'
 
 import { todosActions } from './todos-slice'
+
+import { appActions } from '@/app/app-slice'
+import { usersThunks } from '@/common'
 
 const fetchTodos = createAsyncThunk<TodoType[], void>(
   'todos/fetchPosts',

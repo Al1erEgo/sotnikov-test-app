@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { appActions } from '../../../app/app-slice'
-import { favouriteActions, usersThunks } from '../../../common'
 import { photosApi } from '../api'
 import { AlbumPayloadType, AlbumType, PhotoType } from '../types'
 
 import { photosActions } from './photos-slice'
+
+import { appActions } from '@/app/app-slice'
+import { favouriteActions, usersThunks } from '@/common'
 
 const fetchAlbums = createAsyncThunk<AlbumType[], void>(
   'photos/fetchAlbums',

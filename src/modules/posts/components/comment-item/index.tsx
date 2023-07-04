@@ -2,10 +2,11 @@ import { FC } from 'react'
 
 import Title from 'antd/lib/typography/Title'
 
-import { SecondaryText } from '../../../../common'
 import { CommentType } from '../../types'
 
 import { CommentCard } from './styles'
+
+import { SecondaryText } from '@/common'
 
 type CommentItemProps = {
   content: CommentType

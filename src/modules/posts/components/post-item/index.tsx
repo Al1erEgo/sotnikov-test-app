@@ -4,15 +4,6 @@ import { Skeleton, Tooltip } from 'antd'
 import Title from 'antd/lib/typography/Title'
 
 import {
-  ActionsBar,
-  favouriteActions,
-  FlexContainer,
-  SecondaryText,
-  useActions,
-  useAppSelector,
-  useModal,
-} from '../../../../common'
-import {
   postsActions,
   postsThunks,
   selectIsPostFavourite,
@@ -24,6 +15,16 @@ import { CommentsBlock } from '../comments-block'
 import { PostForm } from '../post-form'
 
 import { PostCard, ShowCommentsIcon } from './styles'
+
+import {
+  ActionsBar,
+  favouriteActions,
+  FlexContainer,
+  SecondaryText,
+  useActions,
+  useAppSelector,
+  useModal,
+} from '@/common'
 
 type PostItemProps = {
   post: PostEntityType

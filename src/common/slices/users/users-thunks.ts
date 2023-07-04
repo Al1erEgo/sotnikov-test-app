@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { RootState } from '../../../app/store'
-import { usersApi } from '../../api'
-import { UserType } from '../../types'
+import { RootState } from '@/app/store'
+import { usersApi, UserType } from '@/common'
 
 const fetchUsers = createAsyncThunk<UserType[] | undefined, void>(
   'users/fetchUsers',
